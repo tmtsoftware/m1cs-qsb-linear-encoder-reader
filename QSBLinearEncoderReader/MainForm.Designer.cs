@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.labelEncoderReading = new System.Windows.Forms.Label();
@@ -38,7 +39,8 @@
             this.buttonStopRecording = new System.Windows.Forms.Button();
             this.buttonQuit = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.timerEncoderReaderLoop = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanelMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +58,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.buttonStartRecording, 2, 2);
             this.tableLayoutPanelMain.Controls.Add(this.buttonStopRecording, 2, 3);
             this.tableLayoutPanelMain.Controls.Add(this.buttonQuit, 2, 4);
-            this.tableLayoutPanelMain.Controls.Add(this.textBox1, 0, 6);
+            this.tableLayoutPanelMain.Controls.Add(this.textBoxStatus, 0, 6);
             this.tableLayoutPanelMain.Controls.Add(this.labelStatus, 0, 5);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
@@ -113,6 +115,7 @@
             this.buttonConnect.TabIndex = 2;
             this.buttonConnect.Text = "Connect to QSB Encoder Reader";
             this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
             // buttonSetZero
             // 
@@ -175,17 +178,21 @@
             this.labelStatus.Text = "Status:";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBox1
+            // textBoxStatus
             // 
-            this.tableLayoutPanelMain.SetColumnSpan(this.textBox1, 3);
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 155);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(578, 203);
-            this.textBox1.TabIndex = 8;
+            this.tableLayoutPanelMain.SetColumnSpan(this.textBoxStatus, 3);
+            this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxStatus.Location = new System.Drawing.Point(3, 155);
+            this.textBoxStatus.Multiline = true;
+            this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.ReadOnly = true;
+            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxStatus.Size = new System.Drawing.Size(578, 203);
+            this.textBoxStatus.TabIndex = 8;
+            // 
+            // timerEncoderReaderLoop
+            // 
+            this.timerEncoderReaderLoop.Tick += new System.EventHandler(this.timerEncoderReaderLoop_Tick);
             // 
             // MainForm
             // 
@@ -197,6 +204,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "MainForm";
             this.Text = "QSB Linear Encoder Reader";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
@@ -216,7 +224,8 @@
         private System.Windows.Forms.Button buttonStopRecording;
         private System.Windows.Forms.Button buttonQuit;
         private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxStatus;
+        private System.Windows.Forms.Timer timerEncoderReaderLoop;
     }
 }
 

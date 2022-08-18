@@ -44,6 +44,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="USDigital">
+      <HintPath>Library\USDigital.dll</HintPath>
+    </Reference>
+    <Reference Include="USDQSB">
+      <HintPath>Library\USDQSB.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
