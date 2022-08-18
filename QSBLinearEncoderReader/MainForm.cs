@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using USDigital;
 
@@ -11,6 +13,8 @@ namespace QSBLinearEncoderReader
         private int _zeroCount = 0;
         private int _latestCount = 0;
         private bool _connected = false;
+        private bool _recording = false;
+        private StreamWriter _recordingStream;
 
         public MainForm()
         {
@@ -39,9 +43,28 @@ namespace QSBLinearEncoderReader
             zero();
         }
 
+        private void buttonStartRecording_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files|*.*";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                startRecording(saveFileDialog.FileName);
+            }
+        }
+
+        private void buttonStopRecording_Click(object sender, EventArgs e)
+        {
+            stopRecording();
+        }
+
         private void timerEncoderReaderLoop_Tick(object sender, EventArgs e)
         {
             updateEncoderReadingDisplay();
+            recordCurrentEncoderReading();
         }
 
         private void updateEncoderReadingDisplay()
@@ -55,6 +78,9 @@ namespace QSBLinearEncoderReader
             catch (Exception ex)
             {
                 disconnect();
+                
+                // TODO: show the exception message and stack trace in the status text box, not in the message box.
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -127,6 +153,11 @@ namespace QSBLinearEncoderReader
                 return;
             }
 
+            if (_recording)
+            {
+                stopRecording();
+            }
+
             // Stop reading the encoder count.
             timerEncoderReaderLoop.Enabled = false;
             _connected = false;
@@ -143,10 +174,69 @@ namespace QSBLinearEncoderReader
             buttonConnect.Enabled = true;
         }
 
+        private void startRecording(String fileName)
+        {
+            if (_recording)
+                return;
+
+            try
+            {
+                _recordingStream = new StreamWriter(path: fileName, append: false, encoding: Encoding.UTF8);
+                recordHeader();
+            }
+            catch (Exception ex)
+            {
+                appendOneLineLogMessage("Falied to open " + fileName + " ... " + ex.Message);
+                return;
+            }
+
+            _recording = true;
+            appendOneLineLogMessage("Started recording to " + fileName );
+
+            buttonStartRecording.Enabled = false;
+            buttonStopRecording.Enabled = true;
+        }
+
+        private void recordHeader()
+        {
+            _recordingStream.WriteLineAsync("Timestamp,Count,Displacement [mm]");
+        }
+
+        private void recordCurrentEncoderReading()
+        {
+            if (_recording)
+            {
+                try
+                {
+                    int count = (int)_qsb.GetCount();
+                    double displacement = (count - _zeroCount) * _resolution_mm;
+                    _recordingStream.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff") + "," + count + "," + displacement.ToString("000.000000"));
+                }
+                catch (Exception ex)
+                {
+                    // ignore the exception and try to keep recording
+                }
+            }
+        }
+
+
+        private void stopRecording()
+        {
+            if (!_recording)
+                return;
+
+            _recording = false;
+            _recordingStream.Close();
+
+            appendOneLineLogMessage("Stopped recording.");
+
+            buttonStartRecording.Enabled = true;
+            buttonStopRecording.Enabled = false;
+        }
+
         private void appendOneLineLogMessage(String message)
         {
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
-
     }
 }

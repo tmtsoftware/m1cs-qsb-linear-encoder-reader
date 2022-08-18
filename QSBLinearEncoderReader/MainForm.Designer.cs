@@ -143,6 +143,7 @@
             this.buttonStartRecording.TabIndex = 4;
             this.buttonStartRecording.Text = "Start Recording";
             this.buttonStartRecording.UseVisualStyleBackColor = true;
+            this.buttonStartRecording.Click += new System.EventHandler(this.buttonStartRecording_Click);
             // 
             // buttonStopRecording
             // 
@@ -156,6 +157,7 @@
             this.buttonStopRecording.TabIndex = 5;
             this.buttonStopRecording.Text = "Stop Recording";
             this.buttonStopRecording.UseVisualStyleBackColor = true;
+            this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
             // 
             // buttonQuit
             // 
