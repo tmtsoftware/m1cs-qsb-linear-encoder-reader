@@ -122,18 +122,21 @@
             this.buttonSetZero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSetZero.AutoSize = true;
             this.buttonSetZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonSetZero.Enabled = false;
             this.buttonSetZero.Location = new System.Drawing.Point(398, 31);
             this.buttonSetZero.Name = "buttonSetZero";
             this.buttonSetZero.Size = new System.Drawing.Size(183, 22);
             this.buttonSetZero.TabIndex = 3;
             this.buttonSetZero.Text = "Zero Encoder Count";
             this.buttonSetZero.UseVisualStyleBackColor = true;
+            this.buttonSetZero.Click += new System.EventHandler(this.buttonSetZero_Click);
             // 
             // buttonStartRecording
             // 
             this.buttonStartRecording.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStartRecording.AutoSize = true;
             this.buttonStartRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonStartRecording.Enabled = false;
             this.buttonStartRecording.Location = new System.Drawing.Point(398, 59);
             this.buttonStartRecording.Name = "buttonStartRecording";
             this.buttonStartRecording.Size = new System.Drawing.Size(183, 22);
@@ -146,6 +149,7 @@
             this.buttonStopRecording.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonStopRecording.AutoSize = true;
             this.buttonStopRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonStopRecording.Enabled = false;
             this.buttonStopRecording.Location = new System.Drawing.Point(398, 87);
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.Size = new System.Drawing.Size(183, 22);
@@ -205,7 +209,6 @@
             this.Name = "MainForm";
             this.Text = "QSB Linear Encoder Reader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelMain.PerformLayout();
             this.ResumeLayout(false);
