@@ -20,6 +20,22 @@ If you want to launc it again, open the Windows menu and click `TMT Internationa
 
 ## Usage
 
+### Prerequisite
+
+Connect your [QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) to an USB port of your computer.
+Please make sure that the baud rate setting of QSB-D is the same as factory default (230400 bits/sec).
+If you have ever changed the baud rate from the factory default, revert the setting by using [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
+
+### Application usage
+
+Once you launch the application, click `Connect to QSB Encoder Reader`. The application starts to continuously read the position from the encoder.
+
+Press `Zero Encoder Count` button to set the current positoin as zero.
+
+Press `Start Recording` button to save the encoder readings in a CSV file. It will ask you which CSV file to save. You can stop recording by pressing `Stop recording` button.
+
+![](images/init_screen.png)
+
 TODO: fill out here
 
 ## License
@@ -110,4 +126,4 @@ Now your new released version must appear in https://github.com/tmtsoftware/m1cs
 ## TODO
 
  * Allow the user to select COM port.
-
+ * Remove hard-coded configuration (quadrature mode and encoder resolution) and allow the user to set them.
