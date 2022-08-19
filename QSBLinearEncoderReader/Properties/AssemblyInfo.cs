@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QSBLinearEncoderReader")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("QSB Linear Encoder Reader")]
+[assembly: AssemblyDescription("Simple Windows application to read linear encoder through US Digital QSB-D encoder reader.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QSBLinearEncoderReader")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCompany("TMT International Observatory")]
+[assembly: AssemblyProduct("QSB Linear Encoder Reader")]
+[assembly: AssemblyCopyright("Copyright 2022 - TMT International Observatory")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
