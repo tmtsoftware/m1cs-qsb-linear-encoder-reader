@@ -6,7 +6,17 @@ This is a simple Windows application that reads an encoder count through [US Dig
 
 ## Insallation
 
-TODO: fill out here
+Go to [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version.
+
+![](images/download_the_latest_version.png)
+
+Extract the zip file, run `setup.exe` in it and follow the instruction to complete the installation. 
+You may be asked about the security, but you should ignore them.
+
+When the installation process is copmleted, the application automatically launches.
+If you want to launc it again, open the Windows menu and click `TMT International Observatory` - `QSB Linear Encoder Reader`.
+
+![](images/windows_menu.png)
 
 ## Usage
 
