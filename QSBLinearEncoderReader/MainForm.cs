@@ -9,7 +9,7 @@ namespace QSBLinearEncoderReader
     public partial class MainForm : Form
     {
         private QSB_D _qsb;
-        private double _resolution_mm = 0.000005;
+        private double _resolution_nm = 5.0 / 4;
         private int _zeroCount = 0;
         private int _latestCount = 0;
         private bool _connected = false;
@@ -72,8 +72,8 @@ namespace QSBLinearEncoderReader
             try
             {
                 _latestCount = (int)_qsb.GetCount();
-                double displacement = (_latestCount - _zeroCount) * _resolution_mm;
-                labelEncoderReading.Text = displacement.ToString("000.000000");
+                double displacement_mm = (_latestCount - _zeroCount) * _resolution_nm * 1e-6;
+                labelEncoderReading.Text = displacement_mm.ToString("0.00000000");
             }
             catch (Exception ex)
             {
@@ -125,11 +125,11 @@ namespace QSBLinearEncoderReader
             _qsb.SetDirection(EncoderDirection.CountingUp);
             appendOneLineLogMessage("Direction: positive");
 
-            _resolution_mm = 0.000005;
-            appendOneLineLogMessage("Encoder resolution: " + _resolution_mm.ToString("0.000000") + " mm/count");
+            _resolution_nm = 5.0 / 4;
+            appendOneLineLogMessage("Encoder resolution: " + _resolution_nm.ToString("0.00") + " nm/count");
 
             _zeroCount = 0;
-            appendOneLineLogMessage("Encoder count for zero position: " + _zeroCount);
+            appendOneLineLogMessage("Set the encoder zero position count to " + _zeroCount);
 
             // Update the encoder reading display.
             updateEncoderReadingDisplay();
@@ -209,8 +209,8 @@ namespace QSBLinearEncoderReader
                 try
                 {
                     int count = (int)_qsb.GetCount();
-                    double displacement = (count - _zeroCount) * _resolution_mm;
-                    _recordingStream.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff") + "," + count + "," + displacement.ToString("000.000000"));
+                    double displacement = (count - _zeroCount) * _resolution_nm * 1e-6;
+                    _recordingStream.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff") + "," + count + "," + displacement.ToString("0.00000000"));
                 }
                 catch (Exception ex)
                 {
