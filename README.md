@@ -36,8 +36,6 @@ Press `Start Recording` button to save the encoder readings in a CSV file. It wi
 
 ![](images/init_screen.png)
 
-TODO: fill out here
-
 ## License
 
 The license of this software is TBD.
