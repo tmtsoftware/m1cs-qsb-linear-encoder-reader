@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -29,8 +30,15 @@ namespace QSBLinearEncoderReader
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            // TODO: remove the hard-coded COM port name.
-            connect("COM6");
+            ConnectForm connectDialog = new ConnectForm();
+            DialogResult dialogResult = connectDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                // TODO: remove the hard-coded COM port name.
+                connect("COM6");
+            }
+
+            connectDialog.Dispose();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
