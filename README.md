@@ -3,7 +3,6 @@
 This is a simple Windows application that reads an encoder count through [US Digital QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) and shows it in GUI.
 
 <img src="images/screenshot.png" width="318" height="197">
-
 <img src="images/qsb_d.jpeg" width="200" height="222">
 
 ## Insallation
