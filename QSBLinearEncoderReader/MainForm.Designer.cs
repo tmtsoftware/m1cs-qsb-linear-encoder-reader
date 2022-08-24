@@ -88,7 +88,7 @@
             this.labelEncoderReadingUnit.Padding = new System.Windows.Forms.Padding(0, 10, 10, 10);
             this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReadingUnit, 6);
             this.labelEncoderReadingUnit.Size = new System.Drawing.Size(100, 168);
-            this.labelEncoderReadingUnit.TabIndex = 1;
+            this.labelEncoderReadingUnit.TabIndex = 0;
             this.labelEncoderReadingUnit.Text = "mm";
             this.labelEncoderReadingUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -115,7 +115,7 @@
             this.buttonConnect.Location = new System.Drawing.Point(426, 3);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(205, 22);
-            this.buttonConnect.TabIndex = 2;
+            this.buttonConnect.TabIndex = 0;
             this.buttonConnect.Text = "Connect to QSB Encoder Reader";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
@@ -129,7 +129,7 @@
             this.buttonSetZero.Location = new System.Drawing.Point(426, 59);
             this.buttonSetZero.Name = "buttonSetZero";
             this.buttonSetZero.Size = new System.Drawing.Size(205, 22);
-            this.buttonSetZero.TabIndex = 3;
+            this.buttonSetZero.TabIndex = 2;
             this.buttonSetZero.Text = "Zero Encoder Count";
             this.buttonSetZero.UseVisualStyleBackColor = true;
             this.buttonSetZero.Click += new System.EventHandler(this.buttonSetZero_Click);
@@ -143,7 +143,7 @@
             this.buttonStartRecording.Location = new System.Drawing.Point(426, 87);
             this.buttonStartRecording.Name = "buttonStartRecording";
             this.buttonStartRecording.Size = new System.Drawing.Size(205, 22);
-            this.buttonStartRecording.TabIndex = 4;
+            this.buttonStartRecording.TabIndex = 3;
             this.buttonStartRecording.Text = "Start Recording";
             this.buttonStartRecording.UseVisualStyleBackColor = true;
             this.buttonStartRecording.Click += new System.EventHandler(this.buttonStartRecording_Click);
@@ -157,7 +157,7 @@
             this.buttonStopRecording.Location = new System.Drawing.Point(426, 115);
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.Size = new System.Drawing.Size(205, 22);
-            this.buttonStopRecording.TabIndex = 5;
+            this.buttonStopRecording.TabIndex = 4;
             this.buttonStopRecording.Text = "Stop Recording";
             this.buttonStopRecording.UseVisualStyleBackColor = true;
             this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
@@ -172,7 +172,7 @@
             this.buttonQuit.Location = new System.Drawing.Point(426, 143);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(205, 22);
-            this.buttonQuit.TabIndex = 6;
+            this.buttonQuit.TabIndex = 5;
             this.buttonQuit.Text = "Quit";
             this.buttonQuit.UseVisualStyleBackColor = true;
             this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
@@ -187,7 +187,7 @@
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxStatus.Size = new System.Drawing.Size(628, 175);
-            this.textBoxStatus.TabIndex = 8;
+            this.textBoxStatus.TabIndex = 6;
             // 
             // labelStatus
             // 
@@ -213,7 +213,7 @@
             this.buttonDisconnect.Location = new System.Drawing.Point(426, 31);
             this.buttonDisconnect.Name = "buttonDisconnect";
             this.buttonDisconnect.Size = new System.Drawing.Size(205, 22);
-            this.buttonDisconnect.TabIndex = 9;
+            this.buttonDisconnect.TabIndex = 1;
             this.buttonDisconnect.Text = "Disconnect from QSB Enoder Reader";
             this.buttonDisconnect.UseVisualStyleBackColor = true;
             this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
