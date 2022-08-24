@@ -29,8 +29,8 @@ Before launching this application, connect your [QSB-D](https://www.usdigital.co
 Then, check the port name of the QSB-D with [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
 Typically, it is "COMx" where "x" is an integer number (e.g. COM4).
 
-Please make sure that the baud rate setting of your QSB-D is the same as factory default (230400 bits/sec).
-If you have ever changed the baud rate from the factory default, revert the setting by using [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
+Please make sure that the baud rate setting of your QSB-D is the same as the factory default (230400 bits/sec).
+If you have ever changed the baud rate from the factory default, revert the setting using [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
 
 ### Application usage
 
@@ -38,11 +38,11 @@ Once the main application window is shown, click `Connect to QSB Encoder Reader`
 
 <img src="images/init_screen.png" width="318" height="197">
 
-In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name in `COM Port:`, set other configuratoin items accordingly, and press the `Connect` button.
+In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name in `COM Port:`, set other configuration items accordingly, and press the `Connect` button.
 
 <img src="images/connect_dialog.png">
 
-If the connection to your QSB-D is successful, the application starts to continuously read the position from the encoder and show it in the main window.
+If connection to your QSB-D is successful, the application starts to continuously read the current position from the encoder and show it in the main window.
 
 <img src="images/screenshot.png" width="318" height="197">
 
