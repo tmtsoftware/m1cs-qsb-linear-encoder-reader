@@ -139,8 +139,6 @@ namespace QSBLinearEncoderReader
             }
 
             // Configure the QSB encoder reader.
-            //
-            // TODO: remove hard-coded configuration values below and allow the user to change them
             _qsb.SetQuadratureMode(quadratureMode);
             appendOneLineLogMessage("Quadrature mode: " + quadratureMode.ToString());
 
