@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -120,7 +119,7 @@ namespace QSBLinearEncoderReader
                 appendOneLineLogMessage("Check that the port name '" + portName + "' is correct and no other application uses the same port.");
                 return;
             }
-
+            
             // Configure the QSB encoder reader.
             //
             // TODO: remove hard-coded configuration values below and allow the user to change them
