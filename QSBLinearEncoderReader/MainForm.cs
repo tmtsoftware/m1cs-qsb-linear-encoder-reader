@@ -44,6 +44,10 @@ namespace QSBLinearEncoderReader
 
             connectDialog.Dispose();
         }
+        private void buttonDisconnect_Click(object sender, EventArgs e)
+        {
+            disconnect();
+        }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -162,6 +166,7 @@ namespace QSBLinearEncoderReader
             // Enable buttons that can be clicked when connected.
             buttonSetZero.Enabled = true;
             buttonStartRecording.Enabled = true;
+            buttonDisconnect.Enabled = true;
 
             // Disable the button that cannot be clicked when connected.
             buttonConnect.Enabled = false;
@@ -190,6 +195,7 @@ namespace QSBLinearEncoderReader
             // Disable buttons that cannot be clicked when disconnected.
             buttonSetZero.Enabled = false;
             buttonStartRecording.Enabled = false;
+            buttonDisconnect.Enabled = false;
 
             // Disable the button that can be clicked when disconnected.
             buttonConnect.Enabled = true;
@@ -259,5 +265,5 @@ namespace QSBLinearEncoderReader
         {
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
-    }
+     }
 }
