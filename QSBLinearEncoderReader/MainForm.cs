@@ -9,7 +9,7 @@ namespace QSBLinearEncoderReader
     public partial class MainForm : Form
     {
         private QSB_D _qsb;
-        private double _resolution_nm = 5.0 / 4;
+        private decimal _resolution_nm = (decimal)1.25;
         private int _zeroCount = 0;
         private int _latestCount = 0;
         private bool _connected = false;
@@ -29,8 +29,35 @@ namespace QSBLinearEncoderReader
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            // TODO: remove the hard-coded COM port name.
-            connect("COM6");
+            ConnectForm connectDialog = new ConnectForm();
+            DialogResult dialogResult = connectDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                connect(
+                    connectDialog.PortName,
+                    connectDialog.QuadratureMode,
+                    connectDialog.Resolution_nm,
+                    connectDialog.ZeroPositionCount,
+                    connectDialog.Direction);
+
+                // Save the successful configuration values as the default settings.
+                if (_connected)
+                {
+                    Properties.Settings.Default.PortName = connectDialog.PortName;
+                    Properties.Settings.Default.QuadratureMode = connectDialog.QuadratureMode;
+                    Properties.Settings.Default.Resolution_nm = connectDialog.Resolution_nm;
+                    Properties.Settings.Default.ZeroPositionCount = connectDialog.ZeroPositionCount;
+                    Properties.Settings.Default.Direction = connectDialog.Direction;
+                    Properties.Settings.Default.Save();
+                }
+
+            }
+
+            connectDialog.Dispose();
+        }
+        private void buttonDisconnect_Click(object sender, EventArgs e)
+        {
+            disconnect();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -72,7 +99,7 @@ namespace QSBLinearEncoderReader
             try
             {
                 _latestCount = (int)_qsb.GetCount();
-                double displacement_mm = (_latestCount - _zeroCount) * _resolution_nm * 1e-6;
+                decimal displacement_mm = (_latestCount - _zeroCount) * _resolution_nm * (decimal)1e-6;
                 labelEncoderReading.Text = displacement_mm.ToString("0.00000000");
             }
             catch (Exception ex)
@@ -91,7 +118,12 @@ namespace QSBLinearEncoderReader
             appendOneLineLogMessage("Set the encoder zero position count to " + _zeroCount);
         }
 
-        private void connect(String portName)
+        private void connect(
+            String portName,
+            QuadratureMode quadratureMode,
+            decimal resolution_nm,
+            int zeroPositionCount,
+            EncoderDirection direction)
         {
             if (_connected)
             {
@@ -114,36 +146,35 @@ namespace QSBLinearEncoderReader
             }
 
             // Configure the QSB encoder reader.
-            //
-            // TODO: remove hard-coded configuration values below and allow the user to change them
-            _qsb.SetQuadratureMode(QuadratureMode.X4);
-            appendOneLineLogMessage("Quadrature mode: X4 Multiplier");
+            _qsb.SetQuadratureMode(quadratureMode);
+            appendOneLineLogMessage("Quadrature mode: " + quadratureMode.ToString());
 
             _qsb.SetCounterMode(CounterMode.FreeRunningCounter);
             appendOneLineLogMessage("Counter mode: Free Running");
 
-            _qsb.SetDirection(EncoderDirection.CountingUp);
-            appendOneLineLogMessage("Direction: positive");
+            _qsb.SetDirection(direction);
+            appendOneLineLogMessage("Directoin: " + direction.ToString());
 
-            _resolution_nm = 5.0 / 4;
+            _resolution_nm = resolution_nm;
             appendOneLineLogMessage("Encoder resolution: " + _resolution_nm.ToString("0.00") + " nm/count");
 
-            _zeroCount = 0;
+            _zeroCount = zeroPositionCount;
             appendOneLineLogMessage("Set the encoder zero position count to " + _zeroCount);
 
             // Update the encoder reading display.
             updateEncoderReadingDisplay();
 
-            // Start reading the encoder count.
-            _connected = true;
-            timerEncoderReaderLoop.Enabled = true;
-
             // Enable buttons that can be clicked when connected.
             buttonSetZero.Enabled = true;
             buttonStartRecording.Enabled = true;
+            buttonDisconnect.Enabled = true;
 
             // Disable the button that cannot be clicked when connected.
             buttonConnect.Enabled = false;
+
+            // Start reading the encoder count.
+            _connected = true;
+            timerEncoderReaderLoop.Enabled = true;
         }
 
         private void disconnect()
@@ -169,6 +200,7 @@ namespace QSBLinearEncoderReader
             // Disable buttons that cannot be clicked when disconnected.
             buttonSetZero.Enabled = false;
             buttonStartRecording.Enabled = false;
+            buttonDisconnect.Enabled = false;
 
             // Disable the button that can be clicked when disconnected.
             buttonConnect.Enabled = true;
@@ -209,7 +241,7 @@ namespace QSBLinearEncoderReader
                 try
                 {
                     int count = (int)_qsb.GetCount();
-                    double displacement = (count - _zeroCount) * _resolution_nm * 1e-6;
+                    decimal displacement = (count - _zeroCount) * _resolution_nm * (decimal)1e-6;
                     _recordingStream.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff") + "," + count + "," + displacement.ToString("0.00000000"));
                 }
                 catch (Exception ex)
@@ -238,5 +270,5 @@ namespace QSBLinearEncoderReader
         {
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
-    }
+     }
 }

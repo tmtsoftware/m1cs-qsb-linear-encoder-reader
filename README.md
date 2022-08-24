@@ -1,40 +1,54 @@
 # QSB Linear Encoder Reader
 
-This is a simple Windows application that reads an encoder count through [US Digital QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) and show it in GUI.
+This is a simple Windows application that reads an encoder count through [US Digital QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) and shows it in GUI.
 
-![](images/screenshot.png)
+<img src="images/screenshot.png" width="318" height="197">
+
+<img src="images/qsb_d.jpeg" width="200" height="222">
 
 ## Insallation
 
-Go to [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version.
+Go to the [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version.
 
-![](images/download_the_latest_version.png)
+<img src="images/download_the_latest_version.png" width="342" height="211">
 
-Extract the zip file, run `setup.exe` in it and follow the instruction to complete the installation. 
+Extract the zip file, run `setup.exe` in it and follow the instructions to complete the installation. 
 You may be asked about the security, but you should ignore them.
 
-When the installation process is copmleted, the application automatically launches.
-If you want to launc it again, open the Windows menu and click `TMT International Observatory` - `QSB Linear Encoder Reader`.
+When the installation process is copmlete, the application automatically launches.
+If you want to launc it again, select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
 
-![](images/windows_menu.png)
+<img src="images/windows_menu.png" width="158" height="308">
 
 ## Usage
 
 ### Prerequisite
 
-Connect your [QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) to an USB port of your computer.
-Please make sure that the baud rate setting of QSB-D is the same as factory default (230400 bits/sec).
+Before launching this application, connect your [QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) to an USB port of your computer.
+Then, check the port name of the QSB-D with [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
+Typically, it is "COMx" where "x" is an integer number (e.g. COM4).
+
+Please make sure that the baud rate setting of your QSB-D is the same as factory default (230400 bits/sec).
 If you have ever changed the baud rate from the factory default, revert the setting by using [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
 
 ### Application usage
 
-Once you launch the application, click `Connect to QSB Encoder Reader`. The application starts to continuously read the position from the encoder.
+Once the main application window is shown, click `Connect to QSB Encoder Reader`.
 
-Press `Zero Encoder Count` button to set the current positoin as zero.
+<img src="images/init_screen.png" width="318" height="197">
+
+In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name in `COM Port:`, set other configuratoin items accordingly, and press the `Connect` button.
+
+<img src="images/connect_dialog.png">
+
+If the connection to your QSB-D is successful, the application starts to continuously read the position from the encoder and show it in the main window.
+
+<img src="images/screenshot.png" width="318" height="197">
+
+Press `Zero Encoder Count` button to set the current position as zero.
 
 Press `Start Recording` button to save the encoder readings in a CSV file. It will ask you which CSV file to save. You can stop recording by pressing `Stop recording` button.
 
-![](images/init_screen.png)
 
 ## License
 
@@ -45,12 +59,12 @@ They were copied from [US Digital website](https://www.usdigital.com/support/res
 
 ## Developer information
 
-This chapter includes information for software developer who modifies the code and release new versions.
+This chapter includes information for software developers who may modify the code and release new versions.
 
 ### Development environment
 
 The programing language of this software is C#. It is hightly recommended to use
-Visual Studio 2022 (or higher) for software development. The explanation below assumes
+Visual Studio 2022 (or newer) for software development. Instructions below assume
 that you have Visual Studio installed in your computer.
 
 ### Open the latest source code with Visual Studio
@@ -123,5 +137,4 @@ Now your new released version must appear in https://github.com/tmtsoftware/m1cs
 
 ## TODO
 
- * Allow the user to select COM port.
- * Remove hard-coded configuration (quadrature mode and encoder resolution) and allow the user to set them.
+ * Support the recording at the maximum rate (512 Hz)

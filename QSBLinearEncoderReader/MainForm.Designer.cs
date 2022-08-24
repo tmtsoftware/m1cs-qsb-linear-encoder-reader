@@ -31,16 +31,17 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.labelEncoderReading = new System.Windows.Forms.Label();
             this.labelEncoderReadingUnit = new System.Windows.Forms.Label();
+            this.labelEncoderReading = new System.Windows.Forms.Label();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonSetZero = new System.Windows.Forms.Button();
             this.buttonStartRecording = new System.Windows.Forms.Button();
             this.buttonStopRecording = new System.Windows.Forms.Button();
             this.buttonQuit = new System.Windows.Forms.Button();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.timerEncoderReaderLoop = new System.Windows.Forms.Timer(this.components);
+            this.buttonDisconnect = new System.Windows.Forms.Button();
             this.tableLayoutPanelMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,16 +55,18 @@
             this.tableLayoutPanelMain.Controls.Add(this.labelEncoderReadingUnit, 1, 0);
             this.tableLayoutPanelMain.Controls.Add(this.labelEncoderReading, 0, 0);
             this.tableLayoutPanelMain.Controls.Add(this.buttonConnect, 2, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonSetZero, 2, 1);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonStartRecording, 2, 2);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonStopRecording, 2, 3);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonQuit, 2, 4);
-            this.tableLayoutPanelMain.Controls.Add(this.textBoxStatus, 0, 6);
-            this.tableLayoutPanelMain.Controls.Add(this.labelStatus, 0, 5);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonSetZero, 2, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonStartRecording, 2, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonStopRecording, 2, 4);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonQuit, 2, 5);
+            this.tableLayoutPanelMain.Controls.Add(this.textBoxStatus, 0, 7);
+            this.tableLayoutPanelMain.Controls.Add(this.labelStatus, 0, 6);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonDisconnect, 2, 1);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            this.tableLayoutPanelMain.RowCount = 7;
+            this.tableLayoutPanelMain.RowCount = 8;
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -71,23 +74,8 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Size = new System.Drawing.Size(584, 361);
+            this.tableLayoutPanelMain.Size = new System.Drawing.Size(634, 361);
             this.tableLayoutPanelMain.TabIndex = 0;
-            // 
-            // labelEncoderReading
-            // 
-            this.labelEncoderReading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelEncoderReading.AutoSize = true;
-            this.labelEncoderReading.Font = new System.Drawing.Font("MS UI Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelEncoderReading.Location = new System.Drawing.Point(54, 0);
-            this.labelEncoderReading.Name = "labelEncoderReading";
-            this.labelEncoderReading.Padding = new System.Windows.Forms.Padding(10, 10, 0, 10);
-            this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReading, 5);
-            this.labelEncoderReading.Size = new System.Drawing.Size(232, 140);
-            this.labelEncoderReading.TabIndex = 0;
-            this.labelEncoderReading.Text = "00.000000";
-            this.labelEncoderReading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelEncoderReadingUnit
             // 
@@ -95,24 +83,39 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelEncoderReadingUnit.AutoSize = true;
             this.labelEncoderReadingUnit.Font = new System.Drawing.Font("MS UI Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelEncoderReadingUnit.Location = new System.Drawing.Point(292, 0);
+            this.labelEncoderReadingUnit.Location = new System.Drawing.Point(320, 0);
             this.labelEncoderReadingUnit.Name = "labelEncoderReadingUnit";
             this.labelEncoderReadingUnit.Padding = new System.Windows.Forms.Padding(0, 10, 10, 10);
-            this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReadingUnit, 5);
-            this.labelEncoderReadingUnit.Size = new System.Drawing.Size(100, 140);
-            this.labelEncoderReadingUnit.TabIndex = 1;
+            this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReadingUnit, 6);
+            this.labelEncoderReadingUnit.Size = new System.Drawing.Size(100, 168);
+            this.labelEncoderReadingUnit.TabIndex = 0;
             this.labelEncoderReadingUnit.Text = "mm";
             this.labelEncoderReadingUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelEncoderReading
+            // 
+            this.labelEncoderReading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelEncoderReading.AutoSize = true;
+            this.labelEncoderReading.Font = new System.Drawing.Font("MS UI Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelEncoderReading.Location = new System.Drawing.Point(34, 0);
+            this.labelEncoderReading.Name = "labelEncoderReading";
+            this.labelEncoderReading.Padding = new System.Windows.Forms.Padding(10, 10, 0, 10);
+            this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReading, 6);
+            this.labelEncoderReading.Size = new System.Drawing.Size(280, 168);
+            this.labelEncoderReading.TabIndex = 0;
+            this.labelEncoderReading.Text = "-0.00000000";
+            this.labelEncoderReading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // buttonConnect
             // 
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConnect.AutoSize = true;
             this.buttonConnect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonConnect.Location = new System.Drawing.Point(398, 3);
+            this.buttonConnect.Location = new System.Drawing.Point(426, 3);
             this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(183, 22);
-            this.buttonConnect.TabIndex = 2;
+            this.buttonConnect.Size = new System.Drawing.Size(205, 22);
+            this.buttonConnect.TabIndex = 0;
             this.buttonConnect.Text = "Connect to QSB Encoder Reader";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
@@ -123,10 +126,10 @@
             this.buttonSetZero.AutoSize = true;
             this.buttonSetZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonSetZero.Enabled = false;
-            this.buttonSetZero.Location = new System.Drawing.Point(398, 31);
+            this.buttonSetZero.Location = new System.Drawing.Point(426, 59);
             this.buttonSetZero.Name = "buttonSetZero";
-            this.buttonSetZero.Size = new System.Drawing.Size(183, 22);
-            this.buttonSetZero.TabIndex = 3;
+            this.buttonSetZero.Size = new System.Drawing.Size(205, 22);
+            this.buttonSetZero.TabIndex = 2;
             this.buttonSetZero.Text = "Zero Encoder Count";
             this.buttonSetZero.UseVisualStyleBackColor = true;
             this.buttonSetZero.Click += new System.EventHandler(this.buttonSetZero_Click);
@@ -137,10 +140,10 @@
             this.buttonStartRecording.AutoSize = true;
             this.buttonStartRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStartRecording.Enabled = false;
-            this.buttonStartRecording.Location = new System.Drawing.Point(398, 59);
+            this.buttonStartRecording.Location = new System.Drawing.Point(426, 87);
             this.buttonStartRecording.Name = "buttonStartRecording";
-            this.buttonStartRecording.Size = new System.Drawing.Size(183, 22);
-            this.buttonStartRecording.TabIndex = 4;
+            this.buttonStartRecording.Size = new System.Drawing.Size(205, 22);
+            this.buttonStartRecording.TabIndex = 3;
             this.buttonStartRecording.Text = "Start Recording";
             this.buttonStartRecording.UseVisualStyleBackColor = true;
             this.buttonStartRecording.Click += new System.EventHandler(this.buttonStartRecording_Click);
@@ -151,10 +154,10 @@
             this.buttonStopRecording.AutoSize = true;
             this.buttonStopRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStopRecording.Enabled = false;
-            this.buttonStopRecording.Location = new System.Drawing.Point(398, 87);
+            this.buttonStopRecording.Location = new System.Drawing.Point(426, 115);
             this.buttonStopRecording.Name = "buttonStopRecording";
-            this.buttonStopRecording.Size = new System.Drawing.Size(183, 22);
-            this.buttonStopRecording.TabIndex = 5;
+            this.buttonStopRecording.Size = new System.Drawing.Size(205, 22);
+            this.buttonStopRecording.TabIndex = 4;
             this.buttonStopRecording.Text = "Stop Recording";
             this.buttonStopRecording.UseVisualStyleBackColor = true;
             this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
@@ -165,46 +168,63 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonQuit.AutoSize = true;
             this.buttonQuit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonQuit.Location = new System.Drawing.Point(398, 115);
+            this.buttonQuit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonQuit.Location = new System.Drawing.Point(426, 143);
             this.buttonQuit.Name = "buttonQuit";
-            this.buttonQuit.Size = new System.Drawing.Size(183, 22);
-            this.buttonQuit.TabIndex = 6;
+            this.buttonQuit.Size = new System.Drawing.Size(205, 22);
+            this.buttonQuit.TabIndex = 5;
             this.buttonQuit.Text = "Quit";
             this.buttonQuit.UseVisualStyleBackColor = true;
             this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
+            // 
+            // textBoxStatus
+            // 
+            this.tableLayoutPanelMain.SetColumnSpan(this.textBoxStatus, 3);
+            this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxStatus.Location = new System.Drawing.Point(3, 183);
+            this.textBoxStatus.Multiline = true;
+            this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.ReadOnly = true;
+            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxStatus.Size = new System.Drawing.Size(628, 175);
+            this.textBoxStatus.TabIndex = 6;
             // 
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(3, 140);
+            this.labelStatus.Location = new System.Drawing.Point(3, 168);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(40, 12);
             this.labelStatus.TabIndex = 7;
             this.labelStatus.Text = "Status:";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBoxStatus
-            // 
-            this.tableLayoutPanelMain.SetColumnSpan(this.textBoxStatus, 3);
-            this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxStatus.Location = new System.Drawing.Point(3, 155);
-            this.textBoxStatus.Multiline = true;
-            this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.ReadOnly = true;
-            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxStatus.Size = new System.Drawing.Size(578, 203);
-            this.textBoxStatus.TabIndex = 8;
-            // 
             // timerEncoderReaderLoop
             // 
             this.timerEncoderReaderLoop.Tick += new System.EventHandler(this.timerEncoderReaderLoop_Tick);
             // 
+            // buttonDisconnect
+            // 
+            this.buttonDisconnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDisconnect.AutoSize = true;
+            this.buttonDisconnect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonDisconnect.Enabled = false;
+            this.buttonDisconnect.Location = new System.Drawing.Point(426, 31);
+            this.buttonDisconnect.Name = "buttonDisconnect";
+            this.buttonDisconnect.Size = new System.Drawing.Size(205, 22);
+            this.buttonDisconnect.TabIndex = 1;
+            this.buttonDisconnect.Text = "Disconnect from QSB Enoder Reader";
+            this.buttonDisconnect.UseVisualStyleBackColor = true;
+            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
+            // 
             // MainForm
             // 
+            this.AcceptButton = this.buttonConnect;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 361);
+            this.CancelButton = this.buttonQuit;
+            this.ClientSize = new System.Drawing.Size(634, 361);
             this.Controls.Add(this.tableLayoutPanelMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 400);
@@ -231,6 +251,7 @@
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.TextBox textBoxStatus;
         private System.Windows.Forms.Timer timerEncoderReaderLoop;
+        private System.Windows.Forms.Button buttonDisconnect;
     }
 }
 
