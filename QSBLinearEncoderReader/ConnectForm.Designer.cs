@@ -42,14 +42,14 @@
             this.comboBoxBaudRate = new System.Windows.Forms.ComboBox();
             this.labelBaudRateUnit = new System.Windows.Forms.Label();
             this.comboBoxQuadratureMode = new System.Windows.Forms.ComboBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownResolution = new System.Windows.Forms.NumericUpDown();
             this.labelResolutionUnit = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownZeroPositionCount = new System.Windows.Forms.NumericUpDown();
             this.labelZeroPositionCountUnit = new System.Windows.Forms.Label();
             this.comboBoxDirection = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownResolution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownZeroPositionCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -72,9 +72,9 @@
             this.tableLayoutPanel1.Controls.Add(this.comboBoxBaudRate, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelBaudRateUnit, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.comboBoxQuadratureMode, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDown1, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownResolution, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.labelResolutionUnit, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDown2, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownZeroPositionCount, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.labelZeroPositionCountUnit, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.comboBoxDirection, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -223,20 +223,25 @@
             this.comboBoxQuadratureMode.Size = new System.Drawing.Size(203, 20);
             this.comboBoxQuadratureMode.TabIndex = 11;
             // 
-            // numericUpDown1
+            // numericUpDownResolution
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Location = new System.Drawing.Point(118, 109);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.numericUpDownResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownResolution.DecimalPlaces = 2;
+            this.numericUpDownResolution.Location = new System.Drawing.Point(118, 109);
+            this.numericUpDownResolution.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(203, 19);
-            this.numericUpDown1.TabIndex = 12;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownResolution.Name = "numericUpDownResolution";
+            this.numericUpDownResolution.Size = new System.Drawing.Size(203, 19);
+            this.numericUpDownResolution.TabIndex = 12;
+            this.numericUpDownResolution.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownResolution.Value = new decimal(new int[] {
+            125,
+            0,
+            0,
+            131072});
             // 
             // labelResolutionUnit
             // 
@@ -249,24 +254,24 @@
             this.labelResolutionUnit.Text = "nm/count";
             this.labelResolutionUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown2
+            // numericUpDownZeroPositionCount
             // 
-            this.numericUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown2.Location = new System.Drawing.Point(118, 143);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.numericUpDownZeroPositionCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownZeroPositionCount.Location = new System.Drawing.Point(118, 143);
+            this.numericUpDownZeroPositionCount.Maximum = new decimal(new int[] {
             2147483647,
             0,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.numericUpDownZeroPositionCount.Minimum = new decimal(new int[] {
             -2147483648,
             0,
             0,
             -2147483648});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(203, 19);
-            this.numericUpDown2.TabIndex = 14;
-            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownZeroPositionCount.Name = "numericUpDownZeroPositionCount";
+            this.numericUpDownZeroPositionCount.Size = new System.Drawing.Size(203, 19);
+            this.numericUpDownZeroPositionCount.TabIndex = 14;
+            this.numericUpDownZeroPositionCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelZeroPositionCountUnit
             // 
@@ -310,8 +315,8 @@
             this.Load += new System.EventHandler(this.ConnectForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownResolution)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownZeroPositionCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,9 +337,9 @@
         private System.Windows.Forms.ComboBox comboBoxBaudRate;
         private System.Windows.Forms.Label labelBaudRateUnit;
         private System.Windows.Forms.ComboBox comboBoxQuadratureMode;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDownResolution;
         private System.Windows.Forms.Label labelResolutionUnit;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDownZeroPositionCount;
         private System.Windows.Forms.Label labelZeroPositionCountUnit;
         private System.Windows.Forms.ComboBox comboBoxDirection;
     }

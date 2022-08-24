@@ -85,6 +85,36 @@ namespace QSBLinearEncoderReader
             comboBoxDirection.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxDirection.SelectedValue = EncoderDirection.CountingUp;
         }
+
+        public string PortName
+        {
+            get { return comboBoxCOMPort.Text; }
+        }
+
+        public SerialPortGuard.BaudRateCode BaudRateCode
+        {
+            get { return (SerialPortGuard.BaudRateCode)comboBoxBaudRate.SelectedValue; }
+        }
+
+        public QuadratureMode QuadratureMode
+        {
+            get { return (QuadratureMode)comboBoxQuadratureMode.SelectedValue; }
+        }
+
+        public decimal Resolution_nm
+        {
+            get { return numericUpDownResolution.Value; }
+        }
+
+        public int ZeroPositionCount
+        {
+            get { return (int)numericUpDownZeroPositionCount.Value; }
+        }
+
+        public EncoderDirection Direction
+        {
+            get { return (EncoderDirection)comboBoxDirection.SelectedValue; }
+        }
     }
 
     public class BaudRateOption

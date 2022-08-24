@@ -9,7 +9,7 @@ namespace QSBLinearEncoderReader
     public partial class MainForm : Form
     {
         private QSB_D _qsb;
-        private double _resolution_nm = 5.0 / 4;
+        private decimal _resolution_nm = (decimal)1.25;
         private int _zeroCount = 0;
         private int _latestCount = 0;
         private bool _connected = false;
@@ -33,8 +33,13 @@ namespace QSBLinearEncoderReader
             DialogResult dialogResult = connectDialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                // TODO: remove the hard-coded COM port name.
-                connect("COM6");
+                connect(
+                    connectDialog.PortName,
+                    connectDialog.BaudRateCode,
+                    connectDialog.QuadratureMode,
+                    connectDialog.Resolution_nm,
+                    connectDialog.ZeroPositionCount,
+                    connectDialog.Direction);
             }
 
             connectDialog.Dispose();
@@ -79,7 +84,7 @@ namespace QSBLinearEncoderReader
             try
             {
                 _latestCount = (int)_qsb.GetCount();
-                double displacement_mm = (_latestCount - _zeroCount) * _resolution_nm * 1e-6;
+                decimal displacement_mm = (_latestCount - _zeroCount) * _resolution_nm * (decimal)1e-6;
                 labelEncoderReading.Text = displacement_mm.ToString("0.00000000");
             }
             catch (Exception ex)
@@ -98,7 +103,13 @@ namespace QSBLinearEncoderReader
             appendOneLineLogMessage("Set the encoder zero position count to " + _zeroCount);
         }
 
-        private void connect(String portName)
+        private void connect(
+            String portName,
+            SerialPortGuard.BaudRateCode baudRateCode,
+            QuadratureMode quadratureMode,
+            decimal resolution_nm,
+            int zeroPositionCount,
+            EncoderDirection direction)
         {
             if (_connected)
             {
@@ -106,6 +117,9 @@ namespace QSBLinearEncoderReader
             }
 
             // Connect to the QSB encoder reader.
+            appendOneLineLogMessage("Set baud rate to " + baudRateCode.ToString());
+            _qsb.SetBaudRateCode(baudRateCode);
+
             textBoxStatus.AppendText("Connecting to an US Digital QSB-D Encoder Reader via " + portName + " ... ");
             _qsb.Open(portName);
 
@@ -119,23 +133,23 @@ namespace QSBLinearEncoderReader
                 appendOneLineLogMessage("Check that the port name '" + portName + "' is correct and no other application uses the same port.");
                 return;
             }
-            
+
             // Configure the QSB encoder reader.
             //
             // TODO: remove hard-coded configuration values below and allow the user to change them
-            _qsb.SetQuadratureMode(QuadratureMode.X4);
-            appendOneLineLogMessage("Quadrature mode: X4 Multiplier");
+            _qsb.SetQuadratureMode(quadratureMode);
+            appendOneLineLogMessage("Quadrature mode: " + quadratureMode.ToString());
 
             _qsb.SetCounterMode(CounterMode.FreeRunningCounter);
             appendOneLineLogMessage("Counter mode: Free Running");
 
-            _qsb.SetDirection(EncoderDirection.CountingUp);
-            appendOneLineLogMessage("Direction: positive");
+            _qsb.SetDirection(direction);
+            appendOneLineLogMessage("Directoin: " + direction.ToString());
 
-            _resolution_nm = 5.0 / 4;
+            _resolution_nm = resolution_nm;
             appendOneLineLogMessage("Encoder resolution: " + _resolution_nm.ToString("0.00") + " nm/count");
 
-            _zeroCount = 0;
+            _zeroCount = zeroPositionCount;
             appendOneLineLogMessage("Set the encoder zero position count to " + _zeroCount);
 
             // Update the encoder reading display.
@@ -216,7 +230,7 @@ namespace QSBLinearEncoderReader
                 try
                 {
                     int count = (int)_qsb.GetCount();
-                    double displacement = (count - _zeroCount) * _resolution_nm * 1e-6;
+                    decimal displacement = (count - _zeroCount) * _resolution_nm * (decimal)1e-6;
                     _recordingStream.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff") + "," + count + "," + displacement.ToString("0.00000000"));
                 }
                 catch (Exception ex)
