@@ -5,9 +5,6 @@
     <Setting Name="PortName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="BaudRate" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">230400</Value>
-    </Setting>
     <Setting Name="QuadratureMode" Type="USDigital.QuadratureMode" Scope="User">
       <Value Profile="(Default)">X4</Value>
     </Setting>

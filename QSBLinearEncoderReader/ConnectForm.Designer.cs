@@ -33,14 +33,11 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.labelCOMPort = new System.Windows.Forms.Label();
-            this.labelBaudRate = new System.Windows.Forms.Label();
             this.labelQuadratureMode = new System.Windows.Forms.Label();
             this.labelResolution = new System.Windows.Forms.Label();
             this.labelZeroPositionCount = new System.Windows.Forms.Label();
             this.labelDirection = new System.Windows.Forms.Label();
             this.comboBoxCOMPort = new System.Windows.Forms.ComboBox();
-            this.comboBoxBaudRate = new System.Windows.Forms.ComboBox();
-            this.labelBaudRateUnit = new System.Windows.Forms.Label();
             this.comboBoxQuadratureMode = new System.Windows.Forms.ComboBox();
             this.numericUpDownResolution = new System.Windows.Forms.NumericUpDown();
             this.labelResolutionUnit = new System.Windows.Forms.Label();
@@ -60,34 +57,31 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 2, 6);
-            this.tableLayoutPanel1.Controls.Add(this.buttonConnect, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.buttonConnect, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.labelCOMPort, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelBaudRate, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelQuadratureMode, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelResolution, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.labelZeroPositionCount, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.labelDirection, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.labelQuadratureMode, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.labelResolution, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.labelZeroPositionCount, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.labelDirection, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.comboBoxCOMPort, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxBaudRate, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelBaudRateUnit, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxQuadratureMode, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDownResolution, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.labelResolutionUnit, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.numericUpDownZeroPositionCount, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.labelZeroPositionCountUnit, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxDirection, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.comboBoxQuadratureMode, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownResolution, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.labelResolutionUnit, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownZeroPositionCount, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.labelZeroPositionCountUnit, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.comboBoxDirection, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(384, 241);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -97,7 +91,7 @@
             this.buttonCancel.AutoSize = true;
             this.buttonCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(327, 211);
+            this.buttonCancel.Location = new System.Drawing.Point(327, 209);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(54, 22);
             this.buttonCancel.TabIndex = 1;
@@ -110,7 +104,7 @@
             this.buttonConnect.AutoSize = true;
             this.buttonConnect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonConnect.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonConnect.Location = new System.Drawing.Point(264, 211);
+            this.buttonConnect.Location = new System.Drawing.Point(264, 209);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(57, 22);
             this.buttonConnect.TabIndex = 0;
@@ -121,29 +115,18 @@
             // 
             this.labelCOMPort.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelCOMPort.AutoSize = true;
-            this.labelCOMPort.Location = new System.Drawing.Point(55, 11);
+            this.labelCOMPort.Location = new System.Drawing.Point(55, 14);
             this.labelCOMPort.Name = "labelCOMPort";
             this.labelCOMPort.Size = new System.Drawing.Size(57, 12);
             this.labelCOMPort.TabIndex = 2;
             this.labelCOMPort.Text = "COM Port:";
             this.labelCOMPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelBaudRate
-            // 
-            this.labelBaudRate.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelBaudRate.AutoSize = true;
-            this.labelBaudRate.Location = new System.Drawing.Point(51, 45);
-            this.labelBaudRate.Name = "labelBaudRate";
-            this.labelBaudRate.Size = new System.Drawing.Size(61, 12);
-            this.labelBaudRate.TabIndex = 3;
-            this.labelBaudRate.Text = "Baud Rate:";
-            this.labelBaudRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // labelQuadratureMode
             // 
             this.labelQuadratureMode.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelQuadratureMode.AutoSize = true;
-            this.labelQuadratureMode.Location = new System.Drawing.Point(18, 79);
+            this.labelQuadratureMode.Location = new System.Drawing.Point(18, 54);
             this.labelQuadratureMode.Name = "labelQuadratureMode";
             this.labelQuadratureMode.Size = new System.Drawing.Size(94, 12);
             this.labelQuadratureMode.TabIndex = 4;
@@ -154,7 +137,7 @@
             // 
             this.labelResolution.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelResolution.AutoSize = true;
-            this.labelResolution.Location = new System.Drawing.Point(51, 113);
+            this.labelResolution.Location = new System.Drawing.Point(51, 94);
             this.labelResolution.Name = "labelResolution";
             this.labelResolution.Size = new System.Drawing.Size(61, 12);
             this.labelResolution.TabIndex = 5;
@@ -165,7 +148,7 @@
             // 
             this.labelZeroPositionCount.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelZeroPositionCount.AutoSize = true;
-            this.labelZeroPositionCount.Location = new System.Drawing.Point(3, 147);
+            this.labelZeroPositionCount.Location = new System.Drawing.Point(3, 134);
             this.labelZeroPositionCount.Name = "labelZeroPositionCount";
             this.labelZeroPositionCount.Size = new System.Drawing.Size(109, 12);
             this.labelZeroPositionCount.TabIndex = 6;
@@ -176,7 +159,7 @@
             // 
             this.labelDirection.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelDirection.AutoSize = true;
-            this.labelDirection.Location = new System.Drawing.Point(61, 181);
+            this.labelDirection.Location = new System.Drawing.Point(61, 174);
             this.labelDirection.Name = "labelDirection";
             this.labelDirection.Size = new System.Drawing.Size(51, 12);
             this.labelDirection.TabIndex = 7;
@@ -187,38 +170,17 @@
             // 
             this.comboBoxCOMPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxCOMPort.FormattingEnabled = true;
-            this.comboBoxCOMPort.Location = new System.Drawing.Point(118, 7);
+            this.comboBoxCOMPort.Location = new System.Drawing.Point(118, 10);
             this.comboBoxCOMPort.Name = "comboBoxCOMPort";
             this.comboBoxCOMPort.Size = new System.Drawing.Size(203, 20);
             this.comboBoxCOMPort.TabIndex = 8;
-            // 
-            // comboBoxBaudRate
-            // 
-            this.comboBoxBaudRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxBaudRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxBaudRate.FormattingEnabled = true;
-            this.comboBoxBaudRate.Location = new System.Drawing.Point(118, 41);
-            this.comboBoxBaudRate.Name = "comboBoxBaudRate";
-            this.comboBoxBaudRate.Size = new System.Drawing.Size(203, 20);
-            this.comboBoxBaudRate.TabIndex = 9;
-            // 
-            // labelBaudRateUnit
-            // 
-            this.labelBaudRateUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelBaudRateUnit.AutoSize = true;
-            this.labelBaudRateUnit.Location = new System.Drawing.Point(327, 45);
-            this.labelBaudRateUnit.Name = "labelBaudRateUnit";
-            this.labelBaudRateUnit.Size = new System.Drawing.Size(36, 12);
-            this.labelBaudRateUnit.TabIndex = 10;
-            this.labelBaudRateUnit.Text = "bits/s";
-            this.labelBaudRateUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // comboBoxQuadratureMode
             // 
             this.comboBoxQuadratureMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxQuadratureMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxQuadratureMode.FormattingEnabled = true;
-            this.comboBoxQuadratureMode.Location = new System.Drawing.Point(118, 75);
+            this.comboBoxQuadratureMode.Location = new System.Drawing.Point(118, 50);
             this.comboBoxQuadratureMode.Name = "comboBoxQuadratureMode";
             this.comboBoxQuadratureMode.Size = new System.Drawing.Size(203, 20);
             this.comboBoxQuadratureMode.TabIndex = 11;
@@ -227,7 +189,7 @@
             // 
             this.numericUpDownResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownResolution.DecimalPlaces = 2;
-            this.numericUpDownResolution.Location = new System.Drawing.Point(118, 109);
+            this.numericUpDownResolution.Location = new System.Drawing.Point(118, 90);
             this.numericUpDownResolution.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -247,7 +209,7 @@
             // 
             this.labelResolutionUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelResolutionUnit.AutoSize = true;
-            this.labelResolutionUnit.Location = new System.Drawing.Point(327, 113);
+            this.labelResolutionUnit.Location = new System.Drawing.Point(327, 94);
             this.labelResolutionUnit.Name = "labelResolutionUnit";
             this.labelResolutionUnit.Size = new System.Drawing.Size(54, 12);
             this.labelResolutionUnit.TabIndex = 13;
@@ -257,7 +219,7 @@
             // numericUpDownZeroPositionCount
             // 
             this.numericUpDownZeroPositionCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownZeroPositionCount.Location = new System.Drawing.Point(118, 143);
+            this.numericUpDownZeroPositionCount.Location = new System.Drawing.Point(118, 130);
             this.numericUpDownZeroPositionCount.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -277,7 +239,7 @@
             // 
             this.labelZeroPositionCountUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelZeroPositionCountUnit.AutoSize = true;
-            this.labelZeroPositionCountUnit.Location = new System.Drawing.Point(327, 147);
+            this.labelZeroPositionCountUnit.Location = new System.Drawing.Point(327, 134);
             this.labelZeroPositionCountUnit.Name = "labelZeroPositionCountUnit";
             this.labelZeroPositionCountUnit.Size = new System.Drawing.Size(33, 12);
             this.labelZeroPositionCountUnit.TabIndex = 15;
@@ -292,7 +254,7 @@
             this.comboBoxDirection.Items.AddRange(new object[] {
             "Positive",
             "Negative"});
-            this.comboBoxDirection.Location = new System.Drawing.Point(118, 177);
+            this.comboBoxDirection.Location = new System.Drawing.Point(118, 170);
             this.comboBoxDirection.Name = "comboBoxDirection";
             this.comboBoxDirection.Size = new System.Drawing.Size(203, 20);
             this.comboBoxDirection.TabIndex = 16;
@@ -328,14 +290,11 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.Label labelCOMPort;
-        private System.Windows.Forms.Label labelBaudRate;
         private System.Windows.Forms.Label labelQuadratureMode;
         private System.Windows.Forms.Label labelResolution;
         private System.Windows.Forms.Label labelZeroPositionCount;
         private System.Windows.Forms.Label labelDirection;
         private System.Windows.Forms.ComboBox comboBoxCOMPort;
-        private System.Windows.Forms.ComboBox comboBoxBaudRate;
-        private System.Windows.Forms.Label labelBaudRateUnit;
         private System.Windows.Forms.ComboBox comboBoxQuadratureMode;
         private System.Windows.Forms.NumericUpDown numericUpDownResolution;
         private System.Windows.Forms.Label labelResolutionUnit;

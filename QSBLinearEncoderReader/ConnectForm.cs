@@ -8,18 +8,6 @@ namespace QSBLinearEncoderReader
 {
     public partial class ConnectForm : Form
     {
-        private BaudRateOption[] _baudRateOptions = new BaudRateOption[]
-        {
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud9600),
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud19200),
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud38400),
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud56000),
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud115200),
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud128000),
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud230400),
-                new BaudRateOption(SerialPortGuard.BaudRateCode.Baud256000),
-        };
-
         private QuadratureModeOption[] _quadratureModeOptions = new QuadratureModeOption[]
         {
                 new QuadratureModeOption(QuadratureMode.X1, "x1 (one count per quadrature cycle)"),
@@ -41,7 +29,6 @@ namespace QSBLinearEncoderReader
         private void ConnectForm_Load(object sender, EventArgs e)
         {
             populateCOMPortComboBox();
-            populateBaudRateComboBox();
             populateQuadratureModeComboBox();
             populateDirectionComboBox();
 
@@ -57,15 +44,6 @@ namespace QSBLinearEncoderReader
             }
             comboBoxCOMPort.DataSource = availablePortNames;
             comboBoxCOMPort.DropDownStyle = ComboBoxStyle.DropDown;
-        }
-
-        private void populateBaudRateComboBox()
-        {
-            comboBoxBaudRate.DataSource = _baudRateOptions;
-            comboBoxBaudRate.DisplayMember = "BaudRate";
-            comboBoxBaudRate.ValueMember = "BaudRateCode";
-            comboBoxBaudRate.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxBaudRate.SelectedValue = SerialPortGuard.BaudRateCode.Baud230400;
         }
 
         private void populateQuadratureModeComboBox()
@@ -98,17 +76,6 @@ namespace QSBLinearEncoderReader
                 }
             }
 
-            // Baud rate setting
-            comboBoxBaudRate.SelectedItem = SerialPortGuard.BaudRateCode.Baud230400;
-            foreach (BaudRateOption baudRateOption in _baudRateOptions)
-            {
-                if (baudRateOption.BaudRate == Properties.Settings.Default.BaudRate)
-                {
-                    comboBoxBaudRate.SelectedItem = baudRateOption;
-                    break;
-                }
-            }
-
             // Other settings
             comboBoxQuadratureMode.SelectedValue = Properties.Settings.Default.QuadratureMode;
             numericUpDownResolution.Value = Properties.Settings.Default.Resolution_nm;
@@ -120,11 +87,6 @@ namespace QSBLinearEncoderReader
         public string PortName
         {
             get { return comboBoxCOMPort.Text; }
-        }
-
-        public SerialPortGuard.BaudRateCode BaudRateCode
-        {
-            get { return (SerialPortGuard.BaudRateCode)comboBoxBaudRate.SelectedValue; }
         }
 
         public QuadratureMode QuadratureMode
@@ -145,26 +107,6 @@ namespace QSBLinearEncoderReader
         public EncoderDirection Direction
         {
             get { return (EncoderDirection)comboBoxDirection.SelectedValue; }
-        }
-    }
-
-    public class BaudRateOption
-    {
-        private SerialPortGuard.BaudRateCode _baudRateCode;
-
-        public BaudRateOption(SerialPortGuard.BaudRateCode baudRateCode)
-        {
-            _baudRateCode = baudRateCode;
-        }
-
-        public SerialPortGuard.BaudRateCode BaudRateCode
-        {
-            get { return _baudRateCode; }
-        }
-
-        public int BaudRate
-        {
-            get { return SerialPortGuard.GetBaudRateFromCode(_baudRateCode); }
         }
     }
 

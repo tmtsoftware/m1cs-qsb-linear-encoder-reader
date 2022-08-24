@@ -35,11 +35,22 @@ namespace QSBLinearEncoderReader
             {
                 connect(
                     connectDialog.PortName,
-                    connectDialog.BaudRateCode,
                     connectDialog.QuadratureMode,
                     connectDialog.Resolution_nm,
                     connectDialog.ZeroPositionCount,
                     connectDialog.Direction);
+
+                // Save the successful configuration values as the default settings.
+                if (_connected)
+                {
+                    Properties.Settings.Default.PortName = connectDialog.PortName;
+                    Properties.Settings.Default.QuadratureMode = connectDialog.QuadratureMode;
+                    Properties.Settings.Default.Resolution_nm = connectDialog.Resolution_nm;
+                    Properties.Settings.Default.ZeroPositionCount = connectDialog.ZeroPositionCount;
+                    Properties.Settings.Default.Direction = connectDialog.Direction;
+                    Properties.Settings.Default.Save();
+                }
+
             }
 
             connectDialog.Dispose();
@@ -109,7 +120,6 @@ namespace QSBLinearEncoderReader
 
         private void connect(
             String portName,
-            SerialPortGuard.BaudRateCode baudRateCode,
             QuadratureMode quadratureMode,
             decimal resolution_nm,
             int zeroPositionCount,
@@ -121,9 +131,6 @@ namespace QSBLinearEncoderReader
             }
 
             // Connect to the QSB encoder reader.
-            appendOneLineLogMessage("Set baud rate to " + baudRateCode.ToString());
-            _qsb.SetBaudRateCode(baudRateCode);
-
             textBoxStatus.AppendText("Connecting to an US Digital QSB-D Encoder Reader via " + portName + " ... ");
             _qsb.Open(portName);
 
@@ -157,10 +164,6 @@ namespace QSBLinearEncoderReader
             // Update the encoder reading display.
             updateEncoderReadingDisplay();
 
-            // Start reading the encoder count.
-            _connected = true;
-            timerEncoderReaderLoop.Enabled = true;
-
             // Enable buttons that can be clicked when connected.
             buttonSetZero.Enabled = true;
             buttonStartRecording.Enabled = true;
@@ -168,6 +171,10 @@ namespace QSBLinearEncoderReader
 
             // Disable the button that cannot be clicked when connected.
             buttonConnect.Enabled = false;
+
+            // Start reading the encoder count.
+            _connected = true;
+            timerEncoderReaderLoop.Enabled = true;
         }
 
         private void disconnect()
