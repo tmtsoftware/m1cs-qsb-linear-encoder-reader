@@ -5,7 +5,7 @@
     <Setting Name="PortName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="QuadratureMode" Type="USDigital.QuadratureMode" Scope="User">
+    <Setting Name="QuadratureMode" Type="QSBLinearEncoderReader.QuadratureMode" Scope="User">
       <Value Profile="(Default)">X4</Value>
     </Setting>
     <Setting Name="Resolution_nm" Type="System.Decimal" Scope="User">
@@ -14,8 +14,8 @@
     <Setting Name="ZeroPositionCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="Direction" Type="USDigital.EncoderDirection" Scope="User">
-      <Value Profile="(Default)">CountingUp</Value>
+    <Setting Name="Direction" Type="QSBLinearEncoderReader.EncoderDirection" Scope="User">
+      <Value Profile="(Default)">CountUp</Value>
     </Setting>
   </Settings>
 </SettingsFile>

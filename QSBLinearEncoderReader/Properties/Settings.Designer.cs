@@ -38,9 +38,9 @@ namespace QSBLinearEncoderReader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("X4")]
-        public global::USDigital.QuadratureMode QuadratureMode {
+        public global::QSBLinearEncoderReader.QuadratureMode QuadratureMode {
             get {
-                return ((global::USDigital.QuadratureMode)(this["QuadratureMode"]));
+                return ((global::QSBLinearEncoderReader.QuadratureMode)(this["QuadratureMode"]));
             }
             set {
                 this["QuadratureMode"] = value;
@@ -73,10 +73,10 @@ namespace QSBLinearEncoderReader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CountingUp")]
-        public global::USDigital.EncoderDirection Direction {
+        [global::System.Configuration.DefaultSettingValueAttribute("CountUp")]
+        public global::QSBLinearEncoderReader.EncoderDirection Direction {
             get {
-                return ((global::USDigital.EncoderDirection)(this["Direction"]));
+                return ((global::QSBLinearEncoderReader.EncoderDirection)(this["Direction"]));
             }
             set {
                 this["Direction"] = value;

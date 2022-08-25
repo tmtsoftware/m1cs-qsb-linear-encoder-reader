@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Windows.Forms;
-using USDigital;
 
 namespace QSBLinearEncoderReader
 {
@@ -17,8 +16,8 @@ namespace QSBLinearEncoderReader
 
         private EncoderDirectionOption[] _encoderDirectionOptions = new EncoderDirectionOption[]
         {
-                new EncoderDirectionOption(EncoderDirection.CountingUp, "Positive"),
-                new EncoderDirectionOption(EncoderDirection.CountingDown, "Negative"),
+                new EncoderDirectionOption(EncoderDirection.CountUp, "Positive"),
+                new EncoderDirectionOption(EncoderDirection.CountDown, "Negative"),
         };
 
         public ConnectForm()
@@ -61,7 +60,7 @@ namespace QSBLinearEncoderReader
             comboBoxDirection.DisplayMember = "DisplayString";
             comboBoxDirection.ValueMember = "Direction";
             comboBoxDirection.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxDirection.SelectedValue = EncoderDirection.CountingUp;
+            comboBoxDirection.SelectedValue = EncoderDirection.CountUp;
         }
 
         private void loadPreviousSettings()
