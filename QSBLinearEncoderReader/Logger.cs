@@ -16,6 +16,7 @@ namespace QSBLinearEncoderReader
             TraceListener consoleListener = new ConsoleTraceListener();
             Trace.Listeners.Add(consoleListener);
 
+            // TODO: limit the size of trace.log.
             TraceListener fileListener = new TextWriterTraceListener(TraceLogPath);
             Trace.Listeners.Add(fileListener);
         }
