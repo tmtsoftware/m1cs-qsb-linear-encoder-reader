@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace QSBLinearEncoderReader
@@ -209,7 +210,10 @@ namespace QSBLinearEncoderReader
                     return;
                 }
 
-                // TODO: stop recording if the recording is in progress
+                if (_controller.IsRecording)
+                {
+                    _controller.StopRecording();
+                }
 
                 _controller.Disconnect();
                 _controller = null;
@@ -228,11 +232,40 @@ namespace QSBLinearEncoderReader
 
         private void StartRecording(String fileName)
         {
-            // TODO: confirm that the device is not recording
+            bool failed = false;
+            string failureMessage = "";
 
-            // TODO: start recording
+            buttonStartRecording.Enabled = false;
 
-            // TODO: add a log message
+            lock (_controllerLock)
+            {
+
+                if (_controller == null)
+                {
+                    AppendOneLineLogMessage("Not connected so cannot start recording.");
+                    return;
+                }
+
+                try
+                {
+                    _controller.StartRecording(fileName);
+                }
+                catch (Exception ex)
+                {
+                    failed = true;
+                    failureMessage = ex.Message;
+                }
+            }
+
+            if (failed)
+            {
+                buttonStartRecording.Enabled = true;
+                AppendOneLineLogMessage("Failed to start recording to " + fileName);
+                AppendOneLineLogMessage(failureMessage);
+                return;
+            }
+
+            AppendOneLineLogMessage("Started recording to " + fileName);
 
             buttonStartRecording.Enabled = false;
             buttonStopRecording.Enabled = true;
@@ -240,9 +273,16 @@ namespace QSBLinearEncoderReader
 
         private void StopRecording()
         {
-            // TODO: confirm that the device is recording
+            lock (_controllerLock)
+            {
+                if (_controller == null)
+                {
+                    AppendOneLineLogMessage("Not connected so cannot stop recording.");
+                    return;
+                }
 
-            // TODO: stop recording
+                _controller.StopRecording();
+            }
 
             AppendOneLineLogMessage("Stopped recording.");
 

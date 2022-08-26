@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.IO.Ports;
 using System.Threading;
 
@@ -30,6 +31,11 @@ namespace QSBLinearEncoderReader
         private uint _firmwareVersion = 0;
         private string _productType = "Not Connected";
         private object _statusLock = new object();
+
+        private StreamWriter _recorder;
+        private long _recorderNumOfLine = 0;
+        private long _recorderFirstTimestamp = 0;
+        private object _recorderLock = new object();
 
         public DeviceController(
             string portName,
@@ -77,7 +83,7 @@ namespace QSBLinearEncoderReader
                 {
                     if (_serialPort != null)
                     {
-                        throw new InvalidOperationException("Cannot reconnect using the same instance.");
+                        throw new InvalidOperationException("Cannot reconnect using the same DeviceController instance.");
                     }
 
                     Logger.Log(String.Format("Connecting to {0}. (Baud rate: {1})", _portName, _baudRate));
@@ -492,7 +498,32 @@ namespace QSBLinearEncoderReader
                     long encoderOffsetCount = (long)encoderCount - (long)encoderZeroPositionCount;
                     decimal position_mm = encoderOffsetCount * _encoderResolution_nm * (decimal)1e-6;
 
-                    // TODO: record the time, timestamp, position and encoder count in a CSV file.
+                    lock (_recorderLock)
+                    {
+                        if (IsRecording)
+                        {
+                            if (_recorderNumOfLine == 0)
+                            {
+                                _recorderFirstTimestamp = timestamp;
+                            }
+
+                            long relativeTimestamp = timestamp - _recorderFirstTimestamp;
+                            decimal relativeTimestamp_ms = relativeTimestamp * (decimal)(1000.0 / 512.0);
+
+                            // TODO: memorize the previous timestamp, detect rollover of the 32-bit timestamp and calculate
+                            //       the true timestamp accordingly.
+
+                            _recorder.WriteLine(
+                                String.Format("{0}, {1}, {2}, {3}", 
+                                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff"), // TODO: use more accurate time
+                                relativeTimestamp_ms.ToString("0.000000"),
+                                encoderCount,
+                                position_mm.ToString("0.00000000")
+                                ));
+
+                            _recorderNumOfLine++;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -589,6 +620,61 @@ namespace QSBLinearEncoderReader
             Logger.Log("New encoder zero position count: " + newEncoderZeroPositionCount);
 
             return newEncoderZeroPositionCount;
+        }
+
+        public void StartRecording(String fileName)
+        {
+            try
+            {
+                lock (_recorderLock)
+                {
+                    if (_recorder != null)
+                    {
+                        throw new InvalidOperationException("Recording is in progress.");
+                    }
+
+                    _recorder = new StreamWriter(fileName);
+                    _recorderNumOfLine = 0;
+
+                    // Write a header.
+                    _recorder.WriteLine("Date & Time, Timestamp [ms], Raw Count, Position [mm]");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString());
+                throw ex;
+            }
+        }
+
+        public void StopRecording()
+        {
+            lock (_recorderLock)
+            {
+                try
+                {
+                    Logger.Log("Terminating the recording.");
+                    _recorder.Close();
+                    Logger.Log("Terminated the recording.");
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log(ex.ToString());
+                }
+
+                _recorder = null;
+            }
+        }
+
+        public bool IsRecording
+        {
+            get
+            {
+                lock (_recorderLock)
+                {
+                    return _recorder != null;
+                }
+            }
         }
     }
 
