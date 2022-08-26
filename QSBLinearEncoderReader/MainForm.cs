@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace QSBLinearEncoderReader
@@ -18,6 +19,9 @@ namespace QSBLinearEncoderReader
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            string appName = Assembly.GetExecutingAssembly().GetName().Name;
+            string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            AppendOneLineLogMessage(appName + " " + appVersion);
             AppendOneLineLogMessage("Trace log is in " + Logger.TraceLogPath);
         }
 
