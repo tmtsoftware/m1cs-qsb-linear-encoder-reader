@@ -1,19 +1,22 @@
 ﻿using System;
-using System.IO;
-using System.Text;
+using System.Diagnostics;
 using System.Windows.Forms;
-using USDigital;
 
 namespace QSBLinearEncoderReader
 {
     public partial class MainForm : Form
     {
         private object _controllerLock = new object();
-        private DeviceController _controller = null;
+        private DeviceController _controller = null;   // not null if this application is connected to a QSB-D.
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            AppendOneLineLogMessage("Trace log is in " + Logger.TraceLogPath);
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
@@ -27,7 +30,7 @@ namespace QSBLinearEncoderReader
             DialogResult dialogResult = connectDialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                connect(
+                bool connected = Connect(
                     connectDialog.PortName,
                     connectDialog.QuadratureMode,
                     connectDialog.Resolution_nm,
@@ -35,7 +38,7 @@ namespace QSBLinearEncoderReader
                     connectDialog.Direction);
 
                 // Save the successful configuration values as the default settings.
-                if (IsConnected)
+                if (connected)
                 {
                     Properties.Settings.Default.PortName = connectDialog.PortName;
                     Properties.Settings.Default.QuadratureMode = connectDialog.QuadratureMode;
@@ -44,24 +47,23 @@ namespace QSBLinearEncoderReader
                     Properties.Settings.Default.Direction = connectDialog.Direction;
                     Properties.Settings.Default.Save();
                 }
-
             }
 
             connectDialog.Dispose();
         }
         private void buttonDisconnect_Click(object sender, EventArgs e)
         {
-            disconnect();
+            Disconnect();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            disconnect();
+            Disconnect();
         }
 
         private void buttonSetZero_Click(object sender, EventArgs e)
         {
-            zero();
+            Zero();
         }
 
         private void buttonStartRecording_Click(object sender, EventArgs e)
@@ -73,31 +75,61 @@ namespace QSBLinearEncoderReader
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                startRecording(saveFileDialog.FileName);
+                StartRecording(saveFileDialog.FileName);
             }
         }
 
         private void buttonStopRecording_Click(object sender, EventArgs e)
         {
-            stopRecording();
+            StopRecording();
         }
 
-        private void timerEncoderReaderLoop_Tick(object sender, EventArgs e)
+        private void timerDisplayUpdateLoop_Tick(object sender, EventArgs e)
         {
-            updateEncoderReadingDisplay();
+            // TODO: check the controller connection and recording status.
+            UpdateEncoderReadingDisplay();
         }
 
-        private void updateEncoderReadingDisplay()
+        private void UpdateEncoderReadingDisplay()
         {
-            // TODO: implement
+            decimal position_mm;
+
+            lock (_controllerLock)
+            {
+                if (_controller != null)
+                {
+                    position_mm = _controller.GetPositionInMillimeters();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            labelEncoderReading.Text = position_mm.ToString("0.00000000");
         }
 
-        private void zero()
+        private void Zero()
         {
-            // TODO: implement
+            int newEncoderZeroPositionCount;
+
+            lock (_controllerLock)
+            {
+                if (_controller != null)
+                {
+                    newEncoderZeroPositionCount = _controller.Zero();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            AppendOneLineLogMessage("New encoder zero position count: " + newEncoderZeroPositionCount);
+            UpdateEncoderReadingDisplay();
         }
 
-        private void connect(
+        private bool Connect(
             String portName,
             QuadratureMode quadratureMode,
             decimal resolution_nm,
@@ -109,24 +141,22 @@ namespace QSBLinearEncoderReader
 
             lock (_controllerLock)
             {
-                if (IsConnected)
+                if (_controller != null)
                 {
-                    return;
+                    // Already connected. Do nothing.
+                    return false;
                 }
 
                 textBoxStatus.AppendText("Connecting to an US Digital QSB-D Encoder Reader via " + portName + " ... ");
 
                 try
                 {
-                    // TODO: use resoultion_nm and zeroPositionCount
-
                     // TODO: make the baud rate configurable
-                    _controller = new DeviceController(portName, 230400, quadratureMode, direction);
+                    _controller = new DeviceController(portName, 230400, quadratureMode, direction, zeroPositionCount, resolution_nm);
                     _controller.Connect();
                 }
                 catch (Exception e)
                 {
-                    // TODO: handle exception
                     _controller = null;
                     failed = true;
                     failureMessage = e.Message;
@@ -135,12 +165,12 @@ namespace QSBLinearEncoderReader
 
             if (failed)
             {
-                appendOneLineLogMessage("FALIED!!!");
-                appendOneLineLogMessage(failureMessage);
-                return;
+                AppendOneLineLogMessage("FALIED!!!");
+                AppendOneLineLogMessage(failureMessage);
+                return false;
             }
 
-            appendOneLineLogMessage("OK");
+            AppendOneLineLogMessage("OK");
 
             // Enable buttons that can be clicked when connected.
             buttonSetZero.Enabled = true;
@@ -149,25 +179,17 @@ namespace QSBLinearEncoderReader
 
             // Disable the button that cannot be clicked when connected.
             buttonConnect.Enabled = false;
+
+            return true;
         }
 
-        private bool IsConnected
-        {
-            get
-            {
-                lock (_controllerLock)
-                {
-                    return _controller != null;
-                }
-            }
-        }
-
-        private void disconnect()
+        private void Disconnect()
         {
             lock (_controllerLock)
             {
-                if (!IsConnected)
+                if (_controller == null)
                 {
+                    // Not connected. Do nothing.
                     return;
                 }
 
@@ -177,7 +199,7 @@ namespace QSBLinearEncoderReader
                 _controller = null;
             }
 
-            appendOneLineLogMessage("Disconnected from the US Digital QSB-D Encoder Reader.");
+            AppendOneLineLogMessage("Disconnected from the US Digital QSB-D Encoder Reader.");
 
             // Disable buttons that cannot be clicked when disconnected.
             buttonSetZero.Enabled = false;
@@ -188,7 +210,7 @@ namespace QSBLinearEncoderReader
             buttonConnect.Enabled = true;
         }
 
-        private void startRecording(String fileName)
+        private void StartRecording(String fileName)
         {
             // TODO: confirm that the device is not recording
 
@@ -200,21 +222,21 @@ namespace QSBLinearEncoderReader
             buttonStopRecording.Enabled = true;
         }
 
-        private void stopRecording()
+        private void StopRecording()
         {
             // TODO: confirm that the device is recording
 
             // TODO: stop recording
 
-            appendOneLineLogMessage("Stopped recording.");
+            AppendOneLineLogMessage("Stopped recording.");
 
             buttonStartRecording.Enabled = true;
             buttonStopRecording.Enabled = false;
         }
 
-        private void appendOneLineLogMessage(String message)
+        private void AppendOneLineLogMessage(String message)
         {
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
-     }
+    }
 }

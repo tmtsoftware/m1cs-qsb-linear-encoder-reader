@@ -19,14 +19,28 @@ namespace QSBLinearEncoderReader
         private EncoderDirection _encoderDirection;
 
         private SerialPort _serialPort;
-        private object _lockSerialPort = new object();
+        private object _serialPortLock = new object();
+
+        private int _encoderCount = 0;
+        private int _encoderZeroPositionCount;
+        private decimal _encoderResolution_nm;
+        private object _encoderCountLock = new object();
 
         public DeviceController(
             string portName,
             int baudRate,
             QuadratureMode quadratureMode,
-            EncoderDirection encoderDirection)
+            EncoderDirection encoderDirection,
+            int encoderZeroPositionCount,
+            decimal encoderResolution_nm)
         {
+            Logger.Log("portName = " + portName);
+            Logger.Log("baudRate = " + baudRate);
+            Logger.Log("quadratureMode = " + quadratureMode);
+            Logger.Log("encoderDirection = " + encoderDirection);
+            Logger.Log("encoderZeroPositionCount = " + encoderZeroPositionCount);
+            Logger.Log("encoderResolution_nm = " + encoderResolution_nm);
+
             if (String.IsNullOrEmpty(portName))
             {
                 throw new InvalidConnectionSettingException("Port name must not be null or empty.");
@@ -41,6 +55,8 @@ namespace QSBLinearEncoderReader
             _baudRate = baudRate;
             _quadratureMode = quadratureMode;
             _encoderDirection = encoderDirection;
+            _encoderZeroPositionCount = encoderZeroPositionCount;
+            _encoderResolution_nm = encoderResolution_nm;
 
             _serialPort = null;
         }
@@ -50,53 +66,52 @@ namespace QSBLinearEncoderReader
         /// </summary>
         public void Connect()
         {
-            lock (_lockSerialPort)
+            lock (_serialPortLock)
             {
-                if (_serialPort != null)
-                {
-                    throw new InvalidOperationException("Cannot reconnect using the same instance.");
-                }
-
-                _serialPort = new SerialPort();
-                _serialPort.PortName = _portName;
-                _serialPort.BaudRate = _baudRate;
-                _serialPort.Parity = Parity.None;
-                _serialPort.DataBits = 8;
-                _serialPort.StopBits = StopBits.One;
-                _serialPort.Handshake = Handshake.None;
-                _serialPort.RtsEnable = true;
-                _serialPort.NewLine = "\r\n";
-
-                _serialPort.ReadTimeout = 1000;
-                _serialPort.WriteTimeout = 1000;
-
-                _serialPort.Open();
-
-                // high-low-high transition on the DTR line resets the QSB-D.
-                _serialPort.DtrEnable = true;
-                _serialPort.DtrEnable = false;
-                _serialPort.DtrEnable = true;
-
-                // When QSB-D is reset, QSB-D first sends one line message "QSB-D  0E!\r\n",
-                // but this is not a documented behavior. So, first try to read one line (=
-                // wait until "\r\n" is received) and if it times out, simply proceed to
-                // the next step.
                 try
                 {
-                    _serialPort.ReadLine();
-                }
-                catch (TimeoutException e)
-                {
-                    // ignore
-                }
-                catch (Exception e)
-                {
-                    Disconnect();
-                    throw e;
-                }
+                    if (_serialPort != null)
+                    {
+                        throw new InvalidOperationException("Cannot reconnect using the same instance.");
+                    }
 
-                try
-                {
+                    Logger.Log(String.Format("Connecting to {0}. (Baud rate: {1})", _portName, _baudRate));
+
+                    _serialPort = new SerialPort();
+                    _serialPort.PortName = _portName;
+                    _serialPort.BaudRate = _baudRate;
+                    _serialPort.Parity = Parity.None;
+                    _serialPort.DataBits = 8;
+                    _serialPort.StopBits = StopBits.One;
+                    _serialPort.Handshake = Handshake.None;
+                    _serialPort.RtsEnable = true;
+                    _serialPort.NewLine = "\r\n";
+
+                    _serialPort.ReadTimeout = 1000;
+                    _serialPort.WriteTimeout = 1000;
+
+                    _serialPort.Open();
+                    Logger.Log(String.Format("Connected to {0}.", _portName));
+
+                    // high-low-high transition on the DTR line resets the QSB-D.
+                    _serialPort.DtrEnable = true;
+                    _serialPort.DtrEnable = false;
+                    _serialPort.DtrEnable = true;
+
+                    // When QSB-D is reset, QSB-D first sends one line message "QSB-D  0E!\r\n",
+                    // but this is not a documented behavior. So, first try to read one line (=
+                    // wait until "\r\n" is received) and if it times out, simply proceed to
+                    // the next step.
+                    try
+                    {
+                        string firstLine = _serialPort.ReadLine();
+                        Logger.Log(String.Format("Received '{0}'.", firstLine));
+                    }
+                    catch (TimeoutException)
+                    {
+                        Logger.Log("Didn't receive the first line.");
+                    }
+
                     // Change the reply format. All respnoses from the QSB-D from here on are
                     // in the format of 
                     //
@@ -154,30 +169,34 @@ namespace QSBLinearEncoderReader
                     // Start streaming the encoder count at the specified interval.
                     StreamCommand(0x0E);
 
-                    Thread readEncoderCountLoopThread = new Thread(new ThreadStart(ReadEncoderCountLoop));
+                    Thread readEncoderCountLoopThread = new Thread(new ThreadStart(EncoderCountReaderLoop));
                     readEncoderCountLoopThread.Start();
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
+                    Logger.Log(ex.ToString());
                     Disconnect();
-                    throw e;
+                    throw ex;
                 }
             }
         }
 
         private void WriteCommand(byte register, uint data)
         {
-            lock (_lockSerialPort)
+            lock (_serialPortLock)
             {
                 string registerStr = register.ToString("X2");
                 string dataStr = data.ToString("X8");
 
                 string command = "W" + registerStr + dataStr;
+                Logger.Log(String.Format("Sending command '{0}'.", command));
                 _serialPort.WriteLine(command);
 
                 try
                 {
                     string response = _serialPort.ReadLine();
+                    Logger.Log(String.Format("Received response '{0}'.", response));
+
                     string[] fields = response.Split(' ');
                     if (fields.Length != 5)
                     {
@@ -213,16 +232,19 @@ namespace QSBLinearEncoderReader
 
         private void StreamCommand(byte register)
         {
-            lock (_lockSerialPort)
+            lock (_serialPortLock)
             {
                 string registerStr = register.ToString("X2");
 
                 string command = "S" + registerStr;
+                Logger.Log(String.Format("Sending command '{0}'.", command));
                 _serialPort.WriteLine(command);
 
                 try
                 {
                     string response = _serialPort.ReadLine();
+                    Logger.Log(String.Format("Received response '{0}'.", response));
+
                     string[] fields = response.Split(' ');
                     if (fields.Length != 5)
                     {
@@ -258,13 +280,15 @@ namespace QSBLinearEncoderReader
 
         public void Disconnect()
         {
-            lock (_lockSerialPort)
+            lock (_serialPortLock)
             {
                 try
                 {
-                    if (_serialPort != null)
+                    if (IsConnected)
                     {
+                        Logger.Log(String.Format("Disconnecting from {0}.", _portName));
                         _serialPort.Close();
+                        Logger.Log(String.Format("Disconnected from {0}.", _portName));
                     }
                 }
                 catch (Exception e)
@@ -276,34 +300,67 @@ namespace QSBLinearEncoderReader
             }
         }
 
+        public bool IsConnected
+        {
+            get
+            {
+                lock (_serialPortLock)
+                {
+                    return _serialPort != null && _serialPort.IsOpen;
+                }
+            }
+        }
+
         /// <summary>
         /// This method is supposed to be called as a separate thread. It is an infinite
         /// loop and exits after <see cref="Disconnect()"/> is called.
         /// </summary>
-        private void ReadEncoderCountLoop()
+        private void EncoderCountReaderLoop()
         {
-            // TODO: handle exception
-
-            while (true)
+            try
             {
-                string response;
+                Logger.Log("Started EncoderCountReaderLoop.");
 
-                lock (_lockSerialPort)
+                while (true)
                 {
-                    // The serial port was disconnected. Terminate this thread.
-                    if (_serialPort == null)
+                    string response;
+
+                    lock (_serialPortLock)
                     {
-                        return;
+                        // The serial port was disconnected. Terminate this thread.
+                        if (!IsConnected)
+                        {
+                            Logger.Log("Terminating EncoderCountReaderLoop.");
+                            return;
+                        }
+
+                        response = _serialPort.ReadLine();
                     }
 
-                    response = _serialPort.ReadLine();
+                    int encoderCount;
+                    int encoderZeroPositionCount;
+                    uint timestamp;
+
+                    ParseEncoderCountStreamResponse(response, out encoderCount, out timestamp);
+
+                    lock (_encoderCountLock)
+                    {
+                        _encoderCount = encoderCount;
+                        encoderZeroPositionCount = _encoderZeroPositionCount;
+                    }
+
+                    long encoderOffsetCount = (long)encoderCount - (long)encoderZeroPositionCount;
+                    decimal position_mm = encoderOffsetCount * _encoderResolution_nm * (decimal)1e-6;
+
+                    // TODO: record the time, timestamp, position and encoder count in a CSV file.
                 }
-
-                int count;
-                uint timestamp;
-
-                ParseEncoderCountStreamResponse(response, out count, out timestamp);
-                System.Diagnostics.Debug.WriteLine("Timestamp: " + timestamp + ", Count: " + count);
+            }
+            catch (Exception ex)
+            {
+                // Terminate this thread when it encouters an exception.
+                Logger.Log(ex.ToString());
+                Logger.Log("Terminating EncoderCountReaderLoop because of the exception above.");
+                return;
             }
         }
 
@@ -352,6 +409,46 @@ namespace QSBLinearEncoderReader
             {
                 throw new UnexpectedResponseException("The fourth field in the stream respnose was expected to be an 8-digit hex.", response, e);
             }
+        }
+
+        /// <summary>
+        /// Get the current position in millimeters.
+        /// </summary>
+        /// <returns>Current position in millimeters</returns>
+        public decimal GetPositionInMillimeters()
+        {
+            int encoderCount;
+            int encoderZeroPositionCount;
+
+            lock (_encoderCountLock)
+            {
+                encoderCount = _encoderCount;
+                encoderZeroPositionCount = _encoderZeroPositionCount;
+            }
+
+            long encoderOffsetCount = (long)encoderCount - (long)encoderZeroPositionCount;
+            return encoderOffsetCount * _encoderResolution_nm * (decimal)1e-6;
+        }
+
+        /// <summary>
+        /// Set the current encoder count as the zero position.
+        /// </summary>
+        /// <returns>New encoder count of the zero position.</returns>
+        public int Zero()
+        {
+            int newEncoderZeroPositionCount;
+
+            Logger.Log("Setting a new encoder zero position.");
+
+            lock (_encoderCountLock)
+            {
+                newEncoderZeroPositionCount = _encoderCount;
+                _encoderZeroPositionCount = newEncoderZeroPositionCount;
+            }
+
+            Logger.Log("New encoder zero position count: " + newEncoderZeroPositionCount);
+
+            return newEncoderZeroPositionCount;
         }
     }
 

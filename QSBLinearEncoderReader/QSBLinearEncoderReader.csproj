@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logger.cs" />
     <Compile Include="ConnectForm.cs">
       <SubType>Form</SubType>
     </Compile>
