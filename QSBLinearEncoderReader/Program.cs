@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO.Ports;
 using System.Windows.Forms;
 
 namespace QSBLinearEncoderReader
@@ -13,6 +11,9 @@ namespace QSBLinearEncoderReader
         [STAThread]
         static void Main()
         {
+            Logger.Initialize();
+
+            // Start application.
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

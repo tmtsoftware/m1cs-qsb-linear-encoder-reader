@@ -1,25 +1,28 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
+using System.Reflection;
 using System.Windows.Forms;
-using USDigital;
 
 namespace QSBLinearEncoderReader
 {
     public partial class MainForm : Form
     {
-        private QSB_D _qsb;
-        private decimal _resolution_nm = (decimal)1.25;
-        private int _zeroCount = 0;
-        private int _latestCount = 0;
-        private bool _connected = false;
+        private object _controllerLock = new object();
+        private DeviceController _controller = null;   // not null if this application is connected to a QSB-D.
         private bool _recording = false;
-        private StreamWriter _recordingStream;
 
         public MainForm()
         {
             InitializeComponent();
-            _qsb = new QSB_D();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            string appName = Assembly.GetExecutingAssembly().GetName().Name;
+            string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            AppendOneLineLogMessage(appName + " " + appVersion);
+            AppendOneLineLogMessage("Trace log is in " + Logger.TraceLogPath);
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
@@ -33,41 +36,42 @@ namespace QSBLinearEncoderReader
             DialogResult dialogResult = connectDialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                connect(
+                bool connected = Connect(
                     connectDialog.PortName,
+                    connectDialog.BaudRate,
                     connectDialog.QuadratureMode,
                     connectDialog.Resolution_nm,
                     connectDialog.ZeroPositionCount,
                     connectDialog.Direction);
 
                 // Save the successful configuration values as the default settings.
-                if (_connected)
+                if (connected)
                 {
                     Properties.Settings.Default.PortName = connectDialog.PortName;
+                    Properties.Settings.Default.BaudRate = connectDialog.BaudRate;
                     Properties.Settings.Default.QuadratureMode = connectDialog.QuadratureMode;
                     Properties.Settings.Default.Resolution_nm = connectDialog.Resolution_nm;
                     Properties.Settings.Default.ZeroPositionCount = connectDialog.ZeroPositionCount;
                     Properties.Settings.Default.Direction = connectDialog.Direction;
                     Properties.Settings.Default.Save();
                 }
-
             }
 
             connectDialog.Dispose();
         }
         private void buttonDisconnect_Click(object sender, EventArgs e)
         {
-            disconnect();
+            Disconnect();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            disconnect();
+            Disconnect();
         }
 
         private void buttonSetZero_Click(object sender, EventArgs e)
         {
-            zero();
+            Zero();
         }
 
         private void buttonStartRecording_Click(object sender, EventArgs e)
@@ -79,90 +83,131 @@ namespace QSBLinearEncoderReader
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                startRecording(saveFileDialog.FileName);
+                StartRecording(saveFileDialog.FileName);
             }
         }
 
         private void buttonStopRecording_Click(object sender, EventArgs e)
         {
-            stopRecording();
+            StopRecording();
         }
 
-        private void timerEncoderReaderLoop_Tick(object sender, EventArgs e)
+        private void timerDisplayUpdateLoop_Tick(object sender, EventArgs e)
         {
-            updateEncoderReadingDisplay();
-            recordCurrentEncoderReading();
-        }
-
-        private void updateEncoderReadingDisplay()
-        {
-            try
+            lock (_controllerLock)
             {
-                _latestCount = (int)_qsb.GetCount();
-                decimal displacement_mm = (_latestCount - _zeroCount) * _resolution_nm * (decimal)1e-6;
-                labelEncoderReading.Text = displacement_mm.ToString("0.00000000");
+                if (_controller != null && !_controller.IsConnected)
+                {
+                    // The controller was disconnected unexpectedly.
+                    AppendOneLineLogMessage("Connection was closed unexpectedly. See more details in " + Logger.TraceLogPath);
+                    Disconnect();
+                }
             }
-            catch (Exception ex)
-            {
-                disconnect();
-                
-                // TODO: show the exception message and stack trace in the status text box, not in the message box.
-                MessageBox.Show(ex.Message);
-            }
+
+            UpdateEncoderReadingDisplay();
         }
 
-        private void zero()
+        private void UpdateEncoderReadingDisplay()
         {
-            _zeroCount = _latestCount;
-            updateEncoderReadingDisplay();
-            appendOneLineLogMessage("Set the encoder zero position count to " + _zeroCount);
+            decimal position_mm;
+
+            lock (_controllerLock)
+            {
+                if (_controller != null)
+                {
+                    position_mm = _controller.GetPositionInMillimeters();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            labelEncoderReading.Text = position_mm.ToString("0.00000000");
         }
 
-        private void connect(
+        private void Zero()
+        {
+            int newEncoderZeroPositionCount;
+
+            lock (_controllerLock)
+            {
+                if (_controller != null)
+                {
+                    newEncoderZeroPositionCount = _controller.Zero();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            AppendOneLineLogMessage("Set the encoder zero position count: " + newEncoderZeroPositionCount);
+            UpdateEncoderReadingDisplay();
+        }
+
+        private bool Connect(
             String portName,
+            int baudRate,
             QuadratureMode quadratureMode,
             decimal resolution_nm,
             int zeroPositionCount,
-            EncoderDirection direction)
+            EncoderDirection encoderDirection)
         {
-            if (_connected)
+            bool failed = false;
+            string failureMessage = "";
+
+            buttonConnect.Enabled = false;
+
+            lock (_controllerLock)
             {
-                return;
+                if (_controller != null)
+                {
+                    // Already connected. Do nothing.
+                    return false;
+                }
+
+                textBoxStatus.AppendText(String.Format("Connecting to an US Digital QSB-D Encoder Reader via '{0}' (baud rate: {1}) ...", portName, baudRate));
+
+                try
+                {
+                    _controller = new DeviceController(portName, baudRate, quadratureMode, encoderDirection, zeroPositionCount, resolution_nm);
+                    _controller.Connect();
+                }
+                catch (Exception e)
+                {
+                    _controller = null;
+                    failed = true;
+                    failureMessage = e.Message;
+                }
             }
 
-            // Connect to the QSB encoder reader.
-            textBoxStatus.AppendText("Connecting to an US Digital QSB-D Encoder Reader via " + portName + " ... ");
-            _qsb.Open(portName);
-
-            if (_qsb.IsOpen)
+            if (failed)
             {
-                appendOneLineLogMessage("OK");
-            }
-            else
-            {
-                appendOneLineLogMessage("FALIED!!!");
-                appendOneLineLogMessage("Check that the port name '" + portName + "' is correct and no other application uses the same port.");
-                return;
+                buttonConnect.Enabled = true;
+                AppendOneLineLogMessage("FALIED!!!");
+                AppendOneLineLogMessage(failureMessage);
+                return false;
             }
 
-            // Configure the QSB encoder reader.
-            _qsb.SetQuadratureMode(quadratureMode);
-            appendOneLineLogMessage("Quadrature mode: " + quadratureMode.ToString());
+            AppendOneLineLogMessage("OK");
 
-            _qsb.SetCounterMode(CounterMode.FreeRunningCounter);
-            appendOneLineLogMessage("Counter mode: Free Running");
+            // Show product type, serial number and firmware version.
+            string productType = _controller.ProductType;
+            AppendOneLineLogMessage(String.Format("Product Type: {0}", productType));
+            if (productType != "QSB-D")
+            {
+                AppendOneLineLogMessage(String.Format("Warning: this application was not tested with '{0}'.", productType));
+            }
 
-            _qsb.SetDirection(direction);
-            appendOneLineLogMessage("Directoin: " + direction.ToString());
+            AppendOneLineLogMessage(String.Format("Serial Number: {0}", _controller.SerialNumber));
+            AppendOneLineLogMessage(String.Format("Firmware Version: {0}", _controller.FirmwareVersion));
 
-            _resolution_nm = resolution_nm;
-            appendOneLineLogMessage("Encoder resolution: " + _resolution_nm.ToString("0.00") + " nm/count");
-
-            _zeroCount = zeroPositionCount;
-            appendOneLineLogMessage("Set the encoder zero position count to " + _zeroCount);
-
-            // Update the encoder reading display.
-            updateEncoderReadingDisplay();
+            // Show configuration
+            AppendOneLineLogMessage(String.Format("Quadrature Mode: {0}", quadratureMode));
+            AppendOneLineLogMessage(String.Format("Encoder Direction: {0}", encoderDirection));
+            AppendOneLineLogMessage(String.Format("Encoder resolution: {0} nm/count", resolution_nm.ToString("0.00")));
+            AppendOneLineLogMessage("Set the encoder zero position count: " + zeroPositionCount);
 
             // Enable buttons that can be clicked when connected.
             buttonSetZero.Enabled = true;
@@ -172,30 +217,29 @@ namespace QSBLinearEncoderReader
             // Disable the button that cannot be clicked when connected.
             buttonConnect.Enabled = false;
 
-            // Start reading the encoder count.
-            _connected = true;
-            timerEncoderReaderLoop.Enabled = true;
+            return true;
         }
 
-        private void disconnect()
+        private void Disconnect()
         {
-            if (!_connected)
+            lock (_controllerLock)
             {
-                return;
+                if (_controller == null)
+                {
+                    // Not connected. Do nothing.
+                    return;
+                }
+
+                if (_recording)
+                {
+                    StopRecording();
+                }
+
+                _controller.Disconnect();
+                _controller = null;
             }
 
-            if (_recording)
-            {
-                stopRecording();
-            }
-
-            // Stop reading the encoder count.
-            timerEncoderReaderLoop.Enabled = false;
-            _connected = false;
-
-            // Disconnect from the QSB encoder reader.
-            _qsb.Close();
-            appendOneLineLogMessage("Disconnected from the US Digital QSB-D Encoder Reader.");
+            AppendOneLineLogMessage("Disconnected from the US Digital QSB-D Encoder Reader.");
 
             // Disable buttons that cannot be clicked when disconnected.
             buttonSetZero.Enabled = false;
@@ -206,69 +250,72 @@ namespace QSBLinearEncoderReader
             buttonConnect.Enabled = true;
         }
 
-        private void startRecording(String fileName)
+        private void StartRecording(String fileName)
         {
-            if (_recording)
-                return;
+            bool failed = false;
+            string failureMessage = "";
 
-            try
+            buttonStartRecording.Enabled = false;
+
+            lock (_controllerLock)
             {
-                _recordingStream = new StreamWriter(path: fileName, append: false, encoding: Encoding.UTF8);
-                recordHeader();
+
+                if (_controller == null)
+                {
+                    AppendOneLineLogMessage("Not connected so cannot start recording.");
+                    return;
+                }
+
+                try
+                {
+                    _controller.StartRecording(fileName);
+                    _recording = true;
+                }
+                catch (Exception ex)
+                {
+                    failed = true;
+                    failureMessage = ex.Message;
+                }
             }
-            catch (Exception ex)
+
+            if (failed)
             {
-                appendOneLineLogMessage("Falied to open " + fileName + " ... " + ex.Message);
+                buttonStartRecording.Enabled = true;
+                AppendOneLineLogMessage("Failed to start recording to " + fileName);
+                AppendOneLineLogMessage(failureMessage);
                 return;
             }
 
-            _recording = true;
-            appendOneLineLogMessage("Started recording to " + fileName );
+            AppendOneLineLogMessage("Started recording to " + fileName);
 
             buttonStartRecording.Enabled = false;
             buttonStopRecording.Enabled = true;
         }
 
-        private void recordHeader()
+        private void StopRecording()
         {
-            _recordingStream.WriteLineAsync("Timestamp,Count,Displacement [mm]");
-        }
-
-        private void recordCurrentEncoderReading()
-        {
-            if (_recording)
+            lock (_controllerLock)
             {
-                try
+                if (_recording)
                 {
-                    int count = (int)_qsb.GetCount();
-                    decimal displacement = (count - _zeroCount) * _resolution_nm * (decimal)1e-6;
-                    _recordingStream.WriteLineAsync(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff") + "," + count + "," + displacement.ToString("0.00000000"));
+                    _controller.StopRecording();
+                    _recording = false;
                 }
-                catch (Exception ex)
+                else
                 {
-                    // ignore the exception and try to keep recording
+                    return;
                 }
             }
-        }
 
-
-        private void stopRecording()
-        {
-            if (!_recording)
-                return;
-
-            _recording = false;
-            _recordingStream.Close();
-
-            appendOneLineLogMessage("Stopped recording.");
+            AppendOneLineLogMessage("Stopped recording.");
 
             buttonStartRecording.Enabled = true;
             buttonStopRecording.Enabled = false;
         }
 
-        private void appendOneLineLogMessage(String message)
+        private void AppendOneLineLogMessage(String message)
         {
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
-     }
+    }
 }
