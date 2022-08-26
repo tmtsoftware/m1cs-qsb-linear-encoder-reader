@@ -108,7 +108,7 @@ Zip all flies there and change the zip file name to `QSBLinearEncoderReader_w.x.
 ### 4. Commit and push code to GitHub
 
 At this point, commit all your local changes. The commit message should indicate that it is the new release version like "Version w.x.y.z".
-Thenn, push your local changes to `master` branch on https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git.
+Then, push your local changes to `master` branch on https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git.
 It is recommended to confirm that your last commit appears in https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git before going to the next step.
 
 ### 5. Draft a new release
