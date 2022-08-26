@@ -9,7 +9,7 @@
       <Value Profile="(Default)">X4</Value>
     </Setting>
     <Setting Name="Resolution_nm" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1.25</Value>
+      <Value Profile="(Default)">5.00</Value>
     </Setting>
     <Setting Name="ZeroPositionCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>

@@ -49,7 +49,7 @@ namespace QSBLinearEncoderReader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5.00")]
         public decimal Resolution_nm {
             get {
                 return ((decimal)(this["Resolution_nm"]));
