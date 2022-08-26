@@ -291,9 +291,9 @@ namespace QSBLinearEncoderReader
                         Logger.Log(String.Format("Disconnected from {0}.", _portName));
                     }
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    // Ignore any exception. Just try to close the connection.
+                    Logger.Log(ex.ToString());
                 }
 
                 _serialPort = null;

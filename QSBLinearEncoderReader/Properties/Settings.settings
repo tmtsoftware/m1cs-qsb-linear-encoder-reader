@@ -17,5 +17,8 @@
     <Setting Name="Direction" Type="QSBLinearEncoderReader.EncoderDirection" Scope="User">
       <Value Profile="(Default)">CountUp</Value>
     </Setting>
+    <Setting Name="BaudRate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">230400</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

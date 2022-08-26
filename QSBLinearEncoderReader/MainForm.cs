@@ -32,6 +32,7 @@ namespace QSBLinearEncoderReader
             {
                 bool connected = Connect(
                     connectDialog.PortName,
+                    connectDialog.BaudRate,
                     connectDialog.QuadratureMode,
                     connectDialog.Resolution_nm,
                     connectDialog.ZeroPositionCount,
@@ -41,6 +42,7 @@ namespace QSBLinearEncoderReader
                 if (connected)
                 {
                     Properties.Settings.Default.PortName = connectDialog.PortName;
+                    Properties.Settings.Default.BaudRate = connectDialog.BaudRate;
                     Properties.Settings.Default.QuadratureMode = connectDialog.QuadratureMode;
                     Properties.Settings.Default.Resolution_nm = connectDialog.Resolution_nm;
                     Properties.Settings.Default.ZeroPositionCount = connectDialog.ZeroPositionCount;
@@ -131,6 +133,7 @@ namespace QSBLinearEncoderReader
 
         private bool Connect(
             String portName,
+            int baudRate,
             QuadratureMode quadratureMode,
             decimal resolution_nm,
             int zeroPositionCount,
@@ -147,12 +150,12 @@ namespace QSBLinearEncoderReader
                     return false;
                 }
 
-                textBoxStatus.AppendText("Connecting to an US Digital QSB-D Encoder Reader via " + portName + " ... ");
+                textBoxStatus.AppendText(String.Format("Connecting to an US Digital QSB-D Encoder Reader via '{0}' (baud rate: {1}) ...", portName, baudRate));
 
                 try
                 {
                     // TODO: make the baud rate configurable
-                    _controller = new DeviceController(portName, 230400, quadratureMode, direction, zeroPositionCount, resolution_nm);
+                    _controller = new DeviceController(portName, baudRate, quadratureMode, direction, zeroPositionCount, resolution_nm);
                     _controller.Connect();
                 }
                 catch (Exception e)
