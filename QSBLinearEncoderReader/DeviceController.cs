@@ -516,7 +516,8 @@ namespace QSBLinearEncoderReader
 
                             _recorder.WriteLine(
                                 String.Format("{0}, {1}, {2}, {3}", 
-                                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), // TODO: use more accurate time
+                                //                                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), // TODO: use more accurate time
+                                HighResolutionDateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff"),
                                 relativeTimestamp_ms.ToString("0.000000"),
                                 encoderCount,
                                 position_mm.ToString("0.00000000")

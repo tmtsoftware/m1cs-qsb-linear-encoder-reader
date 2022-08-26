@@ -212,7 +212,7 @@ namespace QSBLinearEncoderReader
 
                 if (_controller.IsRecording)
                 {
-                    _controller.StopRecording();
+                    StopRecording();
                 }
 
                 _controller.Disconnect();
