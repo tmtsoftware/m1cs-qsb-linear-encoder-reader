@@ -178,6 +178,17 @@ namespace QSBLinearEncoderReader
 
             AppendOneLineLogMessage("OK");
 
+            // Show product type, serial number and firmware version.
+            string productType = _controller.ProductType;
+            AppendOneLineLogMessage(String.Format("Product Type: {0}", productType));
+            if (productType != "QSB-D")
+            {
+                AppendOneLineLogMessage(String.Format("Warning: this application was not tested with '{0}'.", productType));
+            }
+
+            AppendOneLineLogMessage(String.Format("Serial Number: {0}", _controller.SerialNumber));
+            AppendOneLineLogMessage(String.Format("Firmware Version: {0}", _controller.FirmwareVersion));
+
             // Enable buttons that can be clicked when connected.
             buttonSetZero.Enabled = true;
             buttonStartRecording.Enabled = true;

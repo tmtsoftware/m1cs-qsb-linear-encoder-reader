@@ -26,6 +26,11 @@ namespace QSBLinearEncoderReader
         private decimal _encoderResolution_nm;
         private object _encoderCountLock = new object();
 
+        private uint _serialNumber = 0;
+        private uint _firmwareVersion = 0;
+        private string _productType = "Not Connected";
+        private object _statusLock = new object();
+
         public DeviceController(
             string portName,
             int baudRate,
@@ -126,6 +131,36 @@ namespace QSBLinearEncoderReader
                     //    (26 bytes in totla)
                     //
                     WriteCommand(0x15, 0x0000000F);
+
+                    // Get the product type, serial number and firmware version.
+                    uint versionResponse = ReadCommand(0x14);
+
+                    lock (_statusLock)
+                    {
+                        _serialNumber = (versionResponse & 0xFFFFF000) >> 12;
+                        uint productTypeCode = (versionResponse & 0x00000F00) >> 8;
+                        _firmwareVersion = versionResponse & 0x000000FF;
+
+                        switch (productTypeCode)
+                        {
+                            case 0:
+                                _productType = "QSB-D";
+                                break;
+                            case 1:
+                                _productType = "QSB-M";
+                                break;
+                            case 2:
+                                _productType = "QSB-S";
+                                break;
+                            default:
+                                _productType = "Unknown";
+                                break;
+                        }
+
+                        Logger.Log(
+                            String.Format("Product Type: {0}, Serial Number: {1}, Firmware Version: {2}",
+                            _productType, _serialNumber, _firmwareVersion));
+                    }
 
                     // Set quadratue mode (x1, x2 or x4).
                     uint quadratureModeValue;
@@ -230,6 +265,78 @@ namespace QSBLinearEncoderReader
             }
         }
 
+        private uint ReadCommand(byte register)
+        {
+            uint timestamp;
+            return ReadCommand(register, out timestamp);
+        }
+
+        private uint ReadCommand(byte register, out uint timestamp)
+        {
+            lock (_serialPortLock)
+            {
+                string registerStr = register.ToString("X2");
+
+                string command = "R" + registerStr;
+                Logger.Log(String.Format("Sending command '{0}'.", command));
+                _serialPort.WriteLine(command);
+
+                try
+                {
+                    string response = _serialPort.ReadLine();
+                    Logger.Log(String.Format("Received response '{0}'.", response));
+
+                    string[] fields = response.Split(' ');
+                    if (fields.Length != 5)
+                    {
+                        throw new UnexpectedResponseException("The response was expected to have 5 single white spaces.", command, response);
+                    }
+                    else if (fields[0] != "r")
+                    {
+                        throw new UnexpectedResponseException("The first field in the respnose was expected to be 'r'.", command, response);
+                    }
+                    else if (fields[1] != registerStr)
+                    {
+                        throw new UnexpectedResponseException("The second field in the response was expected to be '" + registerStr + "'.", command, response);
+                    }
+                    else if (fields[2].Length != 8)
+                    {
+                        throw new UnexpectedResponseException("The third field in the response was expected to be 8 bytes.", command, response);
+                    }
+                    else if (fields[3].Length != 8)
+                    {
+                        throw new UnexpectedResponseException("The fourth field in the response was expected to be 8 bytes.", command, response);
+                    }
+                    else if (fields[4] != "!")
+                    {
+                        throw new UnexpectedResponseException("The fifth field in the response was expected to be '!'.", command, response);
+                    }
+
+                    try
+                    {
+                        timestamp = uint.Parse(fields[3], System.Globalization.NumberStyles.HexNumber);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new UnexpectedResponseException("The fourth field in the respnose was expected to be an 8-digit hex.", command, response, e);
+                    }
+
+                    try
+                    {
+                        return uint.Parse(fields[2], System.Globalization.NumberStyles.HexNumber);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new UnexpectedResponseException("The third field in the respnose was expected to be an 8-digit hex.", command, response, e);
+                    }
+                }
+                catch (TimeoutException e)
+                {
+                    throw new TimeoutException("The device didn't respond to command '" + command + "'.", e);
+                }
+            }
+        }
+
         private void StreamCommand(byte register)
         {
             lock (_serialPortLock)
@@ -307,6 +414,39 @@ namespace QSBLinearEncoderReader
                 lock (_serialPortLock)
                 {
                     return _serialPort != null && _serialPort.IsOpen;
+                }
+            }
+        }
+
+        public uint SerialNumber
+        {
+            get
+            {
+                lock (_statusLock)
+                {
+                    return _serialNumber;
+                }
+            }
+        }
+
+        public uint FirmwareVersion
+        {
+            get
+            {
+                lock (_statusLock)
+                {
+                    return _firmwareVersion;
+                }
+            }
+        }
+
+        public string ProductType
+        {
+            get
+            {
+                lock (_statusLock)
+                {
+                    return _productType;
                 }
             }
         }
@@ -493,6 +633,11 @@ namespace QSBLinearEncoderReader
 
         public UnexpectedResponseException(string message, string command, string response)
             : base(message + " (Command: " + command + ", response: " + response + ")")
+        {
+        }
+
+        public UnexpectedResponseException(string message, string command, string response, Exception innerException)
+            : base(message + " (Command: " + command + ", response: " + response + ")", innerException)
         {
         }
     }
