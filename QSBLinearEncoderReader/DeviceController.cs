@@ -533,6 +533,7 @@ namespace QSBLinearEncoderReader
                 // Terminate this thread when it encouters an exception.
                 Logger.Log(ex.ToString());
                 Logger.Log("Terminating EncoderCountReaderLoop because of the exception above.");
+                Disconnect();
                 return;
             }
         }
@@ -635,11 +636,15 @@ namespace QSBLinearEncoderReader
                         throw new InvalidOperationException("Recording is in progress.");
                     }
 
+                    Logger.Log("Starting recording in " + fileName);
+
                     _recorder = new StreamWriter(fileName);
                     _recorderNumOfLine = 0;
 
                     // Write a header.
                     _recorder.WriteLine("Timestamp [ms], Raw Count, Position [mm]");
+
+                    Logger.Log("Started recording in " + fileName);
                 }
             }
             catch (Exception ex)

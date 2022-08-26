@@ -9,6 +9,7 @@ namespace QSBLinearEncoderReader
     {
         private object _controllerLock = new object();
         private DeviceController _controller = null;   // not null if this application is connected to a QSB-D.
+        private bool _recording = false;
 
         public MainForm()
         {
@@ -89,7 +90,16 @@ namespace QSBLinearEncoderReader
 
         private void timerDisplayUpdateLoop_Tick(object sender, EventArgs e)
         {
-            // TODO: check the controller connection and recording status.
+            lock (_controllerLock)
+            {
+                if (_controller != null && !_controller.IsConnected)
+                {
+                    // The controller was disconnected unexpectedly.
+                    AppendOneLineLogMessage("Connection was closed unexpectedly. See more details in " + Logger.TraceLogPath);
+                    Disconnect();
+                }
+            }
+
             UpdateEncoderReadingDisplay();
         }
 
@@ -210,7 +220,7 @@ namespace QSBLinearEncoderReader
                     return;
                 }
 
-                if (_controller.IsRecording)
+                if (_recording)
                 {
                     StopRecording();
                 }
@@ -249,6 +259,7 @@ namespace QSBLinearEncoderReader
                 try
                 {
                     _controller.StartRecording(fileName);
+                    _recording = true;
                 }
                 catch (Exception ex)
                 {
@@ -275,13 +286,15 @@ namespace QSBLinearEncoderReader
         {
             lock (_controllerLock)
             {
-                if (_controller == null)
+                if (_recording)
                 {
-                    AppendOneLineLogMessage("Not connected so cannot stop recording.");
+                    _controller.StopRecording();
+                    _recording = false;
+                }
+                else
+                {
                     return;
                 }
-
-                _controller.StopRecording();
             }
 
             AppendOneLineLogMessage("Stopped recording.");
