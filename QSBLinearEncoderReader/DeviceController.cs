@@ -34,7 +34,7 @@ namespace QSBLinearEncoderReader
 
         private StreamWriter _recorder;
         private long _recorderNumOfLine = 0;
-        private long _recorderFirstTimestamp = 0;
+        private uint _recorderFirstTimestamp = 0;
         private object _recorderLock = new object();
 
         public DeviceController(
@@ -206,6 +206,9 @@ namespace QSBLinearEncoderReader
 
                     // Set the output interval to 1/512 x 1 Hz (1.953125 ms)
                     WriteCommand(0x0C, 0x00000001);
+
+                    // Reset the 32-bit timestamp register to minimize the chance of rollover (every 94.5 days).
+                    WriteCommand(0x0D, 0x00000001);
 
                     // Start streaming the encoder count at the specified interval.
                     StreamCommand(0x0E);
@@ -505,13 +508,11 @@ namespace QSBLinearEncoderReader
                             if (_recorderNumOfLine == 0)
                             {
                                 _recorderFirstTimestamp = timestamp;
+                                Logger.Log("First timestamp of this recording session: " + timestamp);
                             }
 
-                            long relativeTimestamp = timestamp - _recorderFirstTimestamp;
+                            long relativeTimestamp = (long)timestamp - _recorderFirstTimestamp;
                             decimal relativeTimestamp_ms = relativeTimestamp * (decimal)(1000.0 / 512.0);
-
-                            // TODO: memorize the previous timestamp, detect rollover of the 32-bit timestamp and calculate
-                            //       the true timestamp accordingly.
 
                             _recorder.WriteLine(
                                 String.Format("{0}, {1}, {2}, {3}", 
