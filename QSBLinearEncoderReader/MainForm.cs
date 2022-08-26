@@ -156,7 +156,6 @@ namespace QSBLinearEncoderReader
 
                 try
                 {
-                    // TODO: make the baud rate configurable
                     _controller = new DeviceController(portName, baudRate, quadratureMode, direction, zeroPositionCount, resolution_nm);
                     _controller.Connect();
                 }
