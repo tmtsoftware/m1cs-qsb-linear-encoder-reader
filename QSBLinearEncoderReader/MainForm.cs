@@ -142,6 +142,8 @@ namespace QSBLinearEncoderReader
             bool failed = false;
             string failureMessage = "";
 
+            buttonConnect.Enabled = false;
+
             lock (_controllerLock)
             {
                 if (_controller != null)
@@ -168,6 +170,7 @@ namespace QSBLinearEncoderReader
 
             if (failed)
             {
+                buttonConnect.Enabled = true;
                 AppendOneLineLogMessage("FALIED!!!");
                 AppendOneLineLogMessage(failureMessage);
                 return false;
