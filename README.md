@@ -16,7 +16,7 @@ Go to the [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-read
 Extract the zip file, run `setup.exe` in it and follow the instructions to complete the installation. 
 You may be asked about the security, but you should ignore them.
 
-When the installation process is copmlete, the application automatically launches.
+When the installation process is complete, the application automatically is launched.
 If you want to launch it again, select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
 
 <img src="images/windows_menu.png" width="158" height="308">
