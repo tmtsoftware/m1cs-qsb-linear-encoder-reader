@@ -138,7 +138,7 @@ namespace QSBLinearEncoderReader
                 }
             }
 
-            AppendOneLineLogMessage("New encoder zero position count: " + newEncoderZeroPositionCount);
+            AppendOneLineLogMessage("Set the encoder zero position count: " + newEncoderZeroPositionCount);
             UpdateEncoderReadingDisplay();
         }
 
@@ -148,7 +148,7 @@ namespace QSBLinearEncoderReader
             QuadratureMode quadratureMode,
             decimal resolution_nm,
             int zeroPositionCount,
-            EncoderDirection direction)
+            EncoderDirection encoderDirection)
         {
             bool failed = false;
             string failureMessage = "";
@@ -167,7 +167,7 @@ namespace QSBLinearEncoderReader
 
                 try
                 {
-                    _controller = new DeviceController(portName, baudRate, quadratureMode, direction, zeroPositionCount, resolution_nm);
+                    _controller = new DeviceController(portName, baudRate, quadratureMode, encoderDirection, zeroPositionCount, resolution_nm);
                     _controller.Connect();
                 }
                 catch (Exception e)
@@ -198,6 +198,12 @@ namespace QSBLinearEncoderReader
 
             AppendOneLineLogMessage(String.Format("Serial Number: {0}", _controller.SerialNumber));
             AppendOneLineLogMessage(String.Format("Firmware Version: {0}", _controller.FirmwareVersion));
+
+            // Show configuration
+            AppendOneLineLogMessage(String.Format("Quadrature Mode: {0}", quadratureMode));
+            AppendOneLineLogMessage(String.Format("Encoder Direction: {0}", encoderDirection));
+            AppendOneLineLogMessage(String.Format("Encoder resolution: {0} nm/count", resolution_nm.ToString("0.00")));
+            AppendOneLineLogMessage("Set the encoder zero position count: " + zeroPositionCount);
 
             // Enable buttons that can be clicked when connected.
             buttonSetZero.Enabled = true;
