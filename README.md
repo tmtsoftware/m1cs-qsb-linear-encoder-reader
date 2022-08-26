@@ -17,7 +17,7 @@ Extract the zip file, run `setup.exe` in it and follow the instructions to compl
 You may be asked about the security, but you should ignore them.
 
 When the installation process is copmlete, the application automatically launches.
-If you want to launc it again, select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
+If you want to launch it again, select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
 
 <img src="images/windows_menu.png" width="158" height="308">
 
@@ -28,9 +28,6 @@ If you want to launc it again, select `TMT International Observatory` - `QSB Lin
 Before launching this application, connect your [QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) to an USB port of your computer.
 Then, check the port name of the QSB-D with [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
 Typically, it is "COMx" where "x" is an integer number (e.g. COM4).
-
-Please make sure that the baud rate setting of your QSB-D is the same as the factory default (230400 bits/sec).
-If you have ever changed the baud rate from the factory default, revert the setting using [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
 
 ### Application usage
 
@@ -48,15 +45,21 @@ If connection to your QSB-D is successful, the application starts to continuousl
 
 Press `Zero Encoder Count` button to set the current position as zero.
 
-Press `Start Recording` button to save the encoder readings in a CSV file. It will ask you which CSV file to save. You can stop recording by pressing `Stop recording` button.
+Press `Start Recording` button to save the encoder readings in a CSV file.
+It will ask you which CSV file to save.
+The CSV file has three fields "Timestamp [ms]", "Raw Count" and "Position [mm]".
+This application records the encoder position at the QSB-D's maximum rate (512 Hz).
+The timestamp is based on the 32-bit timestamp register in the QSB-D, which is incremented at 512 Hz.
+If you keep running this application more than 94.5 days, the timestamp register rollover may happen.
 
+You can stop recording by pressing `Stop recording` button.
 
 ## License
 
-The license of this software is TBD.
+TMT International Observatory holds the copyright of software, images and documents in this repository except the files below:
 
-Note that this repository includes third party libraries USDigital.dll and USDQsB.dll in [Library](QSBLinearEncoderReader/Library) directory.
-They were copied from [US Digital website](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
+ * [docs/qsb-applications-examples.pdf](docs/qsb-applications-examples.pdf)
+ * [docs/qsb-commands-list.pdf](docs/qsb-commands-list.pdf)
 
 ## Developer information
 
@@ -136,6 +139,11 @@ Now your new released version must appear in https://github.com/tmtsoftware/m1cs
 
 ![](images/released_version_on_github.png)
 
-## TODO
+## Application examples and comamnd list of QSB-D
 
- * Support the recording at the maximum rate (512 Hz)
+Application examples and command list can be obtained at 
+https://www.usdigital.com/products/accessories/interfaces/usb/qsb/
+
+The copy of those files can be found in this repository for our records:
+ * [docs/qsb-applications-examples.pdf](docs/qsb-applications-examples.pdf)
+ * [docs/qsb-commands-list.pdf](docs/qsb-commands-list.pdf)
