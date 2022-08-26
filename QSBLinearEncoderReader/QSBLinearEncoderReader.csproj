@@ -92,7 +92,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HighResolutionDateTime.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ConnectForm.cs">
       <SubType>Form</SubType>

@@ -466,6 +466,8 @@ namespace QSBLinearEncoderReader
         /// </summary>
         private void EncoderCountReaderLoop()
         {
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
             try
             {
                 Logger.Log("Started EncoderCountReaderLoop.");
@@ -515,9 +517,7 @@ namespace QSBLinearEncoderReader
                             decimal relativeTimestamp_ms = relativeTimestamp * (decimal)(1000.0 / 512.0);
 
                             _recorder.WriteLine(
-                                String.Format("{0}, {1}, {2}, {3}", 
-                                //                                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"), // TODO: use more accurate time
-                                HighResolutionDateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                                String.Format("{0}, {1}, {2}",
                                 relativeTimestamp_ms.ToString("0.000000"),
                                 encoderCount,
                                 position_mm.ToString("0.00000000")
@@ -639,7 +639,7 @@ namespace QSBLinearEncoderReader
                     _recorderNumOfLine = 0;
 
                     // Write a header.
-                    _recorder.WriteLine("Date & Time, Timestamp [ms], Raw Count, Position [mm]");
+                    _recorder.WriteLine("Timestamp [ms], Raw Count, Position [mm]");
                 }
             }
             catch (Exception ex)
