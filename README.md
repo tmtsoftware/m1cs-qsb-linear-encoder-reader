@@ -148,6 +148,6 @@ The copy of those files can be found in this repository for our records:
  * [docs/qsb-applications-examples.pdf](docs/qsb-applications-examples.pdf)
  * [docs/qsb-commands-list.pdf](docs/qsb-commands-list.pdf)
 
-## TODO
+## Issues
 
- * Limit the size of trace.log.
+File any bugs, enhancement proposals, feature requests on [Issues](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/issues).
