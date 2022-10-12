@@ -56,7 +56,7 @@ You can stop recording by pressing `Stop recording` button.
 
 ## License
 
-TMT International Observatory holds the copyright of software, images and documents in this repository except the* files below:
+TMT International Observatory holds the copyright of software, images and documents in this repository except the files below:
 
  * [docs/qsb-applications-examples.pdf](docs/qsb-applications-examples.pdf)
  * [docs/qsb-commands-list.pdf](docs/qsb-commands-list.pdf)
