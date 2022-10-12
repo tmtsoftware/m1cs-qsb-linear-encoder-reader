@@ -123,7 +123,7 @@ namespace QSBLinearEncoderReader
                 }
             }
 
-            labelEncoderReading.Text = position_mm.ToString("0.00000000");
+            labelEncoderReading.Text = position_mm.ToString("0.000000");
         }
 
         private void Zero()
