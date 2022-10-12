@@ -9,7 +9,7 @@ This is a simple Windows application that reads an encoder count through [US Dig
 
 ## Insallation
 
-If you have an old version installed in your system, remove it first. You can use [a standard Windows procedure](https://support.microsoft.com/en-us/windows/uninstall-or-remove-apps-and-programs-in-windows-4b55f974-2cc6-2d2b-d092-5905080eaf98) to remove QSB Linear Encoder Reader application. The quickest way is to find `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu, right click it and select "Uninstall".
+If you have an old version installed in your system, remove it first. You can use [a standard Windows procedure](https://support.microsoft.com/en-us/windows/uninstall-or-remove-apps-and-programs-in-windows-4b55f974-2cc6-2d2b-d092-5905080eaf98) to remove QSB Linear Encoder Reader application. The quickest way is to find `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu, right click it and select `Uninstall`.
 
 After your confirm that your system does not have an old version, go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version.
 
@@ -47,14 +47,24 @@ If it is connected to your QSB-D successfully, it starts to continuously read th
 
 Press `Zero Encoder Count` button to set the current position as zero.
 
-Press `Start Recording` button to save the encoder readings in a CSV file.
-It will ask you which CSV file to save.
-The CSV file has three fields "Timestamp [ms]", "Raw Count" and "Position [mm]".
-This application records the encoder position at the QSB-D's maximum rate (512 Hz).
-The timestamp is based on the 32-bit timestamp register in the QSB-D, which is incremented at 512 Hz.
-If you keep running this application more than 94.5 days, the timestamp register may be reset to 0.
-
 You can stop recording by pressing `Stop recording` button.
+
+## Recording to a CSV file
+
+If you want to store the encoder readings in a CSV file, click `Set CSV Output Path...` first.
+It will ask you which CSV file to save.
+
+Then, click `Start Recording` button to start recording the encoder readings in the specified CSV file.
+The CSV file has three fields "Timestamp [ms]", "Raw Count" and "Position [mm]".
+
+This application records the encoder position at the QSB-D's maximum rate (512 Hz).
+One line in the CSV file is typically 30 - 50 bytes meaning that the CSV file grows at a rate of about 15 - 25 kB/s, or 0.9 - 1.5 MB/s.
+If you leave it running for more than one day, it would use up around 100 GB of your storage.
+So, please make sure that click `Stop Recording` button if you no longer need to record the encoder reading in the CSV file.
+
+Note that the timestamp is based on the 32-bit timestamp register in the QSB-D, which is incremented at 512 Hz.
+If you keep running this application more than 94.5 days, the timestamp register may be reset to 0.
+The timestamp register is most probably based on a free running counter in the QSB-D, so, when you want to correlate the recorded data in the CSV file with something else, please keep in mind that it can be slightly less or more than 512 Hz.
 
 ## License
 
