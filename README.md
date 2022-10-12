@@ -58,7 +58,7 @@ Then, click `Start Recording` button to start recording the encoder readings in 
 The CSV file has three fields "Timestamp [ms]", "Raw Count" and "Position [mm]".
 
 This application records the encoder position at the QSB-D's maximum rate (512 Hz).
-One line in the CSV file is typically 30 - 50 bytes meaning that the CSV file grows at a rate of about 15 - 25 kB/s, or 0.9 - 1.5 MB/s.
+One line in the CSV file is typically 30 - 50 bytes meaning that the CSV file grows at a rate of about 15 - 25 kB/s, or 0.9 - 1.5 MB per minute.
 If you leave it running for more than one day, it would use up around 100 GB of your storage.
 So, please make sure that click `Stop Recording` button if you no longer need to record the encoder reading in the CSV file.
 
