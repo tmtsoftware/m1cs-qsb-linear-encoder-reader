@@ -9,15 +9,17 @@ This is a simple Windows application that reads an encoder count through [US Dig
 
 ## Insallation
 
-Go to the [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version.
+If you have an old version installed in your system, remove it first. You can use [a standard Windows procedure](https://support.microsoft.com/en-us/windows/uninstall-or-remove-apps-and-programs-in-windows-4b55f974-2cc6-2d2b-d092-5905080eaf98) to remove QSB Linear Encoder Reader application. The quickest way is to find `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu, right click it and select "Uninstall".
+
+After your confirm that your system does not have an old version, go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version.
 
 <img src="images/download_the_latest_version.png" width="342" height="211">
 
-Extract the zip file, run `setup.exe` in it and follow the instructions to complete the installation. 
-You may be asked about the security, but you should ignore them.
+Then, extract the zip file, run `setup.exe` in it and follow the instructions to complete the installation. 
+You may be asked about the security a couple of times, but please ignore them and proceed.
 
-When the installation process is complete, the application automatically is launched.
-If you want to launch it again, select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
+When the installation process is complete, the application automatically launches.
+If not, or if you want to launch it again, select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
 
 <img src="images/windows_menu.png" width="158" height="308">
 
@@ -39,7 +41,7 @@ In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name i
 
 <img src="images/connect_dialog.png">
 
-If connection to your QSB-D is successful, the application starts to continuously read the current position from the encoder and show it in the main window.
+If it is connected to your QSB-D successfully, it starts to continuously read the current position from the encoder and display it in the main window as shown below:
 
 <img src="images/screenshot.png" width="318" height="197">
 
@@ -50,7 +52,7 @@ It will ask you which CSV file to save.
 The CSV file has three fields "Timestamp [ms]", "Raw Count" and "Position [mm]".
 This application records the encoder position at the QSB-D's maximum rate (512 Hz).
 The timestamp is based on the 32-bit timestamp register in the QSB-D, which is incremented at 512 Hz.
-If you keep running this application more than 94.5 days, the timestamp register rollover may happen.
+If you keep running this application more than 94.5 days, the timestamp register may be reset to 0.
 
 You can stop recording by pressing `Stop recording` button.
 
@@ -63,19 +65,21 @@ TMT International Observatory holds the copyright of software, images and docume
 
 ## Developer information
 
-This chapter includes information for software developers who may modify the code and release new versions.
+This chapter includes information for software developers who want to modify the code and release new versions.
 
 ### Development environment
 
-The programing language of this software is C#. It is hightly recommended to use
+The programming language of this software is C#. It is hightly recommended to use
 Visual Studio 2022 (or newer) for software development. Instructions below assume
 that you have Visual Studio installed in your computer.
 
 ### Open the latest source code with Visual Studio
 
 If you already have Visual Studio installed in your computer, you can check out and open
-the latest source code by clicking "Code" in the top right corner of this page and selecting
-"Open with Visual Studio".
+the latest source code from this GitHub page. Before doing so, make sure that you are logged
+in GitHub with your account. Then, click "Code" in the top right corner of this page and
+select "Open with Visual Studio". Then, Visual Studio will automatically launch, check out
+this git repository and open the latest source code in it.
 
 ![](images/open_with_visual_studio.png)
 
@@ -93,7 +97,7 @@ Change the version number in `AssemblyVersion` and `AssemblyFileVersion` at the 
 ### 2. Generate installer
 
 Double-click and open Properties in the Solution Explorer, and select `Publish` in the left panel of the Properties pane.
-Then, change the publich version to match what you set in [AssemblyInfo.cs](QSBLinearEncoderReader/Properties/AssemblyInfo.cs).
+Then, change the publish version to match what you set in [AssemblyInfo.cs](QSBLinearEncoderReader/Properties/AssemblyInfo.cs).
 After that, press `Publish Now` button to generate an installer.
 
 ![](images/publish_pane.png)
@@ -101,7 +105,7 @@ After that, press `Publish Now` button to generate an installer.
 ### 3. Zip the installer
 
 The installer is generated under `publish` folder in the project folder ([QSBlinearEncoderReader/](QSBLinearEncoderReader/)).
-Zip all flies there and change the zip file name to `QSBLinearEncoderReader_w.x.y.z` where `w.x.y.z` is the version number.
+Zip all flies in it and change the zip file name to `QSBLinearEncoderReader_w.x.y.z` where `w.x.y.z` is the version number.
 
 ![](images/publish_directory.png)
 
