@@ -111,6 +111,8 @@ namespace QSBLinearEncoderReader
         {
             decimal position_mm;
 
+            position_mm = (decimal)(0.0);
+
             lock (_controllerLock)
             {
                 if (_controller != null)

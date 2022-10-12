@@ -22,6 +22,9 @@ namespace QSBLinearEncoderReader
         private SerialPort _serialPort;
         private object _serialPortLock = new object();
 
+        private bool _connected;
+        private object _connectionStatusLock = new object();
+
         private int _encoderCount = 0;
         private int _encoderZeroPositionCount;
         private decimal _encoderResolution_nm;
@@ -70,6 +73,7 @@ namespace QSBLinearEncoderReader
             _encoderResolution_nm = encoderResolution_nm;
 
             _serialPort = null;
+            _connected = false;
         }
 
         /// <summary>
@@ -215,6 +219,12 @@ namespace QSBLinearEncoderReader
 
                     Thread readEncoderCountLoopThread = new Thread(new ThreadStart(EncoderCountReaderLoop));
                     readEncoderCountLoopThread.Start();
+
+                    // Change the connection status.
+                    lock (_connectionStatusLock)
+                    {
+                        _connected = true;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -398,9 +408,14 @@ namespace QSBLinearEncoderReader
         {
             lock (_serialPortLock)
             {
+                lock (_connectionStatusLock)
+                {
+                    _connected = false;
+                }
+
                 try
                 {
-                    if (IsConnected)
+                    if (_serialPort != null && _serialPort.IsOpen)
                     {
                         Logger.Log(String.Format("Disconnecting from {0}.", _portName));
                         _serialPort.Close();
@@ -420,10 +435,7 @@ namespace QSBLinearEncoderReader
         {
             get
             {
-                lock (_serialPortLock)
-                {
-                    return _serialPort != null && _serialPort.IsOpen;
-                }
+                return _connected;
             }
         }
 
@@ -479,7 +491,7 @@ namespace QSBLinearEncoderReader
                     lock (_serialPortLock)
                     {
                         // The serial port was disconnected. Terminate this thread.
-                        if (!IsConnected)
+                        if (_serialPort == null || !_serialPort.IsOpen)
                         {
                             Logger.Log("Terminating EncoderCountReaderLoop.");
                             return;
