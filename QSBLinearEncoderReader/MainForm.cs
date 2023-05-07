@@ -12,6 +12,7 @@ namespace QSBLinearEncoderReader
         private DeviceController _controller = null;   // not null if this application is connected to a QSB-D.
         private bool _connected = false;
         private bool _recording = false;
+        private bool _takingStatistics = false;
 
         public MainForm()
         {
@@ -123,6 +124,7 @@ namespace QSBLinearEncoderReader
             }
 
             UpdateEncoderReadingDisplay();
+            UpdateStatisticsDisplay();
         }
 
         private void UpdateEncoderReadingDisplay()
@@ -144,6 +146,37 @@ namespace QSBLinearEncoderReader
             }
 
             labelEncoderReading.Text = position_mm.ToString("0.000000");
+        }
+
+        private void UpdateStatisticsDisplay()
+        {
+            ulong numberOfSamples = 0;
+            decimal duration_s = 0.0M;
+            decimal average_mm = 0.0M;
+            decimal maximum_mm = 0.0M;
+            decimal minimum_mm = 0.0M;
+            decimal peak_to_peak_mm = 0.0M;
+
+            lock (_controllerLock)
+            {
+                if (_controller != null)
+                {
+                    (numberOfSamples, duration_s, average_mm, maximum_mm, minimum_mm) = _controller.GetStatistics();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            peak_to_peak_mm = maximum_mm - minimum_mm;
+
+            textBoxNumberOfSamples.Text = numberOfSamples.ToString();
+            textBoxDuration.Text = duration_s.ToString();
+            textBoxAverage.Text = average_mm.ToString();
+            textBoxMaximum.Text = maximum_mm.ToString();
+            textBoxMinimum.Text = minimum_mm.ToString();
+            textBoxPeakToPeak.Text = peak_to_peak_mm.ToString();
         }
 
         private void Zero()
@@ -238,6 +271,7 @@ namespace QSBLinearEncoderReader
 
             _connected = true;
             SetStartRecordingButtonState();
+            SetStatisticsButtonsState();
 
             return true;
         }
@@ -257,6 +291,11 @@ namespace QSBLinearEncoderReader
                     StopRecording();
                 }
 
+                if (_takingStatistics)
+                {
+                    StopStatistics();
+                }
+
                 _controller.Disconnect();
                 _controller = null;
             }
@@ -272,6 +311,7 @@ namespace QSBLinearEncoderReader
 
             _connected = false;
             SetStartRecordingButtonState();
+            SetStatisticsButtonsState();
         }
 
         private void StartRecording(String fileName)
@@ -287,7 +327,7 @@ namespace QSBLinearEncoderReader
 
                 if (_controller == null)
                 {
-                    AppendOneLineLogMessage("Not connected so cannot start recording.");
+                    AppendOneLineLogMessage("Not connected. Cannot start recording.");
                     return;
                 }
 
@@ -341,6 +381,52 @@ namespace QSBLinearEncoderReader
             buttonSetCSVOutputPath.Enabled = true;
         }
 
+        private void StartStatistics()
+        {
+            lock (_controllerLock)
+            {
+
+                if (_controller == null)
+                {
+                    AppendOneLineLogMessage("Not connected. Cannot start statistics.");
+                    return;
+                }
+
+                if (!_takingStatistics) {
+                    _controller.StartStatistics();
+                    _takingStatistics = true;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            AppendOneLineLogMessage("Started statistics.");
+
+            SetStatisticsButtonsState();
+        }
+
+        private void StopStatistics()
+        {
+            lock (_controllerLock)
+            {
+                if (_takingStatistics)
+                {
+                    _controller.StopStatistics();
+                    _takingStatistics = false;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            AppendOneLineLogMessage("Stopped statistics.");
+
+            SetStatisticsButtonsState();
+        }
+
         private void AppendOneLineLogMessage(String message)
         {
             textBoxStatus.AppendText(message + Environment.NewLine);
@@ -355,6 +441,25 @@ namespace QSBLinearEncoderReader
             else
             {
                 buttonStartRecording.Enabled = false;
+            }
+        }
+
+        private void SetStatisticsButtonsState()
+        {
+            if (!_connected)
+            {
+                buttonStartStatistics.Enabled = false;
+                buttonStopStatistics.Enabled = false;
+           }
+            else if (_takingStatistics)
+            {
+                buttonStartStatistics.Enabled = false;
+                buttonStopStatistics.Enabled = true;
+            }
+            else
+            {
+                buttonStartStatistics.Enabled = true;
+                buttonStopStatistics.Enabled = false;
             }
         }
     }

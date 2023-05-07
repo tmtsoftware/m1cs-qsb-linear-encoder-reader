@@ -40,6 +40,13 @@ namespace QSBLinearEncoderReader
         private uint _recorderFirstTimestamp = 0;
         private object _recorderLock = new object();
 
+        private bool _statisticsOngoing = false;
+        private ulong _statisticsNumberOfSamples = 0;
+        private decimal _statisticsAverage = 0.0M;
+        private decimal _statisticsMinimum = 0.0M;
+        private decimal _statisticsMaximum = 0.0M;
+        private object _statisticsLock = new object();
+
         public DeviceController(
             string portName,
             int baudRate,
@@ -138,7 +145,7 @@ namespace QSBLinearEncoderReader
                     //   | ! (0x21)                  | \r (0x0D)         | \n (0x0A)           |
                     //   +---------------------------+-------------------+---------------------+
                     //
-                    //    (26 bytes in totla)
+                    //    (26 bytes in total)
                     //
                     WriteCommand(0x15, 0x0000000F);
 
@@ -538,6 +545,14 @@ namespace QSBLinearEncoderReader
                             _recorderNumOfLine++;
                         }
                     }
+
+                    lock (_statisticsLock)
+                    {
+                        if (IsStatisticsOngoing)
+                        {
+                            // TODO: update the statistics
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -616,6 +631,27 @@ namespace QSBLinearEncoderReader
             return encoderOffsetCount * _encoderResolution_nm * (decimal)1e-6;
         }
 
+        public Tuple<ulong, decimal, decimal, decimal, decimal> GetStatistics()
+        {
+            ulong numberOfSamples = 0;
+            decimal duration_s = 0.0M;
+            decimal average_mm = 0.0M;
+            decimal maximum_mm = 0.0M;
+            decimal minimum_mm = 0.0M;
+
+            lock (_statisticsLock)
+            {
+                numberOfSamples = _statisticsNumberOfSamples;
+                average_mm = _statisticsAverage * _encoderResolution_nm * (decimal)1e-6;
+                maximum_mm = _statisticsMaximum * _encoderResolution_nm * (decimal)1e-6;
+                minimum_mm = _statisticsMinimum * _encoderResolution_nm * (decimal)1e-6;
+            }
+
+            duration_s = numberOfSamples / 512;
+
+            return Tuple.Create(numberOfSamples, duration_s, average_mm, maximum_mm, minimum_mm);
+        }
+
         /// <summary>
         /// Set the current encoder count as the zero position.
         /// </summary>
@@ -633,6 +669,8 @@ namespace QSBLinearEncoderReader
             }
 
             Logger.Log("New encoder zero position count: " + newEncoderZeroPositionCount);
+
+            // TODO: restart the statistics
 
             return newEncoderZeroPositionCount;
         }
@@ -692,6 +730,37 @@ namespace QSBLinearEncoderReader
                 lock (_recorderLock)
                 {
                     return _recorder != null;
+                }
+            }
+        }
+
+        public void StartStatistics()
+        {
+            lock (_statisticsLock)
+            {
+                _statisticsNumberOfSamples = 0;
+                _statisticsAverage = 0.0M;
+                _statisticsMinimum = 0.0M;
+                _statisticsMaximum = 0.0M;
+                _statisticsOngoing = true;
+            }
+        }
+
+        public void StopStatistics()
+        {
+            lock (_statisticsLock)
+            {
+                _statisticsOngoing = false;
+            }
+        }
+
+        private bool IsStatisticsOngoing
+        {
+            get
+            {
+                lock (_statisticsLock)
+                {
+                    return _statisticsOngoing;
                 }
             }
         }
