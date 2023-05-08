@@ -52,6 +52,7 @@
             this.flowLayoutPanelStatisticsButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonStartStatistics = new System.Windows.Forms.Button();
             this.buttonStopStatistics = new System.Windows.Forms.Button();
+            this.buttonResetStatistics = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelNumberOfSamples = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -390,6 +391,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanelStatisticsButtons, 6);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonStartStatistics);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonStopStatistics);
+            this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonResetStatistics);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.textBox1);
             this.flowLayoutPanelStatisticsButtons.Location = new System.Drawing.Point(3, 81);
             this.flowLayoutPanelStatisticsButtons.Name = "flowLayoutPanelStatisticsButtons";
@@ -402,9 +404,9 @@
             this.buttonStartStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStartStatistics.Location = new System.Drawing.Point(3, 3);
             this.buttonStartStatistics.Name = "buttonStartStatistics";
-            this.buttonStartStatistics.Size = new System.Drawing.Size(84, 23);
+            this.buttonStartStatistics.Size = new System.Drawing.Size(39, 23);
             this.buttonStartStatistics.TabIndex = 8;
-            this.buttonStartStatistics.Text = "Start Statistics";
+            this.buttonStartStatistics.Text = "Start";
             this.buttonStartStatistics.UseVisualStyleBackColor = true;
             this.buttonStartStatistics.Click += new System.EventHandler(this.buttonStartStatistics_Click);
             // 
@@ -412,13 +414,25 @@
             // 
             this.buttonStopStatistics.AutoSize = true;
             this.buttonStopStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonStopStatistics.Location = new System.Drawing.Point(93, 3);
+            this.buttonStopStatistics.Location = new System.Drawing.Point(48, 3);
             this.buttonStopStatistics.Name = "buttonStopStatistics";
-            this.buttonStopStatistics.Size = new System.Drawing.Size(84, 23);
+            this.buttonStopStatistics.Size = new System.Drawing.Size(39, 23);
             this.buttonStopStatistics.TabIndex = 9;
-            this.buttonStopStatistics.Text = "Stop Statistics";
+            this.buttonStopStatistics.Text = "Stop";
             this.buttonStopStatistics.UseVisualStyleBackColor = true;
             this.buttonStopStatistics.Click += new System.EventHandler(this.buttonStopStatistics_Click);
+            // 
+            // buttonResetStatistics
+            // 
+            this.buttonResetStatistics.AutoSize = true;
+            this.buttonResetStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonResetStatistics.Location = new System.Drawing.Point(93, 3);
+            this.buttonResetStatistics.Name = "buttonResetStatistics";
+            this.buttonResetStatistics.Size = new System.Drawing.Size(45, 23);
+            this.buttonResetStatistics.TabIndex = 10;
+            this.buttonResetStatistics.Text = "Reset";
+            this.buttonResetStatistics.UseVisualStyleBackColor = true;
+            this.buttonResetStatistics.Click += new System.EventHandler(this.buttonResetStatistics_Click);
             // 
             // textBox1
             // 
@@ -699,6 +713,7 @@
         private System.Windows.Forms.Label labelMaximumUnit;
         private System.Windows.Forms.Label labelMinimumUnit;
         private System.Windows.Forms.Label labelPeakToPeakUnit;
+        private System.Windows.Forms.Button buttonResetStatistics;
     }
 }
 

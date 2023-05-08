@@ -127,6 +127,12 @@ namespace QSBLinearEncoderReader
             StopStatistics();
         }
 
+        private void buttonResetStatistics_Click(object sender, EventArgs e)
+        {
+            StopStatistics();
+            StartStatistics();
+        }
+
         private void timerDisplayUpdateLoop_Tick(object sender, EventArgs e)
         {
             lock (_controllerLock)
@@ -399,6 +405,8 @@ namespace QSBLinearEncoderReader
 
         private void StartStatistics()
         {
+            bool actuallyStarted = false;
+
             lock (_controllerLock)
             {
 
@@ -411,6 +419,7 @@ namespace QSBLinearEncoderReader
                 if (!_takingStatistics) {
                     _controller.StartStatistics();
                     _takingStatistics = true;
+                    actuallyStarted = true;
                 }
                 else
                 {
@@ -418,19 +427,25 @@ namespace QSBLinearEncoderReader
                 }
             }
 
-            AppendOneLineLogMessage("Started statistics.");
+            if (actuallyStarted)
+            {
+                AppendOneLineLogMessage("Started statistics.");
+            }
 
             SetStatisticsButtonsState();
         }
 
         private void StopStatistics()
         {
+            bool actuallyStopped = false;
+
             lock (_controllerLock)
             {
                 if (_takingStatistics)
                 {
                     _controller.StopStatistics();
                     _takingStatistics = false;
+                    actuallyStopped = true;
                 }
                 else
                 {
@@ -438,7 +453,10 @@ namespace QSBLinearEncoderReader
                 }
             }
 
-            AppendOneLineLogMessage("Stopped statistics.");
+            if (actuallyStopped)
+            {
+                AppendOneLineLogMessage("Stopped statistics.");
+            }
 
             SetStatisticsButtonsState();
         }
@@ -466,16 +484,19 @@ namespace QSBLinearEncoderReader
             {
                 buttonStartStatistics.Enabled = false;
                 buttonStopStatistics.Enabled = false;
+                buttonResetStatistics.Enabled = false;
            }
             else if (_takingStatistics)
             {
                 buttonStartStatistics.Enabled = false;
                 buttonStopStatistics.Enabled = true;
+                buttonResetStatistics.Enabled = true;
             }
             else
             {
                 buttonStartStatistics.Enabled = true;
                 buttonStopStatistics.Enabled = false;
+                buttonResetStatistics.Enabled = false;
             }
         }
     }
