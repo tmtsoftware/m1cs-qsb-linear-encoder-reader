@@ -596,7 +596,26 @@ namespace QSBLinearEncoderReader
                     {
                         if (IsStatisticsOngoing)
                         {
-                            // TODO: update the statistics
+                            ulong n = _statisticsNumberOfSamples;
+                            decimal N = (decimal)n;
+                            _statisticsNumberOfSamples = n + 1;
+                            _statisticsAverage = (encoderCount + N * _statisticsAverage) / (N + 1);
+                            if (n == 0)
+                            {
+                                _statisticsMaximum = encoderCount;
+                                _statisticsMinimum = encoderCount;
+                            }
+                            else
+                            {
+                                if (encoderCount > _statisticsMaximum)
+                                {
+                                    _statisticsMaximum = encoderCount;
+                                }
+                                if (encoderCount < _statisticsMinimum)
+                                {
+                                    _statisticsMinimum = encoderCount;
+                                }
+                            }
                         }
                     }
                 }
@@ -693,7 +712,7 @@ namespace QSBLinearEncoderReader
                 minimum_mm = _statisticsMinimum * _encoderResolution_nm * (decimal)1e-6;
             }
 
-            duration_s = numberOfSamples / 512;
+            duration_s = (decimal)numberOfSamples / 512;
 
             return Tuple.Create(numberOfSamples, duration_s, average_mm, maximum_mm, minimum_mm);
         }

@@ -111,6 +111,16 @@ namespace QSBLinearEncoderReader
             }
         }
 
+        private void buttonStartStatistics_Click(object sender, EventArgs e)
+        {
+            StartStatistics();
+        }
+
+        private void buttonStopStatistics_Click(object sender, EventArgs e)
+        {
+            StopStatistics();
+        }
+
         private void timerDisplayUpdateLoop_Tick(object sender, EventArgs e)
         {
             lock (_controllerLock)
@@ -172,11 +182,11 @@ namespace QSBLinearEncoderReader
             peak_to_peak_mm = maximum_mm - minimum_mm;
 
             textBoxNumberOfSamples.Text = numberOfSamples.ToString();
-            textBoxDuration.Text = duration_s.ToString();
-            textBoxAverage.Text = average_mm.ToString();
-            textBoxMaximum.Text = maximum_mm.ToString();
-            textBoxMinimum.Text = minimum_mm.ToString();
-            textBoxPeakToPeak.Text = peak_to_peak_mm.ToString();
+            textBoxDuration.Text = duration_s.ToString("F3");
+            textBoxAverage.Text = average_mm.ToString("F6");
+            textBoxMaximum.Text = maximum_mm.ToString("F6");
+            textBoxMinimum.Text = minimum_mm.ToString("F6");
+            textBoxPeakToPeak.Text = peak_to_peak_mm.ToString("F6");
         }
 
         private void Zero()
