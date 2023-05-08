@@ -47,15 +47,14 @@
             this.buttonSetCSVOutputPath = new System.Windows.Forms.Button();
             this.buttonStartRecording = new System.Windows.Forms.Button();
             this.buttonStopRecording = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBoxStatistics = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanelStatistics = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanelStatisticsButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonStartStatistics = new System.Windows.Forms.Button();
             this.buttonStopStatistics = new System.Windows.Forms.Button();
             this.buttonResetStatistics = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelNumberOfSamples = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelDuration = new System.Windows.Forms.Label();
             this.labelAverage = new System.Windows.Forms.Label();
             this.textBoxNumberOfSamples = new System.Windows.Forms.TextBox();
             this.labelDurationUnit = new System.Windows.Forms.Label();
@@ -64,7 +63,7 @@
             this.labelAverageUnit = new System.Windows.Forms.Label();
             this.labelMaximum = new System.Windows.Forms.Label();
             this.labelMinimum = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelPeakToPeak = new System.Windows.Forms.Label();
             this.textBoxMaximum = new System.Windows.Forms.TextBox();
             this.textBoxMinimum = new System.Windows.Forms.TextBox();
             this.textBoxPeakToPeak = new System.Windows.Forms.TextBox();
@@ -76,8 +75,8 @@
             this.groupBoxRecording.SuspendLayout();
             this.tableLayoutPanelRecording.SuspendLayout();
             this.flowLayoutPanelRecordingButtons.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBoxStatistics.SuspendLayout();
+            this.tableLayoutPanelStatistics.SuspendLayout();
             this.flowLayoutPanelStatisticsButtons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,7 +96,7 @@
             this.tableLayoutPanelMain.Controls.Add(this.labelStatus, 0, 6);
             this.tableLayoutPanelMain.Controls.Add(this.buttonDisconnect, 2, 1);
             this.tableLayoutPanelMain.Controls.Add(this.groupBoxRecording, 0, 4);
-            this.tableLayoutPanelMain.Controls.Add(this.groupBox1, 0, 5);
+            this.tableLayoutPanelMain.Controls.Add(this.groupBoxStatistics, 0, 5);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
@@ -189,19 +188,19 @@
             // 
             this.tableLayoutPanelMain.SetColumnSpan(this.textBoxStatus, 3);
             this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxStatus.Location = new System.Drawing.Point(3, 362);
+            this.textBoxStatus.Location = new System.Drawing.Point(3, 356);
             this.textBoxStatus.Multiline = true;
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxStatus.Size = new System.Drawing.Size(628, 142);
+            this.textBoxStatus.Size = new System.Drawing.Size(628, 148);
             this.textBoxStatus.TabIndex = 6;
             // 
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(3, 346);
+            this.labelStatus.Location = new System.Drawing.Point(3, 340);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(40, 13);
             this.labelStatus.TabIndex = 7;
@@ -329,73 +328,72 @@
             this.buttonStopRecording.UseVisualStyleBackColor = true;
             this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
             // 
-            // groupBox1
+            // groupBoxStatistics
             // 
-            this.groupBox1.AutoSize = true;
-            this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanelMain.SetColumnSpan(this.groupBox1, 3);
-            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 205);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(628, 138);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Statistics";
+            this.groupBoxStatistics.AutoSize = true;
+            this.groupBoxStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanelMain.SetColumnSpan(this.groupBoxStatistics, 3);
+            this.groupBoxStatistics.Controls.Add(this.tableLayoutPanelStatistics);
+            this.groupBoxStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxStatistics.Location = new System.Drawing.Point(3, 205);
+            this.groupBoxStatistics.Name = "groupBoxStatistics";
+            this.groupBoxStatistics.Size = new System.Drawing.Size(628, 132);
+            this.groupBoxStatistics.TabIndex = 9;
+            this.groupBoxStatistics.TabStop = false;
+            this.groupBoxStatistics.Text = "Statistics";
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelStatistics
             // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanelStatisticsButtons, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.labelNumberOfSamples, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelAverage, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxNumberOfSamples, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelDurationUnit, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxDuration, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxAverage, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelAverageUnit, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelMaximum, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelMinimum, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxMaximum, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxMinimum, 4, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxPeakToPeak, 4, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelMaximumUnit, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelMinimumUnit, 5, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelPeakToPeakUnit, 5, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(622, 119);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanelStatistics.AutoSize = true;
+            this.tableLayoutPanelStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanelStatistics.ColumnCount = 6;
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStatistics.Controls.Add(this.flowLayoutPanelStatisticsButtons, 0, 3);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelNumberOfSamples, 0, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelDuration, 0, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelAverage, 0, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxNumberOfSamples, 1, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelDurationUnit, 2, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxDuration, 1, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxAverage, 1, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelAverageUnit, 2, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMaximum, 3, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMinimum, 3, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelPeakToPeak, 3, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxMaximum, 4, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxMinimum, 4, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxPeakToPeak, 4, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMaximumUnit, 5, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMinimumUnit, 5, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelPeakToPeakUnit, 5, 2);
+            this.tableLayoutPanelStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelStatistics.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanelStatistics.Name = "tableLayoutPanelStatistics";
+            this.tableLayoutPanelStatistics.RowCount = 4;
+            this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelStatistics.Size = new System.Drawing.Size(622, 113);
+            this.tableLayoutPanelStatistics.TabIndex = 0;
             // 
             // flowLayoutPanelStatisticsButtons
             // 
             this.flowLayoutPanelStatisticsButtons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelStatisticsButtons.AutoSize = true;
             this.flowLayoutPanelStatisticsButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanelStatisticsButtons, 6);
+            this.tableLayoutPanelStatistics.SetColumnSpan(this.flowLayoutPanelStatisticsButtons, 6);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonStartStatistics);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonStopStatistics);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonResetStatistics);
-            this.flowLayoutPanelStatisticsButtons.Controls.Add(this.textBox1);
             this.flowLayoutPanelStatisticsButtons.Location = new System.Drawing.Point(3, 81);
             this.flowLayoutPanelStatisticsButtons.Name = "flowLayoutPanelStatisticsButtons";
-            this.flowLayoutPanelStatisticsButtons.Size = new System.Drawing.Size(616, 35);
+            this.flowLayoutPanelStatisticsButtons.Size = new System.Drawing.Size(616, 29);
             this.flowLayoutPanelStatisticsButtons.TabIndex = 0;
             // 
             // buttonStartStatistics
@@ -434,17 +432,6 @@
             this.buttonResetStatistics.UseVisualStyleBackColor = true;
             this.buttonResetStatistics.Click += new System.EventHandler(this.buttonResetStatistics_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 32);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(628, 0);
-            this.textBox1.TabIndex = 7;
-            // 
             // labelNumberOfSamples
             // 
             this.labelNumberOfSamples.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -456,16 +443,16 @@
             this.labelNumberOfSamples.Text = "Number of Samples";
             this.labelNumberOfSamples.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label2
+            // labelDuration
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Duration";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelDuration.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelDuration.AutoSize = true;
+            this.labelDuration.Location = new System.Drawing.Point(55, 32);
+            this.labelDuration.Name = "labelDuration";
+            this.labelDuration.Size = new System.Drawing.Size(47, 13);
+            this.labelDuration.TabIndex = 2;
+            this.labelDuration.Text = "Duration";
+            this.labelDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelAverage
             // 
@@ -555,16 +542,16 @@
             this.labelMinimum.Text = "Minimum";
             this.labelMinimum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label1
+            // labelPeakToPeak
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(326, 58);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Peak-to-Peak";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelPeakToPeak.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelPeakToPeak.AutoSize = true;
+            this.labelPeakToPeak.Location = new System.Drawing.Point(326, 58);
+            this.labelPeakToPeak.Name = "labelPeakToPeak";
+            this.labelPeakToPeak.Size = new System.Drawing.Size(72, 13);
+            this.labelPeakToPeak.TabIndex = 11;
+            this.labelPeakToPeak.Text = "Peak-to-Peak";
+            this.labelPeakToPeak.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxMaximum
             // 
@@ -659,10 +646,10 @@
             this.tableLayoutPanelRecording.PerformLayout();
             this.flowLayoutPanelRecordingButtons.ResumeLayout(false);
             this.flowLayoutPanelRecordingButtons.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.groupBoxStatistics.ResumeLayout(false);
+            this.groupBoxStatistics.PerformLayout();
+            this.tableLayoutPanelStatistics.ResumeLayout(false);
+            this.tableLayoutPanelStatistics.PerformLayout();
             this.flowLayoutPanelStatisticsButtons.ResumeLayout(false);
             this.flowLayoutPanelStatisticsButtons.PerformLayout();
             this.ResumeLayout(false);
@@ -690,14 +677,13 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRecordingButtons;
         private System.Windows.Forms.Button buttonSetCSVOutputPath;
         private System.Windows.Forms.TextBox textBoxStatus;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBoxStatistics;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelStatistics;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStatisticsButtons;
         private System.Windows.Forms.Button buttonStartStatistics;
         private System.Windows.Forms.Button buttonStopStatistics;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label labelNumberOfSamples;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelDuration;
         private System.Windows.Forms.Label labelAverage;
         private System.Windows.Forms.TextBox textBoxNumberOfSamples;
         private System.Windows.Forms.Label labelDurationUnit;
@@ -706,7 +692,7 @@
         private System.Windows.Forms.Label labelAverageUnit;
         private System.Windows.Forms.Label labelMaximum;
         private System.Windows.Forms.Label labelMinimum;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelPeakToPeak;
         private System.Windows.Forms.TextBox textBoxMaximum;
         private System.Windows.Forms.TextBox textBoxMinimum;
         private System.Windows.Forms.TextBox textBoxPeakToPeak;

@@ -703,13 +703,19 @@ namespace QSBLinearEncoderReader
             decimal average_mm = 0.0M;
             decimal maximum_mm = 0.0M;
             decimal minimum_mm = 0.0M;
+            decimal encoderZeroPositionCount = 0;
+
+            lock (_encoderCountLock)
+            {
+                encoderZeroPositionCount = _encoderZeroPositionCount;
+            }
 
             lock (_statisticsLock)
             {
                 numberOfSamples = _statisticsNumberOfSamples;
-                average_mm = _statisticsAverage * _encoderResolution_nm * (decimal)1e-6;
-                maximum_mm = _statisticsMaximum * _encoderResolution_nm * (decimal)1e-6;
-                minimum_mm = _statisticsMinimum * _encoderResolution_nm * (decimal)1e-6;
+                average_mm = (_statisticsAverage - encoderZeroPositionCount) * _encoderResolution_nm * (decimal)1e-6;
+                maximum_mm = (_statisticsMaximum - encoderZeroPositionCount) * _encoderResolution_nm * (decimal)1e-6;
+                minimum_mm = (_statisticsMinimum - encoderZeroPositionCount) * _encoderResolution_nm * (decimal)1e-6;
             }
 
             duration_s = (decimal)numberOfSamples / 512;
@@ -735,7 +741,14 @@ namespace QSBLinearEncoderReader
 
             Logger.Log("New encoder zero position count: " + newEncoderZeroPositionCount);
 
-            // TODO: restart the statistics
+            // Reset the statistics
+            lock (_statisticsLock)
+            {
+                if (_statisticsOngoing) {
+                    StopStatistics();
+                    StartStatistics();
+                }
+            }
 
             return newEncoderZeroPositionCount;
         }
