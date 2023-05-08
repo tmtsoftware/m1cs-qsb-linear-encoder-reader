@@ -152,7 +152,7 @@
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(194, 23);
             this.buttonConnect.TabIndex = 0;
-            this.buttonConnect.Text = "Connect to QSB Encoder Reader...";
+            this.buttonConnect.Text = "&Connect to QSB Encoder Reader...";
             this.buttonConnect.UseVisualStyleBackColor = true;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
@@ -166,7 +166,7 @@
             this.buttonSetZero.Name = "buttonSetZero";
             this.buttonSetZero.Size = new System.Drawing.Size(194, 23);
             this.buttonSetZero.TabIndex = 2;
-            this.buttonSetZero.Text = "Zero Encoder Count";
+            this.buttonSetZero.Text = "&Zero Encoder Count";
             this.buttonSetZero.UseVisualStyleBackColor = true;
             this.buttonSetZero.Click += new System.EventHandler(this.buttonSetZero_Click);
             // 
@@ -181,7 +181,7 @@
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(194, 23);
             this.buttonQuit.TabIndex = 5;
-            this.buttonQuit.Text = "Quit";
+            this.buttonQuit.Text = "&Quit";
             this.buttonQuit.UseVisualStyleBackColor = true;
             this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
             // 
@@ -218,7 +218,7 @@
             this.buttonDisconnect.Name = "buttonDisconnect";
             this.buttonDisconnect.Size = new System.Drawing.Size(194, 23);
             this.buttonDisconnect.TabIndex = 1;
-            this.buttonDisconnect.Text = "Disconnect from QSB Enoder Reader";
+            this.buttonDisconnect.Text = "&Disconnect from QSB Enoder Reader";
             this.buttonDisconnect.UseVisualStyleBackColor = true;
             this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
             // 
@@ -297,7 +297,7 @@
             this.buttonSetCSVOutputPath.Name = "buttonSetCSVOutputPath";
             this.buttonSetCSVOutputPath.Size = new System.Drawing.Size(126, 23);
             this.buttonSetCSVOutputPath.TabIndex = 0;
-            this.buttonSetCSVOutputPath.Text = "Set CSV Output Path...";
+            this.buttonSetCSVOutputPath.Text = "Set CSV &Output Path...";
             this.buttonSetCSVOutputPath.UseVisualStyleBackColor = true;
             this.buttonSetCSVOutputPath.Click += new System.EventHandler(this.buttonSetCSVOutputPath_Click);
             // 
@@ -311,7 +311,7 @@
             this.buttonStartRecording.Name = "buttonStartRecording";
             this.buttonStartRecording.Size = new System.Drawing.Size(91, 23);
             this.buttonStartRecording.TabIndex = 3;
-            this.buttonStartRecording.Text = "Start Recording";
+            this.buttonStartRecording.Text = "S&tart Recording";
             this.buttonStartRecording.UseVisualStyleBackColor = true;
             this.buttonStartRecording.Click += new System.EventHandler(this.buttonStartRecording_Click);
             // 
@@ -325,7 +325,7 @@
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.Size = new System.Drawing.Size(91, 23);
             this.buttonStopRecording.TabIndex = 4;
-            this.buttonStopRecording.Text = "Stop Recording";
+            this.buttonStopRecording.Text = "Stop R&ecording";
             this.buttonStopRecording.UseVisualStyleBackColor = true;
             this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
             // 
@@ -406,7 +406,7 @@
             this.buttonStartStatistics.Name = "buttonStartStatistics";
             this.buttonStartStatistics.Size = new System.Drawing.Size(39, 23);
             this.buttonStartStatistics.TabIndex = 8;
-            this.buttonStartStatistics.Text = "Start";
+            this.buttonStartStatistics.Text = "St&art";
             this.buttonStartStatistics.UseVisualStyleBackColor = true;
             this.buttonStartStatistics.Click += new System.EventHandler(this.buttonStartStatistics_Click);
             // 
@@ -418,7 +418,7 @@
             this.buttonStopStatistics.Name = "buttonStopStatistics";
             this.buttonStopStatistics.Size = new System.Drawing.Size(39, 23);
             this.buttonStopStatistics.TabIndex = 9;
-            this.buttonStopStatistics.Text = "Stop";
+            this.buttonStopStatistics.Text = "Sto&p";
             this.buttonStopStatistics.UseVisualStyleBackColor = true;
             this.buttonStopStatistics.Click += new System.EventHandler(this.buttonStopStatistics_Click);
             // 
@@ -430,7 +430,7 @@
             this.buttonResetStatistics.Name = "buttonResetStatistics";
             this.buttonResetStatistics.Size = new System.Drawing.Size(45, 23);
             this.buttonResetStatistics.TabIndex = 10;
-            this.buttonResetStatistics.Text = "Reset";
+            this.buttonResetStatistics.Text = "&Reset";
             this.buttonResetStatistics.UseVisualStyleBackColor = true;
             this.buttonResetStatistics.Click += new System.EventHandler(this.buttonResetStatistics_Click);
             // 
