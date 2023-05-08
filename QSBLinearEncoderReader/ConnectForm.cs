@@ -54,6 +54,7 @@ namespace QSBLinearEncoderReader
             {
                 availablePortNames.Add(s);
             }
+            availablePortNames.Add("Simulated Device");
             comboBoxCOMPort.DataSource = availablePortNames;
             comboBoxCOMPort.DropDownStyle = ComboBoxStyle.DropDown;
         }
