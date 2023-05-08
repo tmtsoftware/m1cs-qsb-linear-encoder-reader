@@ -57,6 +57,12 @@ namespace QSBLinearEncoderReader
                     Properties.Settings.Default.Direction = connectDialog.Direction;
                     Properties.Settings.Default.Save();
                 }
+
+                // Start statistics automatically.
+                if (connected)
+                {
+                    StartStatistics();
+                }
             }
 
             connectDialog.Dispose();
