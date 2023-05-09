@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="QSBLinearEncoderReader.exe" version="1.1.0.0" publicKeyToken="b653ea9db1854442" language="en-US" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="TMT_icon_48x48.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="QSBLinearEncoderReader" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="QSBLinearEncoderReader.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="QSBLinearEncoderReader.exe" size="37360">
+      <assemblyIdentity name="QSBLinearEncoderReader" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>poosnnNRNWOmFS9hsDffTPv2hWd0MCMtpuxHIhiPNuM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="USDigital.dll" size="135280">
+      <assemblyIdentity name="USDigital" version="1.0.38.0" publicKeyToken="CC248AE4B20C61C1" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>K3w/jRAwPjkJoJI4c8pf7t41F1k4NHupeg0Jit8IuDY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="USDQSB.dll" size="606320">
+      <assemblyIdentity name="USDQSB" version="1.0.46.4" publicKeyToken="CC248AE4B20C61C1" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>914vIYBjOP8LxVX3FDIaRMXnD++kU3uSWuLBAqH7Z7A=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="QSBLinearEncoderReader.exe.config" size="187">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>+CM46OnHRrXZXNLMx7+U3V3iubiYL//d8hGOR13lDhU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="TMT_icon_48x48.ico" size="9662">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>93Z46CovxmrKKK1HpRxPcbARwqWVeg6Vu6z/qGYU8HE=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=TNAKMAOTO-LAP1\tnakamoto" issuerKeyHash="c8e94c7462a5ce55b1baae42b88a288500a22a45" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>7P0Mfc98nWRwowZ5RoclaZf68mjo3soIScSOonv5xh4=</DigestValue></Reference></SignedInfo><SignatureValue>POINWHwyW06+dWdRMGMu3ULERJp99mY7l5xQCnhrdaadwo11C7FIIeqYJ8KuFxIzNhrvMmpEn+taIqMn2PraynTWrwW9sR5HYPw8AyxGvUTTUa6zk4yQCYAMprAv714srfe8z9vN7356BitzVGZzAPI+OGpB7RrdtRobDinzQP0=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>1/oCWbC/0+VQ37phPDDYz1m15+brqNgM+D+jTcmw2dceFP+L/38w/QgYnnYU4ZO7tvKcYv+dOrs3ZVXLkD4zI+caVkOWK28l/FcTxMnA3gR7Zn3U+VbGZu2LjssVpgskHbDsX2Wr+qjeZMSs8EaGHjOBt+OfLo39aziq2mOi4Z0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="1ec6f97ba28ec44908cadee868f2fa97692587467906a370649d7ccf7d0cfdec" Description="" Url=""><as:assemblyIdentity name="QSBLinearEncoderReader.exe" version="1.1.0.0" publicKeyToken="b653ea9db1854442" language="en-US" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=TNAKMAOTO-LAP1\tnakamoto</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>m1l8jjoswFLmFDvTpLIxS5yhdaP4KQCcYerOXqSD57o=</DigestValue></Reference></SignedInfo><SignatureValue>Dmh4iGTON0TW/wA7TNa2Skj3G+IckJmEcoD+umdEagZLgQo/7AK3WDaMnGEL4z+pKxRrvRQDxafEfrs72e3WG2ElNZRoNOoJxioNSDeQVXnJSIgiOoUVxkrz1tdfGv+EHjuFcBWVg0xPkCBgDW68a4MQVACy4sX1qE3bLr63WKQ=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>1/oCWbC/0+VQ37phPDDYz1m15+brqNgM+D+jTcmw2dceFP+L/38w/QgYnnYU4ZO7tvKcYv+dOrs3ZVXLkD4zI+caVkOWK28l/FcTxMnA3gR7Zn3U+VbGZu2LjssVpgskHbDsX2Wr+qjeZMSs8EaGHjOBt+OfLo39aziq2mOi4Z0=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB+TCCAWKgAwIBAgIQForBzuIuGJ9BEqT6op3CIjANBgkqhkiG9w0BAQsFADA7MTkwNwYDVQQDHjAAVABOAEEASwBNAEEATwBUAE8ALQBMAEEAUAAxAFwAdABuAGEAawBhAG0AbwB0AG8wHhcNMjIwODE5MTYyMDE2WhcNMjMwODE5MjIyMDE2WjA7MTkwNwYDVQQDHjAAVABOAEEASwBNAEEATwBUAE8ALQBMAEEAUAAxAFwAdABuAGEAawBhAG0AbwB0AG8wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANf6Almwv9PlUN+6YTww2M9Ztefm66jYDPg/o03JsNnXHhT/i/9/MP0IGJ52FOGTu7bynGL/nTq7N2VVy5A+MyPnGlZDlitvJfxXE8TJwN4Ee2Z91PlWxmbti47LFaYLJB2w7F9lq/qo3mTErPBGhh4zgbfjny6N/Ws4qtpjouGdAgMBAAEwDQYJKoZIhvcNAQELBQADgYEAnnSoEFd5ejwZK+s6MxNvIkMf6EVxr0iN8q+Sn0Jfmn2c59k1RlXCI5VPt2hJuCde0h7cPUyN5YqXVYWVKj9Dm8bwg0CiJOVlK9I8512jap4x7S2cjhHAJcoWNwiS7YaE+5F82V9WJJ6A4UXLpqXy5oof1qISs5TMETnG1Ve9eoU=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
