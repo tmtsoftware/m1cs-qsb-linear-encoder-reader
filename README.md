@@ -115,14 +115,20 @@ After that, press `Publish Now` button to generate an installer.
 ### 3. Zip the installer
 
 The installer is generated under `publish` folder in the project folder ([QSBlinearEncoderReader/](QSBLinearEncoderReader/)).
-Zip all flies in it and change the zip file name to `QSBLinearEncoderReader_w.x.y.z` where `w.x.y.z` is the version number.
+Copy the entire `publish` directory to somewhere else. From here on, we assume that it is copied to `C:\publish`.
+
+You should be able to see directories of old versions in `C:\publish\Application Files` like `QSBLinearEncoderReader_1_1_0_0`. Remove all directories of old versions and leave the latest version alone.
+For example, if you are going to release version w.x.y.z, remove all directories except `C:\publish\Application Files\QSBLinearEncoderReader_w_x_y_z`.
+Then, zip all files in `C:\publish` and change the zip file name to `QSBLinearEncoderReader_w.x.y.z.zip` where `w.x.y.z` is the version number.
 
 ![](images/publish_directory.png)
 
 ### 4. Commit and push code to GitHub
 
-At this point, commit all your local changes. The commit message should indicate that it is the new release version like "Version w.x.y.z".
-Then, push your local changes to `master` branch on https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git.
+At this point, commit all your local changes in your local git repository. Please make sure that your commit includes all changes and new files under the `publish` directory.
+Typically, `publish\QSBLinearEncoderReader.application` is updated and a new directory `publish\Application Files\QSBLinearEncoderReader_w_x_y_z` is added.
+The commit message should indicate that it is the new release version like "Version w.x.y.z".
+Then, push your local changes to the `master` branch on https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git.
 It is recommended to confirm that your last commit appears in https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git before going to the next step.
 
 ### 5. Draft a new release
@@ -152,6 +158,12 @@ Then, drag and drop the zip file you created to the bottom of the page and then 
 Now your new released version must appear in https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git.
 
 ![](images/released_version_on_github.png)
+
+Since version 1.4.1.0, everytime the application launches, it investigates 
+
+https://raw.githubusercontent.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/master/QSBLinearEncoderReader/publish/QSBLinearEncoderReader.application
+
+and see if there is a new version. If so, the user is suggested to upgrade to a new version and new versions are downloaded and installed automatically.
 
 ## Application examples and comamnd list of QSB-D
 
