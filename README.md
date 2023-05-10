@@ -159,11 +159,7 @@ Now your new released version must appear in https://github.com/tmtsoftware/m1cs
 
 ![](images/released_version_on_github.png)
 
-Since version 1.4.1.0, everytime the application launches, it investigates 
-
-https://raw.githubusercontent.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/master/QSBLinearEncoderReader/publish/QSBLinearEncoderReader.application
-
-and see if there is a new version. If so, the user is suggested to upgrade to a new version and new versions are downloaded and installed automatically.
+Since version 1.4.1.0, every time the application launches, it investigates [QSBLinearEncoderReader/publish/QSBLinearEncoderReader.application in the `master` branch](https://raw.githubusercontent.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/master/QSBLinearEncoderReader/publish/QSBLinearEncoderReader.application) and see if there is a new version. If so, the user is suggested to upgrade to a new version and new versions are downloaded and installed automatically.
 
 ## Application examples and comamnd list of QSB-D
 
