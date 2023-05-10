@@ -12,17 +12,18 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>https://raw.githubusercontent.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/master/QSBLinearEncoderReader/publish/</InstallUrl>
     <SupportUrl>https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader</SupportUrl>
     <ErrorReportUrl>https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/issues</ErrorReportUrl>
     <TargetCulture>en-US</TargetCulture>
@@ -59,16 +60,16 @@
     <ApplicationIcon>TMT_icon_48x48.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>255D2EA1C6B2DDA4ED40C7F968C1A684811681DB</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C7BA8A557185714692812F4B590FB880A909ADFE</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>QSBLinearEncoderReader_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>tnakamoto_tmt.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -128,6 +129,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="tnakamoto_tmt.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
