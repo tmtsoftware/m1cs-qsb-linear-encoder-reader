@@ -106,7 +106,7 @@ Change the version number in `AssemblyVersion` and `AssemblyFileVersion` at the 
 
 ### 2. Generate installer
 
-Double-click and open Properties in the Solution Explorer, and select `Publish` in the left panel of the Properties pane.
+Double-click and open `Properties` in the Solution Explorer, and select `Publish` in the left panel of the Properties pane.
 Then, change the publish version to match what you set in [AssemblyInfo.cs](QSBLinearEncoderReader/Properties/AssemblyInfo.cs).
 After that, press `Publish Now` button to generate an installer.
 
@@ -115,21 +115,31 @@ After that, press `Publish Now` button to generate an installer.
 ### 3. Zip the installer
 
 The installer is generated under `publish` folder in the project folder ([QSBlinearEncoderReader/](QSBLinearEncoderReader/)).
-Copy the entire `publish` directory to somewhere else. From here on, we assume that it is copied to `C:\publish`.
+Copy all fikes and directorie under the `publish` directory to somewhere else. From here on, we assume that they are copied to `C:\publish`.
 
-You should be able to see directories of old versions in `C:\publish\Application Files` like `QSBLinearEncoderReader_1_1_0_0`. Remove all directories of old versions and leave the latest version alone.
+![](images/copy_installer_to_temporary_directory.png)
+
+You should be able to see directories of old versions in `C:\publish\Application Files` like `QSBLinearEncoderReader_1_1_0_0`. Remove all directories of old versions and leave the latest version only.
 For example, if you are going to release version w.x.y.z, remove all directories except `C:\publish\Application Files\QSBLinearEncoderReader_w_x_y_z`.
-Then, zip all files in `C:\publish` and change the zip file name to `QSBLinearEncoderReader_w.x.y.z.zip` where `w.x.y.z` is the version number.
 
-![](images/publish_directory.png)
+![](images/installer_for_old_versions.png)
+
+![](images/installer_of_latest_version.png)
+
+Then, zip all files in `C:\publish`. Make sure that `setup.exe` and `QSBLinearEncoderReader.application` are included.
+Finally, change the zip file name to `QSBLinearEncoderReader_w.x.y.z.zip` where `w.x.y.z` is the version number.
 
 ### 4. Commit and push code to GitHub
 
 At this point, commit all your local changes in your local git repository. Please make sure that your commit includes all changes and new files under the `publish` directory.
-Typically, `publish\QSBLinearEncoderReader.application` is updated and a new directory `publish\Application Files\QSBLinearEncoderReader_w_x_y_z` is added.
+Typically, [QSBLinearEncoderReader\publish\QSBLinearEncoderReader.application](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/blob/master/QSBLinearEncoderReader/publish/QSBLinearEncoderReader.application) is updated and a new directory [publish\Application Files\QSBLinearEncoderReader_w_x_y_z](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/tree/master/QSBLinearEncoderReader/publish/Application%20Files) is added.
 The commit message should indicate that it is the new release version like "Version w.x.y.z".
 Then, push your local changes to the `master` branch on https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git.
 It is recommended to confirm that your last commit appears in https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader.git before going to the next step.
+
+Note: Contents under the [QSBLinearEncoderReader\publish](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/blob/master/QSBLinearEncoderReader/publish/) directory in the `master` branch are referenced by the automatic application updater through raw.githubusercontent.com (e.g. https://raw.githubusercontent.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/master/QSBLinearEncoderReader/publish/QSBLinearEncoderReader.application). If you want to see this automatic application updater settings, double-click and open `Properties` in the Solution Explorer, select `Publish` in the left panel of the Properties pane and press `Updates...` button. You should be able to see `Application Updates` dialog as shown below.
+
+![](images/application_updates_setting.png)
 
 ### 5. Draft a new release
 
@@ -149,7 +159,7 @@ The tag name must be `vw.x.y.z` where `w.x.y.z` is the version number. Don't for
 Enter the release title and the release description. The title should be "Version w.x.y.z" where `w.x.y.z` is the actual version number.
 The release description should include the summary of changes from the previous version.
 
-Then, drag and drop the zip file you created to the bottom of the page and then press `Publish release` button.
+Then, drag and drop the zip file you created (i.e. `QSBLinearEncoderReader_w.x.y.z.zip`) to the bottom of the page and then press `Publish release` button.
 
 ![](images/new_release_on_github.png)
 
