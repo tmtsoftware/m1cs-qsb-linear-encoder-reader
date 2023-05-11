@@ -9,27 +9,39 @@ This is a simple Windows application that reads an encoder count through [US Dig
 
 ## Insallation
 
-If you have an old version installed in your system, remove it first. You can use [a standard Windows procedure](https://support.microsoft.com/en-us/windows/uninstall-or-remove-apps-and-programs-in-windows-4b55f974-2cc6-2d2b-d092-5905080eaf98) to remove QSB Linear Encoder Reader application. The quickest way is to find `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu, right click it and select `Uninstall`.
-
-After your confirm that your system does not have an old version, go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version.
+Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version named QSBLinearEncoderReader_w_x_y_z.zip where w_x_y_z is the version number (e.g. QSBLinearEncoderReader_1_4_2_0.zip).
 
 <img src="images/download_the_latest_version.png" width="342" height="211">
 
-Then, extract the zip file, run `setup.exe` in it and follow the instructions to complete the installation. 
-You may be asked about the security a couple of times, but please ignore them and proceed.
+Once you downloaded the zip file, right click it in the Explorer and select `Properties`. In the Properties dialog, open `General` tab and check if you can see "Unblock" checkbox in the bottom. If so, check the box and press `Apply` button. Now the checkbox should be gone. Once you confirm that the checkbox disappears, click `OK` button and extract this zip file as usual.
 
-When the installation process is complete, the application automatically launches.
-If not, or if you want to launch it again, select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
+![](images/blocked_zip_file.png)
 
-<img src="images/windows_menu.png" width="158" height="308">
+![](images/unblock_checked.png)
+
+![](images/unblocked_zip_file.png)
+
+Once extracted, run `setup.exe` and follow the instructions to complete the installation.
+
+![](images/publish_directory.png)
+
+If the installation is successful, the application launches automatically. Just close it at this moment.
+
+Note: this application uses [ClickOnce](https://learn.microsoft.com/en-us/visualstudio/deployment/clickonce-security-and-deployment) technology, so the application is installed per user and you do not need administrative permission.
 
 ## Usage
 
 ### Prerequisite
 
-Before launching this application, connect your [QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) to an USB port of your computer.
+Before launching this application, make sure that you connected [QSB-D](https://www.usdigital.com/products/accessories/interfaces/usb/qsb/) to an USB port of your computer.
 Then, check the port name of the QSB-D with [US Digital Device Explorer](https://www.usdigital.com/support/resources/downloads/software/qsb-software/).
 Typically, it is "COMx" where "x" is an integer number (e.g. COM4).
+
+### Launch Application
+
+Select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Windows menu.
+
+<img src="images/windows_menu.png" width="158" height="308">
 
 ### Application usage
 
@@ -37,7 +49,7 @@ Once the main application window is shown, click `Connect to QSB Encoder Reader`
 
 <img src="images/init_screen.png" width="318" height="197">
 
-In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name in `COM Port:`, set other configuration items accordingly, and press the `Connect` button.
+In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name in `COM Port:`, set other configuration items accordingly and press the `Connect` button.
 
 <img src="images/connect_dialog.png">
 
@@ -65,6 +77,18 @@ So, please make sure that click `Stop Recording` button if you no longer need to
 Note that the timestamp is based on the 32-bit timestamp register in the QSB-D, which is incremented at 512 Hz.
 If you keep running this application more than 94.5 days, the timestamp register may be reset to 0.
 The timestamp register is most probably based on a free running counter in the QSB-D, so, when you want to correlate the recorded data in the CSV file with something else, please keep in mind that it can be slightly less or more than 512 Hz.
+
+## Upgrading
+
+Since [version 1.4.1.0](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases/tag/v1.4.1.0), the application automatically checks if a new version is available every time it launches. It is recommended to follow the instruction and upgrade to the latest version.
+
+Note: if you are using version 1.4.0.0 or older, the automatic version check feature is not available. If you want to upgrade to a newer version, you first need to [uninstall](#uninstall) the old version and install a new one.
+
+Note: if you want to downgrade to an old version, the recommended approach is to [uninstall](#uninstall) the existing version and install the old version.
+
+## Uninstall
+
+TODO: fill out here
 
 ## License
 
