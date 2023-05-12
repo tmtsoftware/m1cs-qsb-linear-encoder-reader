@@ -13,7 +13,7 @@ Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-read
 
 <img src="images/download_the_latest_version.png" width="342" height="211">
 
-Once you downloaded the zip file, right click it in the Explorer and select `Properties`. In the Properties dialog, open `General` tab and check if you can see "Unblock" checkbox in the bottom. If so, check the box and press `Apply` button. Now the checkbox should be gone. Once you confirm that the checkbox disappears, click `OK` button and extract this zip file as usual.
+Once you downloaded the zip file, right click it in the Explorer and select `Properties`. In the Properties dialog, open `General` tab and check if you can see "Unblock" checkbox in the bottom. If so, check the box and press `Apply` button. Now the checkbox should be gone. Once you confirm that the checkbox is not there, click `OK` button and extract this zip file as usual.
 
 <p float="left">
   <img src="images/blocked_zip_file.png" width="182 height="255" />
