@@ -9,7 +9,7 @@ This is a simple Windows application that reads an encoder count through [US Dig
 
 ## Insallation
 
-Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version named QSBLinearEncoderReader_w_x_y_z.zip where w_x_y_z is the version number (e.g. QSBLinearEncoderReader_1_4_2_0.zip).
+Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version named `QSBLinearEncoderReader_w_x_y_z.zip` where *w_x_y_z* is the version number (e.g. `QSBLinearEncoderReader_1_4_2_0.zip`).
 
 <img src="images/download_the_latest_version.png" width="342" height="211">
 
