@@ -16,18 +16,18 @@ Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-read
 Once you downloaded the zip file, right click it in the Explorer and select `Properties`. In the Properties dialog, open `General` tab and check if you can see "Unblock" checkbox in the bottom. If so, check the box and press `Apply` button. Now the checkbox should be gone. Once you confirm that the checkbox is not there, click `OK` button and extract this zip file as usual.
 
 <p float="left">
-  <img src="images/blocked_zip_file.png" width="182 height="255" />
-  <img src="images/unblock_checked.png" width="182 height="255" />
-  <img src="images/unblocked_zip_file.png" width="182 height="255" />
+  <img src="images/blocked_zip_file.png" width="182" height="255" />
+  <img src="images/unblock_checked.png" width="182" height="255" />
+  <img src="images/unblocked_zip_file.png" width="182" height="255" />
 </p>
-  
+
 Once extracted, run `setup.exe` and follow the instructions to complete the installation.
 
 <img src="images/publish_directory.png" width="426" height="206" />
 
 If the installation is successful, the application launches automatically. Just close it at this moment.
 
-Note: this application uses [ClickOnce](https://learn.microsoft.com/en-us/visualstudio/deployment/clickonce-security-and-deployment) technology, so the application is installed per user and you do not need administrative permission.
+*Note: this application uses [ClickOnce](https://learn.microsoft.com/en-us/visualstudio/deployment/clickonce-security-and-deployment) technology, so the application is installed per user and you do not need administrative permission.*
 
 ## Usage
 
@@ -80,11 +80,20 @@ The timestamp register is most probably based on a free running counter in the Q
 
 ## Upgrading
 
-Since [version 1.4.1.0](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases/tag/v1.4.1.0), the application automatically checks if a new version is available every time it launches. It is recommended to follow the instruction and upgrade to the latest version.
+Since [version 1.4.1.0](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases/tag/v1.4.1.0), the application automatically checks if a new version is available every time it launches. If "Update Available" dialog is shown as below, it means that a new version is available. Just click `OK` to install the latest version.
 
-Note: if you are using version 1.4.0.0 or older, the automatic version check feature is not available. If you want to upgrade to a newer version, you first need to [uninstall](#uninstall) the old version and install a new one.
+<img src="images/update_available.png" width="278" height="105" />
 
-Note: if you want to downgrade to an old version, the recommended approach is to [uninstall](#uninstall) the existing version and install the old version.
+After the latest version is successfully installed and launched, you may encounter a blue dialog titled "Windows protected your PC". Click "More info" link in the dialog and run "Run anyway" button. 
+
+<p float="left">
+  <img src-"images/windows_protected_your_pc.png" width="267" height="250" />
+  <img src="images/run_anyway.png" />
+</p>
+  
+*Note: if you are using version 1.4.0.0 or older, the automatic version check feature is not available. If you want to upgrade to a newer version, you first need to [uninstall](#uninstall) the old version and install a new one.*
+
+*Note: if you want to downgrade to an old version, the recommended approach is to [uninstall](#uninstall) the existing version and install the old version.*
 
 ## Uninstall
 
