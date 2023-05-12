@@ -88,7 +88,7 @@ After the latest version is successfully installed and launched, you may encount
 
 <p float="left">
   <img src-"images/windows_protected_your_pc.png" width="267" height="250" />
-  <img src="images/run_anyway.png" />
+  <img src="images/run_anyway.png" width="267" height="250" />
 </p>
   
 *Note: if you are using version 1.4.0.0 or older, the automatic version check feature is not available. If you want to upgrade to a newer version, you first need to [uninstall](#uninstall) the old version and install a new one.*
