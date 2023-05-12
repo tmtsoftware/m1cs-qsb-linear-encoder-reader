@@ -15,15 +15,15 @@ Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-read
 
 Once you downloaded the zip file, right click it in the Explorer and select `Properties`. In the Properties dialog, open `General` tab and check if you can see "Unblock" checkbox in the bottom. If so, check the box and press `Apply` button. Now the checkbox should be gone. Once you confirm that the checkbox disappears, click `OK` button and extract this zip file as usual.
 
-![](images/blocked_zip_file.png)
-
-![](images/unblock_checked.png)
-
-![](images/unblocked_zip_file.png)
-
+<p float="left">
+  <img src="images/blocked_zip_file.png" width="182 height="255" />
+  <img src="images/unblock_checked.png" width="182 height="255" />
+  <img src="images/unblocked_zip_file.png" width="182 height="255" />
+</p>
+  
 Once extracted, run `setup.exe` and follow the instructions to complete the installation.
 
-![](images/publish_directory.png)
+<img src="images/publish_directory.png" width="426" height="206" />
 
 If the installation is successful, the application launches automatically. Just close it at this moment.
 
