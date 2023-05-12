@@ -97,7 +97,9 @@ After the latest version is successfully installed and launched, you may encount
 
 ## Uninstall
 
-TODO: fill out here
+If you want to uninstall this application, open Control Panel and select `Uninstall a program`. Then, a list of installed applications is shown. Find "QSB Linear Encoder Reader", right-click it, select "Uninstall/Change" and follow dialog instructions to complete the uninstallation.
+
+<img src="images/uninstall.png" width="563" height="317" />
 
 ## License
 
