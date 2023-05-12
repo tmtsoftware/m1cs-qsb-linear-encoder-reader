@@ -87,7 +87,7 @@ Since [version 1.4.1.0](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-r
 After the latest version is successfully installed and launched, you may encounter a blue dialog titled "Windows protected your PC". Click "More info" link in the dialog and run "Run anyway" button. 
 
 <p float="left">
-  <img src-"images/windows_protected_your_pc.png" width="267" height="250" />
+  <img src="images/windows_protected_your_pc.png" width="267" height="250" />
   <img src="images/run_anyway.png" width="267" height="250" />
 </p>
   
