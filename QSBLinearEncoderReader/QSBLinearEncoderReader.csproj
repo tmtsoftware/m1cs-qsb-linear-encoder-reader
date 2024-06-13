@@ -89,6 +89,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RecordingSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecordingSettingsForm.Designer.cs">
+      <DependentUpon>RecordingSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="ConnectForm.cs">
       <SubType>Form</SubType>
@@ -107,6 +113,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnectForm.resx">
       <DependentUpon>ConnectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecordingSettingsForm.resx">
+      <DependentUpon>RecordingSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

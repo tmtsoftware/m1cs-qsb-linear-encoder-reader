@@ -12,7 +12,7 @@ namespace QSBLinearEncoderReader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -92,6 +92,66 @@ namespace QSBLinearEncoderReader.Properties {
             }
             set {
                 this["BaudRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OutputDirectory {
+            get {
+                return ((string)(this["OutputDirectory"]));
+            }
+            set {
+                this["OutputDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Encoder_%Y%m%d_%H%M%S.csv")]
+        public string CSVFilename {
+            get {
+                return ((string)(this["CSVFilename"]));
+            }
+            set {
+                this["CSVFilename"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("512")]
+        public int RecordingInterval {
+            get {
+                return ((int)(this["RecordingInterval"]));
+            }
+            set {
+                this["RecordingInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("86400")]
+        public int MaxRecordsPerFile {
+            get {
+                return ((int)(this["MaxRecordsPerFile"]));
+            }
+            set {
+                this["MaxRecordsPerFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RecordAbsoluteTime {
+            get {
+                return ((bool)(this["RecordAbsoluteTime"]));
+            }
+            set {
+                this["RecordAbsoluteTime"] = value;
             }
         }
     }

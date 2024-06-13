@@ -44,7 +44,7 @@
             this.labelCSVOutputPath = new System.Windows.Forms.Label();
             this.textBoxCSVOutputPath = new System.Windows.Forms.TextBox();
             this.flowLayoutPanelRecordingButtons = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonSetCSVOutputPath = new System.Windows.Forms.Button();
+            this.buttonRecordingSettings = new System.Windows.Forms.Button();
             this.buttonStartRecording = new System.Windows.Forms.Button();
             this.buttonStopRecording = new System.Windows.Forms.Button();
             this.groupBoxStatistics = new System.Windows.Forms.GroupBox();
@@ -280,25 +280,23 @@
             this.flowLayoutPanelRecordingButtons.AutoSize = true;
             this.flowLayoutPanelRecordingButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanelRecording.SetColumnSpan(this.flowLayoutPanelRecordingButtons, 2);
-            this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonSetCSVOutputPath);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStartRecording);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStopRecording);
+            this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonRecordingSettings);
             this.flowLayoutPanelRecordingButtons.Location = new System.Drawing.Point(3, 29);
             this.flowLayoutPanelRecordingButtons.Name = "flowLayoutPanelRecordingButtons";
             this.flowLayoutPanelRecordingButtons.Size = new System.Drawing.Size(616, 29);
             this.flowLayoutPanelRecordingButtons.TabIndex = 2;
             // 
-            // buttonSetCSVOutputPath
+            // buttonRecordingSettings
             // 
-            this.buttonSetCSVOutputPath.AutoSize = true;
-            this.buttonSetCSVOutputPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonSetCSVOutputPath.Location = new System.Drawing.Point(3, 3);
-            this.buttonSetCSVOutputPath.Name = "buttonSetCSVOutputPath";
-            this.buttonSetCSVOutputPath.Size = new System.Drawing.Size(126, 23);
-            this.buttonSetCSVOutputPath.TabIndex = 0;
-            this.buttonSetCSVOutputPath.Text = "Set CSV &Output Path...";
-            this.buttonSetCSVOutputPath.UseVisualStyleBackColor = true;
-            this.buttonSetCSVOutputPath.Click += new System.EventHandler(this.buttonSetCSVOutputPath_Click);
+            this.buttonRecordingSettings.Location = new System.Drawing.Point(197, 3);
+            this.buttonRecordingSettings.Name = "buttonRecordingSettings";
+            this.buttonRecordingSettings.Size = new System.Drawing.Size(75, 23);
+            this.buttonRecordingSettings.TabIndex = 5;
+            this.buttonRecordingSettings.Text = "Settings...";
+            this.buttonRecordingSettings.UseVisualStyleBackColor = true;
+            this.buttonRecordingSettings.Click += new System.EventHandler(this.buttonRecordingSettings_Click);
             // 
             // buttonStartRecording
             // 
@@ -306,7 +304,7 @@
             this.buttonStartRecording.AutoSize = true;
             this.buttonStartRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStartRecording.Enabled = false;
-            this.buttonStartRecording.Location = new System.Drawing.Point(135, 3);
+            this.buttonStartRecording.Location = new System.Drawing.Point(3, 3);
             this.buttonStartRecording.Name = "buttonStartRecording";
             this.buttonStartRecording.Size = new System.Drawing.Size(91, 23);
             this.buttonStartRecording.TabIndex = 3;
@@ -320,7 +318,7 @@
             this.buttonStopRecording.AutoSize = true;
             this.buttonStopRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStopRecording.Enabled = false;
-            this.buttonStopRecording.Location = new System.Drawing.Point(232, 3);
+            this.buttonStopRecording.Location = new System.Drawing.Point(100, 3);
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.Size = new System.Drawing.Size(91, 23);
             this.buttonStopRecording.TabIndex = 4;
@@ -675,7 +673,6 @@
         private System.Windows.Forms.Label labelCSVOutputPath;
         private System.Windows.Forms.TextBox textBoxCSVOutputPath;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelRecordingButtons;
-        private System.Windows.Forms.Button buttonSetCSVOutputPath;
         private System.Windows.Forms.TextBox textBoxStatus;
         private System.Windows.Forms.GroupBox groupBoxStatistics;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelStatistics;
@@ -700,6 +697,7 @@
         private System.Windows.Forms.Label labelMinimumUnit;
         private System.Windows.Forms.Label labelPeakToPeakUnit;
         private System.Windows.Forms.Button buttonResetStatistics;
+        private System.Windows.Forms.Button buttonRecordingSettings;
     }
 }
 

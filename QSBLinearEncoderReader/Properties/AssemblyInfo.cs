@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TMT International Observatory")]
 [assembly: AssemblyProduct("QSB Linear Encoder Reader")]
-[assembly: AssemblyCopyright("Copyright 2022 - TMT International Observatory")]
+[assembly: AssemblyCopyright("Copyright 2022 - 2024 TMT International Observatory")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

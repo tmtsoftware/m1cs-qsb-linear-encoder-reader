@@ -20,5 +20,20 @@
     <Setting Name="BaudRate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">230400</Value>
     </Setting>
+    <Setting Name="OutputDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CSVFilename" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Encoder_%Y%m%d_%H%M%S.csv</Value>
+    </Setting>
+    <Setting Name="RecordingInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">512</Value>
+    </Setting>
+    <Setting Name="MaxRecordsPerFile" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">86400</Value>
+    </Setting>
+    <Setting Name="RecordAbsoluteTime" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -103,18 +103,22 @@ namespace QSBLinearEncoderReader
             StopRecording();
         }
 
-        private void buttonSetCSVOutputPath_Click(object sender, EventArgs e)
+        private void buttonRecordingSettings_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files|*.*";
-            saveFileDialog.FilterIndex = 1;
-            saveFileDialog.RestoreDirectory = true;
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            if (_recording)
             {
-                textBoxCSVOutputPath.Text = saveFileDialog.FileName;
-                SetStartRecordingButtonState();
+                return;
             }
+
+            RecordingSettingsForm settingsDialog = new RecordingSettingsForm();
+            DialogResult dialogResult = settingsDialog.ShowDialog();
+
+            if (dialogResult == DialogResult.OK)
+            {
+                // TODO: implement
+            }
+
+            settingsDialog.Dispose();
         }
 
         private void buttonStartStatistics_Click(object sender, EventArgs e)
@@ -292,7 +296,7 @@ namespace QSBLinearEncoderReader
             buttonConnect.Enabled = false;
 
             _connected = true;
-            SetStartRecordingButtonState();
+            SetRecordingButtonsState();
             SetStatisticsButtonsState();
 
             return true;
@@ -332,7 +336,7 @@ namespace QSBLinearEncoderReader
             buttonConnect.Enabled = true;
 
             _connected = false;
-            SetStartRecordingButtonState();
+            SetRecordingButtonsState();
             SetStatisticsButtonsState();
         }
 
@@ -342,7 +346,7 @@ namespace QSBLinearEncoderReader
             string failureMessage = "";
 
             buttonStartRecording.Enabled = false;
-            buttonSetCSVOutputPath.Enabled = false;
+            buttonRecordingSettings.Enabled = false;
 
             lock (_controllerLock)
             {
@@ -367,8 +371,8 @@ namespace QSBLinearEncoderReader
 
             if (failed)
             {
-                SetStartRecordingButtonState();
-                buttonSetCSVOutputPath.Enabled = true;
+                _recording = false;
+                SetRecordingButtonsState();
                 AppendOneLineLogMessage("Failed to start recording to " + fileName);
                 AppendOneLineLogMessage(failureMessage);
                 return;
@@ -376,9 +380,7 @@ namespace QSBLinearEncoderReader
 
             AppendOneLineLogMessage("Started recording to " + fileName);
 
-            SetStartRecordingButtonState();
-            buttonStopRecording.Enabled = true;
-            buttonSetCSVOutputPath.Enabled = false;
+            SetRecordingButtonsState();
         }
 
         private void StopRecording()
@@ -398,9 +400,7 @@ namespace QSBLinearEncoderReader
 
             AppendOneLineLogMessage("Stopped recording.");
 
-            SetStartRecordingButtonState();
-            buttonStopRecording.Enabled = false;
-            buttonSetCSVOutputPath.Enabled = true;
+            SetRecordingButtonsState();
         }
 
         private void StartStatistics()
@@ -466,15 +466,25 @@ namespace QSBLinearEncoderReader
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
 
-        private void SetStartRecordingButtonState()
+        private void SetRecordingButtonsState()
         {
-            if (_connected && !_recording && textBoxCSVOutputPath.Text.Length > 0)
+            if (!_connected)
+            {
+                buttonStartRecording.Enabled = false;
+                buttonStopRecording.Enabled = false;
+                buttonRecordingSettings.Enabled = true;
+            }
+            else if (!_recording)
             {
                 buttonStartRecording.Enabled = true;
+                buttonStopRecording.Enabled = false;
+                buttonRecordingSettings.Enabled = true;
             }
             else
             {
                 buttonStartRecording.Enabled = false;
+                buttonStopRecording.Enabled = true;
+                buttonRecordingSettings.Enabled = false;
             }
         }
 
