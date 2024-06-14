@@ -71,6 +71,9 @@
             this.labelMinimumUnit = new System.Windows.Forms.Label();
             this.labelPeakToPeakUnit = new System.Windows.Forms.Label();
             this.timerDisplayUpdateLoop = new System.Windows.Forms.Timer(this.components);
+            this.labelStdev = new System.Windows.Forms.Label();
+            this.textBoxStdev = new System.Windows.Forms.TextBox();
+            this.labelStdevUnit = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             this.groupBoxRecording.SuspendLayout();
             this.tableLayoutPanelRecording.SuspendLayout();
@@ -109,7 +112,7 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Size = new System.Drawing.Size(634, 468);
+            this.tableLayoutPanelMain.Size = new System.Drawing.Size(634, 507);
             this.tableLayoutPanelMain.TabIndex = 0;
             // 
             // labelEncoderReadingUnit
@@ -118,11 +121,11 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelEncoderReadingUnit.AutoSize = true;
             this.labelEncoderReadingUnit.Font = new System.Drawing.Font("MS UI Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelEncoderReadingUnit.Location = new System.Drawing.Point(320, 0);
+            this.labelEncoderReadingUnit.Location = new System.Drawing.Point(331, 0);
             this.labelEncoderReadingUnit.Name = "labelEncoderReadingUnit";
-            this.labelEncoderReadingUnit.Padding = new System.Windows.Forms.Padding(0, 10, 10, 10);
+            this.labelEncoderReadingUnit.Padding = new System.Windows.Forms.Padding(0, 11, 10, 11);
             this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReadingUnit, 4);
-            this.labelEncoderReadingUnit.Size = new System.Drawing.Size(100, 112);
+            this.labelEncoderReadingUnit.Size = new System.Drawing.Size(100, 116);
             this.labelEncoderReadingUnit.TabIndex = 0;
             this.labelEncoderReadingUnit.Text = "mm";
             this.labelEncoderReadingUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -133,11 +136,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelEncoderReading.AutoSize = true;
             this.labelEncoderReading.Font = new System.Drawing.Font("MS UI Gothic", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.labelEncoderReading.Location = new System.Drawing.Point(82, 0);
+            this.labelEncoderReading.Location = new System.Drawing.Point(93, 0);
             this.labelEncoderReading.Name = "labelEncoderReading";
-            this.labelEncoderReading.Padding = new System.Windows.Forms.Padding(10, 10, 0, 10);
+            this.labelEncoderReading.Padding = new System.Windows.Forms.Padding(10, 11, 0, 11);
             this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReading, 4);
-            this.labelEncoderReading.Size = new System.Drawing.Size(232, 112);
+            this.labelEncoderReading.Size = new System.Drawing.Size(232, 116);
             this.labelEncoderReading.TabIndex = 0;
             this.labelEncoderReading.Text = "-0.000000";
             this.labelEncoderReading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -147,9 +150,9 @@
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConnect.AutoSize = true;
             this.buttonConnect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonConnect.Location = new System.Drawing.Point(426, 3);
+            this.buttonConnect.Location = new System.Drawing.Point(437, 3);
             this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(205, 22);
+            this.buttonConnect.Size = new System.Drawing.Size(194, 23);
             this.buttonConnect.TabIndex = 0;
             this.buttonConnect.Text = "&Connect to QSB Encoder Reader...";
             this.buttonConnect.UseVisualStyleBackColor = true;
@@ -161,9 +164,9 @@
             this.buttonSetZero.AutoSize = true;
             this.buttonSetZero.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonSetZero.Enabled = false;
-            this.buttonSetZero.Location = new System.Drawing.Point(426, 59);
+            this.buttonSetZero.Location = new System.Drawing.Point(437, 61);
             this.buttonSetZero.Name = "buttonSetZero";
-            this.buttonSetZero.Size = new System.Drawing.Size(205, 22);
+            this.buttonSetZero.Size = new System.Drawing.Size(194, 23);
             this.buttonSetZero.TabIndex = 2;
             this.buttonSetZero.Text = "&Zero Encoder Count";
             this.buttonSetZero.UseVisualStyleBackColor = true;
@@ -176,9 +179,9 @@
             this.buttonQuit.AutoSize = true;
             this.buttonQuit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonQuit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonQuit.Location = new System.Drawing.Point(426, 87);
+            this.buttonQuit.Location = new System.Drawing.Point(437, 90);
             this.buttonQuit.Name = "buttonQuit";
-            this.buttonQuit.Size = new System.Drawing.Size(205, 22);
+            this.buttonQuit.Size = new System.Drawing.Size(194, 23);
             this.buttonQuit.TabIndex = 5;
             this.buttonQuit.Text = "&Quit";
             this.buttonQuit.UseVisualStyleBackColor = true;
@@ -188,21 +191,21 @@
             // 
             this.tableLayoutPanelMain.SetColumnSpan(this.textBoxStatus, 3);
             this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxStatus.Location = new System.Drawing.Point(3, 343);
+            this.textBoxStatus.Location = new System.Drawing.Point(3, 376);
             this.textBoxStatus.Multiline = true;
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxStatus.Size = new System.Drawing.Size(628, 122);
+            this.textBoxStatus.Size = new System.Drawing.Size(628, 128);
             this.textBoxStatus.TabIndex = 6;
             // 
             // labelStatus
             // 
             this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(3, 328);
+            this.labelStatus.Location = new System.Drawing.Point(3, 360);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(40, 12);
+            this.labelStatus.Size = new System.Drawing.Size(40, 13);
             this.labelStatus.TabIndex = 7;
             this.labelStatus.Text = "Status:";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -213,9 +216,9 @@
             this.buttonDisconnect.AutoSize = true;
             this.buttonDisconnect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonDisconnect.Enabled = false;
-            this.buttonDisconnect.Location = new System.Drawing.Point(426, 31);
+            this.buttonDisconnect.Location = new System.Drawing.Point(437, 32);
             this.buttonDisconnect.Name = "buttonDisconnect";
-            this.buttonDisconnect.Size = new System.Drawing.Size(205, 22);
+            this.buttonDisconnect.Size = new System.Drawing.Size(194, 23);
             this.buttonDisconnect.TabIndex = 1;
             this.buttonDisconnect.Text = "&Disconnect from QSB Enoder Reader";
             this.buttonDisconnect.UseVisualStyleBackColor = true;
@@ -228,9 +231,9 @@
             this.tableLayoutPanelMain.SetColumnSpan(this.groupBoxRecording, 3);
             this.groupBoxRecording.Controls.Add(this.tableLayoutPanelRecording);
             this.groupBoxRecording.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxRecording.Location = new System.Drawing.Point(3, 115);
+            this.groupBoxRecording.Location = new System.Drawing.Point(3, 119);
             this.groupBoxRecording.Name = "groupBoxRecording";
-            this.groupBoxRecording.Size = new System.Drawing.Size(628, 77);
+            this.groupBoxRecording.Size = new System.Drawing.Size(628, 80);
             this.groupBoxRecording.TabIndex = 8;
             this.groupBoxRecording.TabStop = false;
             this.groupBoxRecording.Text = "Recording";
@@ -246,12 +249,12 @@
             this.tableLayoutPanelRecording.Controls.Add(this.textBoxCSVOutputPath, 1, 0);
             this.tableLayoutPanelRecording.Controls.Add(this.flowLayoutPanelRecordingButtons, 0, 1);
             this.tableLayoutPanelRecording.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelRecording.Location = new System.Drawing.Point(3, 15);
+            this.tableLayoutPanelRecording.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanelRecording.Name = "tableLayoutPanelRecording";
             this.tableLayoutPanelRecording.RowCount = 2;
             this.tableLayoutPanelRecording.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelRecording.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelRecording.Size = new System.Drawing.Size(622, 59);
+            this.tableLayoutPanelRecording.Size = new System.Drawing.Size(622, 61);
             this.tableLayoutPanelRecording.TabIndex = 0;
             // 
             // labelCSVOutputPath
@@ -260,7 +263,7 @@
             this.labelCSVOutputPath.AutoSize = true;
             this.labelCSVOutputPath.Location = new System.Drawing.Point(3, 6);
             this.labelCSVOutputPath.Name = "labelCSVOutputPath";
-            this.labelCSVOutputPath.Size = new System.Drawing.Size(95, 12);
+            this.labelCSVOutputPath.Size = new System.Drawing.Size(91, 13);
             this.labelCSVOutputPath.TabIndex = 0;
             this.labelCSVOutputPath.Text = "CSV Output Path:";
             this.labelCSVOutputPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -268,10 +271,10 @@
             // textBoxCSVOutputPath
             // 
             this.textBoxCSVOutputPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCSVOutputPath.Location = new System.Drawing.Point(104, 3);
+            this.textBoxCSVOutputPath.Location = new System.Drawing.Point(100, 3);
             this.textBoxCSVOutputPath.Name = "textBoxCSVOutputPath";
             this.textBoxCSVOutputPath.ReadOnly = true;
-            this.textBoxCSVOutputPath.Size = new System.Drawing.Size(515, 19);
+            this.textBoxCSVOutputPath.Size = new System.Drawing.Size(519, 20);
             this.textBoxCSVOutputPath.TabIndex = 1;
             // 
             // flowLayoutPanelRecordingButtons
@@ -283,9 +286,9 @@
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStartRecording);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStopRecording);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonRecordingSettings);
-            this.flowLayoutPanelRecordingButtons.Location = new System.Drawing.Point(3, 28);
+            this.flowLayoutPanelRecordingButtons.Location = new System.Drawing.Point(3, 29);
             this.flowLayoutPanelRecordingButtons.Name = "flowLayoutPanelRecordingButtons";
-            this.flowLayoutPanelRecordingButtons.Size = new System.Drawing.Size(616, 28);
+            this.flowLayoutPanelRecordingButtons.Size = new System.Drawing.Size(616, 29);
             this.flowLayoutPanelRecordingButtons.TabIndex = 2;
             // 
             // buttonStartRecording
@@ -296,7 +299,7 @@
             this.buttonStartRecording.Enabled = false;
             this.buttonStartRecording.Location = new System.Drawing.Point(3, 3);
             this.buttonStartRecording.Name = "buttonStartRecording";
-            this.buttonStartRecording.Size = new System.Drawing.Size(95, 22);
+            this.buttonStartRecording.Size = new System.Drawing.Size(91, 23);
             this.buttonStartRecording.TabIndex = 3;
             this.buttonStartRecording.Text = "S&tart Recording";
             this.buttonStartRecording.UseVisualStyleBackColor = true;
@@ -308,9 +311,9 @@
             this.buttonStopRecording.AutoSize = true;
             this.buttonStopRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStopRecording.Enabled = false;
-            this.buttonStopRecording.Location = new System.Drawing.Point(104, 3);
+            this.buttonStopRecording.Location = new System.Drawing.Point(100, 3);
             this.buttonStopRecording.Name = "buttonStopRecording";
-            this.buttonStopRecording.Size = new System.Drawing.Size(93, 22);
+            this.buttonStopRecording.Size = new System.Drawing.Size(91, 23);
             this.buttonStopRecording.TabIndex = 4;
             this.buttonStopRecording.Text = "Stop R&ecording";
             this.buttonStopRecording.UseVisualStyleBackColor = true;
@@ -318,9 +321,9 @@
             // 
             // buttonRecordingSettings
             // 
-            this.buttonRecordingSettings.Location = new System.Drawing.Point(203, 3);
+            this.buttonRecordingSettings.Location = new System.Drawing.Point(197, 3);
             this.buttonRecordingSettings.Name = "buttonRecordingSettings";
-            this.buttonRecordingSettings.Size = new System.Drawing.Size(75, 21);
+            this.buttonRecordingSettings.Size = new System.Drawing.Size(75, 23);
             this.buttonRecordingSettings.TabIndex = 5;
             this.buttonRecordingSettings.Text = "Settings...";
             this.buttonRecordingSettings.UseVisualStyleBackColor = true;
@@ -333,9 +336,9 @@
             this.tableLayoutPanelMain.SetColumnSpan(this.groupBoxStatistics, 3);
             this.groupBoxStatistics.Controls.Add(this.tableLayoutPanelStatistics);
             this.groupBoxStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxStatistics.Location = new System.Drawing.Point(3, 198);
+            this.groupBoxStatistics.Location = new System.Drawing.Point(3, 205);
             this.groupBoxStatistics.Name = "groupBoxStatistics";
-            this.groupBoxStatistics.Size = new System.Drawing.Size(628, 127);
+            this.groupBoxStatistics.Size = new System.Drawing.Size(628, 152);
             this.groupBoxStatistics.TabIndex = 9;
             this.groupBoxStatistics.TabStop = false;
             this.groupBoxStatistics.Text = "Statistics";
@@ -351,7 +354,6 @@
             this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanelStatistics.Controls.Add(this.flowLayoutPanelStatisticsButtons, 0, 3);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelNumberOfSamples, 0, 0);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelDuration, 0, 1);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelAverage, 0, 2);
@@ -369,15 +371,20 @@
             this.tableLayoutPanelStatistics.Controls.Add(this.labelMaximumUnit, 5, 0);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelMinimumUnit, 5, 1);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelPeakToPeakUnit, 5, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.flowLayoutPanelStatisticsButtons, 0, 4);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelStdev, 0, 3);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxStdev, 1, 3);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelStdevUnit, 2, 3);
             this.tableLayoutPanelStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelStatistics.Location = new System.Drawing.Point(3, 15);
+            this.tableLayoutPanelStatistics.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanelStatistics.Name = "tableLayoutPanelStatistics";
-            this.tableLayoutPanelStatistics.RowCount = 4;
+            this.tableLayoutPanelStatistics.RowCount = 5;
             this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelStatistics.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelStatistics.Size = new System.Drawing.Size(622, 109);
+            this.tableLayoutPanelStatistics.Size = new System.Drawing.Size(622, 133);
             this.tableLayoutPanelStatistics.TabIndex = 0;
             // 
             // flowLayoutPanelStatisticsButtons
@@ -389,9 +396,9 @@
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonStartStatistics);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonStopStatistics);
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonResetStatistics);
-            this.flowLayoutPanelStatisticsButtons.Location = new System.Drawing.Point(3, 78);
+            this.flowLayoutPanelStatisticsButtons.Location = new System.Drawing.Point(3, 101);
             this.flowLayoutPanelStatisticsButtons.Name = "flowLayoutPanelStatisticsButtons";
-            this.flowLayoutPanelStatisticsButtons.Size = new System.Drawing.Size(616, 28);
+            this.flowLayoutPanelStatisticsButtons.Size = new System.Drawing.Size(616, 29);
             this.flowLayoutPanelStatisticsButtons.TabIndex = 0;
             // 
             // buttonStartStatistics
@@ -400,7 +407,7 @@
             this.buttonStartStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonStartStatistics.Location = new System.Drawing.Point(3, 3);
             this.buttonStartStatistics.Name = "buttonStartStatistics";
-            this.buttonStartStatistics.Size = new System.Drawing.Size(40, 22);
+            this.buttonStartStatistics.Size = new System.Drawing.Size(39, 23);
             this.buttonStartStatistics.TabIndex = 8;
             this.buttonStartStatistics.Text = "St&art";
             this.buttonStartStatistics.UseVisualStyleBackColor = true;
@@ -410,9 +417,9 @@
             // 
             this.buttonStopStatistics.AutoSize = true;
             this.buttonStopStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonStopStatistics.Location = new System.Drawing.Point(49, 3);
+            this.buttonStopStatistics.Location = new System.Drawing.Point(48, 3);
             this.buttonStopStatistics.Name = "buttonStopStatistics";
-            this.buttonStopStatistics.Size = new System.Drawing.Size(38, 22);
+            this.buttonStopStatistics.Size = new System.Drawing.Size(39, 23);
             this.buttonStopStatistics.TabIndex = 9;
             this.buttonStopStatistics.Text = "Sto&p";
             this.buttonStopStatistics.UseVisualStyleBackColor = true;
@@ -424,7 +431,7 @@
             this.buttonResetStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonResetStatistics.Location = new System.Drawing.Point(93, 3);
             this.buttonResetStatistics.Name = "buttonResetStatistics";
-            this.buttonResetStatistics.Size = new System.Drawing.Size(45, 22);
+            this.buttonResetStatistics.Size = new System.Drawing.Size(45, 23);
             this.buttonResetStatistics.TabIndex = 10;
             this.buttonResetStatistics.Text = "&Reset";
             this.buttonResetStatistics.UseVisualStyleBackColor = true;
@@ -436,7 +443,7 @@
             this.labelNumberOfSamples.AutoSize = true;
             this.labelNumberOfSamples.Location = new System.Drawing.Point(3, 6);
             this.labelNumberOfSamples.Name = "labelNumberOfSamples";
-            this.labelNumberOfSamples.Size = new System.Drawing.Size(105, 12);
+            this.labelNumberOfSamples.Size = new System.Drawing.Size(99, 13);
             this.labelNumberOfSamples.TabIndex = 1;
             this.labelNumberOfSamples.Text = "Number of Samples";
             this.labelNumberOfSamples.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -445,9 +452,9 @@
             // 
             this.labelDuration.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelDuration.AutoSize = true;
-            this.labelDuration.Location = new System.Drawing.Point(60, 31);
+            this.labelDuration.Location = new System.Drawing.Point(55, 32);
             this.labelDuration.Name = "labelDuration";
-            this.labelDuration.Size = new System.Drawing.Size(48, 12);
+            this.labelDuration.Size = new System.Drawing.Size(47, 13);
             this.labelDuration.TabIndex = 2;
             this.labelDuration.Text = "Duration";
             this.labelDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -456,9 +463,9 @@
             // 
             this.labelAverage.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelAverage.AutoSize = true;
-            this.labelAverage.Location = new System.Drawing.Point(61, 56);
+            this.labelAverage.Location = new System.Drawing.Point(55, 58);
             this.labelAverage.Name = "labelAverage";
-            this.labelAverage.Size = new System.Drawing.Size(47, 12);
+            this.labelAverage.Size = new System.Drawing.Size(47, 13);
             this.labelAverage.TabIndex = 3;
             this.labelAverage.Text = "Average";
             this.labelAverage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -466,10 +473,10 @@
             // textBoxNumberOfSamples
             // 
             this.textBoxNumberOfSamples.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNumberOfSamples.Location = new System.Drawing.Point(114, 3);
+            this.textBoxNumberOfSamples.Location = new System.Drawing.Point(108, 3);
             this.textBoxNumberOfSamples.Name = "textBoxNumberOfSamples";
             this.textBoxNumberOfSamples.ReadOnly = true;
-            this.textBoxNumberOfSamples.Size = new System.Drawing.Size(101, 19);
+            this.textBoxNumberOfSamples.Size = new System.Drawing.Size(103, 20);
             this.textBoxNumberOfSamples.TabIndex = 4;
             this.textBoxNumberOfSamples.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxNumberOfSamples.WordWrap = false;
@@ -478,9 +485,9 @@
             // 
             this.labelDurationUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelDurationUnit.AutoSize = true;
-            this.labelDurationUnit.Location = new System.Drawing.Point(221, 31);
+            this.labelDurationUnit.Location = new System.Drawing.Point(217, 32);
             this.labelDurationUnit.Name = "labelDurationUnit";
-            this.labelDurationUnit.Size = new System.Drawing.Size(11, 12);
+            this.labelDurationUnit.Size = new System.Drawing.Size(12, 13);
             this.labelDurationUnit.TabIndex = 5;
             this.labelDurationUnit.Text = "s";
             this.labelDurationUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -488,10 +495,10 @@
             // textBoxDuration
             // 
             this.textBoxDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDuration.Location = new System.Drawing.Point(114, 28);
+            this.textBoxDuration.Location = new System.Drawing.Point(108, 29);
             this.textBoxDuration.Name = "textBoxDuration";
             this.textBoxDuration.ReadOnly = true;
-            this.textBoxDuration.Size = new System.Drawing.Size(101, 19);
+            this.textBoxDuration.Size = new System.Drawing.Size(103, 20);
             this.textBoxDuration.TabIndex = 6;
             this.textBoxDuration.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxDuration.WordWrap = false;
@@ -499,10 +506,10 @@
             // textBoxAverage
             // 
             this.textBoxAverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAverage.Location = new System.Drawing.Point(114, 53);
+            this.textBoxAverage.Location = new System.Drawing.Point(108, 55);
             this.textBoxAverage.Name = "textBoxAverage";
             this.textBoxAverage.ReadOnly = true;
-            this.textBoxAverage.Size = new System.Drawing.Size(101, 19);
+            this.textBoxAverage.Size = new System.Drawing.Size(103, 20);
             this.textBoxAverage.TabIndex = 7;
             this.textBoxAverage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxAverage.WordWrap = false;
@@ -511,9 +518,9 @@
             // 
             this.labelAverageUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelAverageUnit.AutoSize = true;
-            this.labelAverageUnit.Location = new System.Drawing.Point(221, 56);
+            this.labelAverageUnit.Location = new System.Drawing.Point(217, 58);
             this.labelAverageUnit.Name = "labelAverageUnit";
-            this.labelAverageUnit.Size = new System.Drawing.Size(23, 12);
+            this.labelAverageUnit.Size = new System.Drawing.Size(23, 13);
             this.labelAverageUnit.TabIndex = 8;
             this.labelAverageUnit.Text = "mm";
             this.labelAverageUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -522,9 +529,9 @@
             // 
             this.labelMaximum.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMaximum.AutoSize = true;
-            this.labelMaximum.Location = new System.Drawing.Point(352, 6);
+            this.labelMaximum.Location = new System.Drawing.Point(347, 6);
             this.labelMaximum.Name = "labelMaximum";
-            this.labelMaximum.Size = new System.Drawing.Size(53, 12);
+            this.labelMaximum.Size = new System.Drawing.Size(51, 13);
             this.labelMaximum.TabIndex = 9;
             this.labelMaximum.Text = "Maximum";
             this.labelMaximum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -533,9 +540,9 @@
             // 
             this.labelMinimum.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMinimum.AutoSize = true;
-            this.labelMinimum.Location = new System.Drawing.Point(355, 31);
+            this.labelMinimum.Location = new System.Drawing.Point(350, 32);
             this.labelMinimum.Name = "labelMinimum";
-            this.labelMinimum.Size = new System.Drawing.Size(50, 12);
+            this.labelMinimum.Size = new System.Drawing.Size(48, 13);
             this.labelMinimum.TabIndex = 10;
             this.labelMinimum.Text = "Minimum";
             this.labelMinimum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -544,9 +551,9 @@
             // 
             this.labelPeakToPeak.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelPeakToPeak.AutoSize = true;
-            this.labelPeakToPeak.Location = new System.Drawing.Point(328, 56);
+            this.labelPeakToPeak.Location = new System.Drawing.Point(326, 58);
             this.labelPeakToPeak.Name = "labelPeakToPeak";
-            this.labelPeakToPeak.Size = new System.Drawing.Size(77, 12);
+            this.labelPeakToPeak.Size = new System.Drawing.Size(72, 13);
             this.labelPeakToPeak.TabIndex = 11;
             this.labelPeakToPeak.Text = "Peak-to-Peak";
             this.labelPeakToPeak.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -554,10 +561,10 @@
             // textBoxMaximum
             // 
             this.textBoxMaximum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMaximum.Location = new System.Drawing.Point(411, 3);
+            this.textBoxMaximum.Location = new System.Drawing.Point(404, 3);
             this.textBoxMaximum.Name = "textBoxMaximum";
             this.textBoxMaximum.ReadOnly = true;
-            this.textBoxMaximum.Size = new System.Drawing.Size(101, 19);
+            this.textBoxMaximum.Size = new System.Drawing.Size(103, 20);
             this.textBoxMaximum.TabIndex = 12;
             this.textBoxMaximum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxMaximum.WordWrap = false;
@@ -565,10 +572,10 @@
             // textBoxMinimum
             // 
             this.textBoxMinimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMinimum.Location = new System.Drawing.Point(411, 28);
+            this.textBoxMinimum.Location = new System.Drawing.Point(404, 29);
             this.textBoxMinimum.Name = "textBoxMinimum";
             this.textBoxMinimum.ReadOnly = true;
-            this.textBoxMinimum.Size = new System.Drawing.Size(101, 19);
+            this.textBoxMinimum.Size = new System.Drawing.Size(103, 20);
             this.textBoxMinimum.TabIndex = 13;
             this.textBoxMinimum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxMinimum.WordWrap = false;
@@ -576,10 +583,10 @@
             // textBoxPeakToPeak
             // 
             this.textBoxPeakToPeak.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPeakToPeak.Location = new System.Drawing.Point(411, 53);
+            this.textBoxPeakToPeak.Location = new System.Drawing.Point(404, 55);
             this.textBoxPeakToPeak.Name = "textBoxPeakToPeak";
             this.textBoxPeakToPeak.ReadOnly = true;
-            this.textBoxPeakToPeak.Size = new System.Drawing.Size(101, 19);
+            this.textBoxPeakToPeak.Size = new System.Drawing.Size(103, 20);
             this.textBoxPeakToPeak.TabIndex = 14;
             this.textBoxPeakToPeak.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxPeakToPeak.WordWrap = false;
@@ -588,9 +595,9 @@
             // 
             this.labelMaximumUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelMaximumUnit.AutoSize = true;
-            this.labelMaximumUnit.Location = new System.Drawing.Point(518, 6);
+            this.labelMaximumUnit.Location = new System.Drawing.Point(513, 6);
             this.labelMaximumUnit.Name = "labelMaximumUnit";
-            this.labelMaximumUnit.Size = new System.Drawing.Size(23, 12);
+            this.labelMaximumUnit.Size = new System.Drawing.Size(23, 13);
             this.labelMaximumUnit.TabIndex = 15;
             this.labelMaximumUnit.Text = "mm";
             this.labelMaximumUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -599,9 +606,9 @@
             // 
             this.labelMinimumUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelMinimumUnit.AutoSize = true;
-            this.labelMinimumUnit.Location = new System.Drawing.Point(518, 31);
+            this.labelMinimumUnit.Location = new System.Drawing.Point(513, 32);
             this.labelMinimumUnit.Name = "labelMinimumUnit";
-            this.labelMinimumUnit.Size = new System.Drawing.Size(23, 12);
+            this.labelMinimumUnit.Size = new System.Drawing.Size(23, 13);
             this.labelMinimumUnit.TabIndex = 16;
             this.labelMinimumUnit.Text = "mm";
             this.labelMinimumUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -610,9 +617,9 @@
             // 
             this.labelPeakToPeakUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelPeakToPeakUnit.AutoSize = true;
-            this.labelPeakToPeakUnit.Location = new System.Drawing.Point(518, 56);
+            this.labelPeakToPeakUnit.Location = new System.Drawing.Point(513, 58);
             this.labelPeakToPeakUnit.Name = "labelPeakToPeakUnit";
-            this.labelPeakToPeakUnit.Size = new System.Drawing.Size(23, 12);
+            this.labelPeakToPeakUnit.Size = new System.Drawing.Size(23, 13);
             this.labelPeakToPeakUnit.TabIndex = 17;
             this.labelPeakToPeakUnit.Text = "mm";
             this.labelPeakToPeakUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -622,15 +629,48 @@
             this.timerDisplayUpdateLoop.Enabled = true;
             this.timerDisplayUpdateLoop.Tick += new System.EventHandler(this.timerDisplayUpdateLoop_Tick);
             // 
+            // labelStdev
+            // 
+            this.labelStdev.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelStdev.AutoSize = true;
+            this.labelStdev.Location = new System.Drawing.Point(4, 81);
+            this.labelStdev.Name = "labelStdev";
+            this.labelStdev.Size = new System.Drawing.Size(98, 13);
+            this.labelStdev.TabIndex = 3;
+            this.labelStdev.Text = "Standard Deviation";
+            this.labelStdev.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBoxStdev
+            // 
+            this.textBoxStdev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxStdev.Location = new System.Drawing.Point(108, 81);
+            this.textBoxStdev.Name = "textBoxStdev";
+            this.textBoxStdev.ReadOnly = true;
+            this.textBoxStdev.Size = new System.Drawing.Size(103, 20);
+            this.textBoxStdev.TabIndex = 7;
+            this.textBoxStdev.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxStdev.WordWrap = false;
+            // 
+            // labelStdevUnit
+            // 
+            this.labelStdevUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelStdevUnit.AutoSize = true;
+            this.labelStdevUnit.Location = new System.Drawing.Point(217, 81);
+            this.labelStdevUnit.Name = "labelStdevUnit";
+            this.labelStdevUnit.Size = new System.Drawing.Size(23, 13);
+            this.labelStdevUnit.TabIndex = 8;
+            this.labelStdevUnit.Text = "mm";
+            this.labelStdevUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonConnect;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 468);
+            this.ClientSize = new System.Drawing.Size(634, 507);
             this.Controls.Add(this.tableLayoutPanelMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(600, 400);
+            this.MinimumSize = new System.Drawing.Size(600, 430);
             this.Name = "MainForm";
             this.Text = "QSB Linear Encoder Reader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -697,6 +737,9 @@
         private System.Windows.Forms.Label labelPeakToPeakUnit;
         private System.Windows.Forms.Button buttonResetStatistics;
         private System.Windows.Forms.Button buttonRecordingSettings;
+        private System.Windows.Forms.Label labelStdev;
+        private System.Windows.Forms.TextBox textBoxStdev;
+        private System.Windows.Forms.Label labelStdevUnit;
     }
 }
 

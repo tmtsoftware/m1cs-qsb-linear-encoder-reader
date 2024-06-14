@@ -180,6 +180,7 @@ namespace QSBLinearEncoderReader
             ulong numberOfSamples = 0;
             decimal duration_s = 0.0M;
             decimal average_mm = 0.0M;
+            decimal stdev_mm = 0.0M;
             decimal maximum_mm = 0.0M;
             decimal minimum_mm = 0.0M;
             decimal peak_to_peak_mm = 0.0M;
@@ -188,7 +189,7 @@ namespace QSBLinearEncoderReader
             {
                 if (_controller != null)
                 {
-                    (numberOfSamples, duration_s, average_mm, maximum_mm, minimum_mm) = _controller.GetStatistics();
+                    (numberOfSamples, duration_s, average_mm, stdev_mm, maximum_mm, minimum_mm) = _controller.GetStatistics();
                 }
                 else
                 {
@@ -201,6 +202,7 @@ namespace QSBLinearEncoderReader
             textBoxNumberOfSamples.Text = numberOfSamples.ToString();
             textBoxDuration.Text = duration_s.ToString("F3");
             textBoxAverage.Text = average_mm.ToString("F6");
+            textBoxStdev.Text = stdev_mm.ToString("F6");
             textBoxMaximum.Text = maximum_mm.ToString("F6");
             textBoxMinimum.Text = minimum_mm.ToString("F6");
             textBoxPeakToPeak.Text = peak_to_peak_mm.ToString("F6");

@@ -47,7 +47,8 @@ namespace QSBLinearEncoderReader
 
         private bool _statisticsOngoing = false;
         private ulong _statisticsNumberOfSamples = 0;
-        private decimal _statisticsAverage = 0.0M;
+        private decimal _statisticsSum = 0.0M;
+        private decimal _statisticsSquareSum = 0.0M;
         private decimal _statisticsMinimum = 0.0M;
         private decimal _statisticsMaximum = 0.0M;
         private object _statisticsLock = new object();
@@ -599,7 +600,8 @@ namespace QSBLinearEncoderReader
                             ulong n = _statisticsNumberOfSamples;
                             decimal N = (decimal)n;
                             _statisticsNumberOfSamples = n + 1;
-                            _statisticsAverage = (encoderCount + N * _statisticsAverage) / (N + 1);
+                            _statisticsSum = _statisticsSum + encoderCount;
+                            _statisticsSquareSum = _statisticsSquareSum + encoderCount * encoderCount;
                             if (n == 0)
                             {
                                 _statisticsMaximum = encoderCount;
@@ -696,11 +698,12 @@ namespace QSBLinearEncoderReader
             return encoderOffsetCount * _encoderResolution_nm * (decimal)1e-6;
         }
 
-        public Tuple<ulong, decimal, decimal, decimal, decimal> GetStatistics()
+        public Tuple<ulong, decimal, decimal, decimal, decimal, decimal> GetStatistics()
         {
             ulong numberOfSamples = 0;
             decimal duration_s = 0.0M;
             decimal average_mm = 0.0M;
+            decimal stdev_mm = 0.0M;
             decimal maximum_mm = 0.0M;
             decimal minimum_mm = 0.0M;
             decimal encoderZeroPositionCount = 0;
@@ -712,15 +715,25 @@ namespace QSBLinearEncoderReader
 
             lock (_statisticsLock)
             {
+                decimal averageCount = 0.0M;
+                decimal stdevCount = 0.0M;
+
+                if (numberOfSamples > 0)
+                {
+                    averageCount = _statisticsSum / numberOfSamples;
+                    stdevCount = (decimal)Math.Sqrt(decimal.ToDouble(_statisticsSquareSum / numberOfSamples - averageCount * averageCount));
+                }
+
                 numberOfSamples = _statisticsNumberOfSamples;
-                average_mm = (_statisticsAverage - encoderZeroPositionCount) * _encoderResolution_nm * (decimal)1e-6;
-                maximum_mm = (_statisticsMaximum - encoderZeroPositionCount) * _encoderResolution_nm * (decimal)1e-6;
-                minimum_mm = (_statisticsMinimum - encoderZeroPositionCount) * _encoderResolution_nm * (decimal)1e-6;
+                average_mm = (averageCount - encoderZeroPositionCount) * _encoderResolution_nm * 1e-6M;
+                stdev_mm = stdevCount * _encoderResolution_nm * 1e-6M;
+                maximum_mm = (_statisticsMaximum - encoderZeroPositionCount) * _encoderResolution_nm * 1e-6M;
+                minimum_mm = (_statisticsMinimum - encoderZeroPositionCount) * _encoderResolution_nm * 1e-6M;
             }
 
             duration_s = (decimal)numberOfSamples / 512;
 
-            return Tuple.Create(numberOfSamples, duration_s, average_mm, maximum_mm, minimum_mm);
+            return Tuple.Create(numberOfSamples, duration_s, average_mm, stdev_mm, maximum_mm, minimum_mm);
         }
 
         /// <summary>
@@ -817,7 +830,8 @@ namespace QSBLinearEncoderReader
             lock (_statisticsLock)
             {
                 _statisticsNumberOfSamples = 0;
-                _statisticsAverage = 0.0M;
+                _statisticsSum = 0.0M;
+                _statisticsSquareSum = 0.0M;
                 _statisticsMinimum = 0.0M;
                 _statisticsMaximum = 0.0M;
                 _statisticsOngoing = true;
