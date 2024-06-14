@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecordingSettingsForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelOutputDirectory = new System.Windows.Forms.Label();
@@ -41,23 +42,28 @@
             this.textBoxCSVFilenameExample = new System.Windows.Forms.TextBox();
             this.checkBoxRecordAbsoluteTime = new System.Windows.Forms.CheckBox();
             this.numericUpDownMaxRecordsPerFile = new System.Windows.Forms.NumericUpDown();
-            this.buttonCSVFilenameHelp = new System.Windows.Forms.Button();
-            this.buttonSelectDirectory = new System.Windows.Forms.Button();
             this.numericUpDownRecordingInterval = new System.Windows.Forms.NumericUpDown();
             this.labelRecordingRate = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonCSVFilenameHelp = new System.Windows.Forms.Button();
+            this.buttonSelectDirectory = new System.Windows.Forms.Button();
+            this.errorProviderOutputDirectory = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProviderCSVFilename = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxRecordsPerFile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRecordingInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderOutputDirectory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderCSVFilename)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 5;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.labelOutputDirectory, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBoxOutputDirectory, 1, 0);
@@ -70,12 +76,12 @@
             this.tableLayoutPanel1.Controls.Add(this.textBoxCSVFilenameExample, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxRecordAbsoluteTime, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownMaxRecordsPerFile, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.buttonCSVFilenameHelp, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.buttonSelectDirectory, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownRecordingInterval, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.labelRecordingRate, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.buttonOK, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 6);
+            this.tableLayoutPanel1.Controls.Add(this.buttonCSVFilenameHelp, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.buttonSelectDirectory, 4, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -107,9 +113,11 @@
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxOutputDirectory, 2);
             this.textBoxOutputDirectory.Location = new System.Drawing.Point(180, 4);
             this.textBoxOutputDirectory.Name = "textBoxOutputDirectory";
-            this.textBoxOutputDirectory.Size = new System.Drawing.Size(320, 20);
+            this.textBoxOutputDirectory.Size = new System.Drawing.Size(296, 20);
             this.textBoxOutputDirectory.TabIndex = 2;
             this.textBoxOutputDirectory.WordWrap = false;
+            this.textBoxOutputDirectory.TextChanged += new System.EventHandler(this.textBoxOutputDirectory_TextChanged);
+            this.textBoxOutputDirectory.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxOutputDirectory_Validating);
             // 
             // labelCSVFilename
             // 
@@ -128,9 +136,11 @@
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxCSVFilename, 2);
             this.textBoxCSVFilename.Location = new System.Drawing.Point(180, 33);
             this.textBoxCSVFilename.Name = "textBoxCSVFilename";
-            this.textBoxCSVFilename.Size = new System.Drawing.Size(320, 20);
+            this.textBoxCSVFilename.Size = new System.Drawing.Size(296, 20);
             this.textBoxCSVFilename.TabIndex = 4;
             this.textBoxCSVFilename.WordWrap = false;
+            this.textBoxCSVFilename.TextChanged += new System.EventHandler(this.textBoxCSVFilename_TextChanged);
+            this.textBoxCSVFilename.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxCSVFilename_Validating);
             // 
             // labelRecordAbsoluteTime
             // 
@@ -183,7 +193,7 @@
             this.textBoxCSVFilenameExample.Location = new System.Drawing.Point(180, 62);
             this.textBoxCSVFilenameExample.Name = "textBoxCSVFilenameExample";
             this.textBoxCSVFilenameExample.ReadOnly = true;
-            this.textBoxCSVFilenameExample.Size = new System.Drawing.Size(320, 20);
+            this.textBoxCSVFilenameExample.Size = new System.Drawing.Size(296, 20);
             this.textBoxCSVFilenameExample.TabIndex = 99;
             this.textBoxCSVFilenameExample.TabStop = false;
             this.textBoxCSVFilenameExample.WordWrap = false;
@@ -221,27 +231,6 @@
             0,
             0,
             0});
-            // 
-            // buttonCSVFilenameHelp
-            // 
-            this.buttonCSVFilenameHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCSVFilenameHelp.Location = new System.Drawing.Point(506, 32);
-            this.buttonCSVFilenameHelp.Name = "buttonCSVFilenameHelp";
-            this.buttonCSVFilenameHelp.Size = new System.Drawing.Size(75, 22);
-            this.buttonCSVFilenameHelp.TabIndex = 5;
-            this.buttonCSVFilenameHelp.Text = "Help...";
-            this.buttonCSVFilenameHelp.UseVisualStyleBackColor = true;
-            // 
-            // buttonSelectDirectory
-            // 
-            this.buttonSelectDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectDirectory.Location = new System.Drawing.Point(506, 3);
-            this.buttonSelectDirectory.Name = "buttonSelectDirectory";
-            this.buttonSelectDirectory.Size = new System.Drawing.Size(75, 22);
-            this.buttonSelectDirectory.TabIndex = 3;
-            this.buttonSelectDirectory.Text = "Select...";
-            this.buttonSelectDirectory.UseVisualStyleBackColor = true;
-            this.buttonSelectDirectory.Click += new System.EventHandler(this.buttonSelectDirectory_Click);
             // 
             // numericUpDownRecordingInterval
             // 
@@ -282,24 +271,56 @@
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(425, 179);
+            this.buttonOK.Location = new System.Drawing.Point(401, 179);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.buttonCancel, 2);
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(506, 179);
+            this.buttonCancel.Location = new System.Drawing.Point(482, 179);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // buttonCSVFilenameHelp
+            // 
+            this.buttonCSVFilenameHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCSVFilenameHelp.Location = new System.Drawing.Point(506, 32);
+            this.buttonCSVFilenameHelp.Name = "buttonCSVFilenameHelp";
+            this.buttonCSVFilenameHelp.Size = new System.Drawing.Size(75, 22);
+            this.buttonCSVFilenameHelp.TabIndex = 5;
+            this.buttonCSVFilenameHelp.Text = "Help...";
+            this.buttonCSVFilenameHelp.UseVisualStyleBackColor = true;
+            this.buttonCSVFilenameHelp.Click += new System.EventHandler(this.buttonCSVFilenameHelp_Click);
+            // 
+            // buttonSelectDirectory
+            // 
+            this.buttonSelectDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectDirectory.Location = new System.Drawing.Point(506, 3);
+            this.buttonSelectDirectory.Name = "buttonSelectDirectory";
+            this.buttonSelectDirectory.Size = new System.Drawing.Size(75, 22);
+            this.buttonSelectDirectory.TabIndex = 3;
+            this.buttonSelectDirectory.Text = "Select...";
+            this.buttonSelectDirectory.UseVisualStyleBackColor = true;
+            this.buttonSelectDirectory.Click += new System.EventHandler(this.buttonSelectDirectory_Click);
+            // 
+            // errorProviderOutputDirectory
+            // 
+            this.errorProviderOutputDirectory.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProviderOutputDirectory.ContainerControl = this;
+            // 
+            // errorProviderCSVFilename
+            // 
+            this.errorProviderCSVFilename.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProviderCSVFilename.ContainerControl = this;
             // 
             // RecordingSettingsForm
             // 
@@ -320,6 +341,8 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxRecordsPerFile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRecordingInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderOutputDirectory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderCSVFilename)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -344,5 +367,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownRecordingInterval;
         private System.Windows.Forms.Label labelRecordingRate;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ErrorProvider errorProviderOutputDirectory;
+        private System.Windows.Forms.ErrorProvider errorProviderCSVFilename;
     }
 }

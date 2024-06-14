@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QSBLinearEncoderReader.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,14 +14,72 @@ namespace QSBLinearEncoderReader
 {
     public partial class RecordingSettingsForm : Form
     {
+        DateTime _dialogOpenDateTime;
+
         public RecordingSettingsForm()
         {
             InitializeComponent();
+            _dialogOpenDateTime = DateTime.Now;
         }
 
         private void RecordingSettingsForm_Load(object sender, EventArgs e)
         {
             loadPreviousSettings();
+        }
+
+        private void buttonSelectDirectory_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Select the folder to which you want to save CSV files";
+            dialog.ShowNewFolderButton = true;
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBoxOutputDirectory.Text = dialog.SelectedPath;
+            }
+        }
+
+        private void textBoxOutputDirectory_Validating(object sender, CancelEventArgs e)
+        {
+            validate();
+        }
+
+        private void textBoxOutputDirectory_TextChanged(object sender, EventArgs e)
+        {
+            validate();
+        }
+
+        private void textBoxCSVFilename_Validating(object sender, EventArgs e)
+        {
+            validate();
+        }
+
+        private void textBoxCSVFilename_TextChanged(object sender, EventArgs e)
+        {
+            validate();
+        }
+
+        private void buttonCSVFilenameHelp_Click(object sender, EventArgs e)
+        {
+            string[] lines =
+            {
+                "Special character sequences in the filename like \"%Y\" are replaced as shown in the list below:",
+                "",
+                "  %Y: year",
+                "  %m: month",
+                "  %d: day",
+                "  %H: hour",
+                "  %M: minute",
+                "  %S: second",
+                "",
+                "It is highly recommended to include the date and time in the file name because the recording stops if the file with the same name already exists."
+            };
+
+            MessageBox.Show(
+                String.Join(Environment.NewLine, lines),
+                "CSV Filename",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void loadPreviousSettings()
@@ -42,49 +101,70 @@ namespace QSBLinearEncoderReader
             Properties.Settings.Default.Save();
         }
 
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void validate()
         {
-            List<string> errMsgs = new List<string>();
+            bool valid = validateOutputDirectory() && validateCSVFilename();
+            buttonOK.Enabled = valid;
+        }
 
-            // Validate the output directory path.
+        private bool validateOutputDirectory()
+        {
             string outputDir = textBoxOutputDirectory.Text;
             try
             {
                 string outputDirFull = Path.GetFullPath(outputDir);
                 if (!outputDir.Equals(outputDirFull))
                 {
-                    errMsgs.Add("Output directory \"" + outputDir + "\" is not a full path.");
+                    errorProviderOutputDirectory.SetError(textBoxOutputDirectory, "Output directory \"" + outputDir + "\" is not a full path.");
+                    errorProviderOutputDirectory.Icon = Util.IconError;
+                    return false;
                 }
                 else if (File.Exists(outputDir))
                 {
-                    errMsgs.Add("\"" + outputDir + "\" is a file, not a directory.");
+                    errorProviderOutputDirectory.SetError(textBoxOutputDirectory, "\"" + outputDir + "\" is a file, not a directory.");
+                    errorProviderOutputDirectory.Icon = Util.IconError;
+                    return false;
                 }
             }
             catch (Exception ex)
             {
-                errMsgs.Add("Output directory \"" + outputDir + "\" is invalid. " + ex.Message);
+                errorProviderOutputDirectory.SetError(textBoxOutputDirectory, "Output directory \"" + outputDir + "\" is invalid. " + ex.Message);
+                errorProviderOutputDirectory.Icon = Util.IconError;
+                return false;
             }
 
-            if (errMsgs.Count > 0)
-            {
-                string fullErrMsg = String.Join(Environment.NewLine, errMsgs.ToArray());
-                MessageBox.Show(fullErrMsg, "Invalid settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Prevent the dialog from being closed.
-                this.DialogResult = DialogResult.None;
-            }
+            errorProviderOutputDirectory.SetError(textBoxOutputDirectory, String.Empty);
+            return true;
         }
 
-        private void buttonSelectDirectory_Click(object sender, EventArgs e)
+        private bool validateCSVFilename()
         {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = "Select the folder to which you want to save CSV files";
-            dialog.ShowNewFolderButton = true;
-            DialogResult result = dialog.ShowDialog();
-            if (result == DialogResult.OK)
+            string filenameBase = textBoxCSVFilename.Text;
+            if (filenameBase.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
-                textBoxOutputDirectory.Text = dialog.SelectedPath;
+                errorProviderCSVFilename.SetError(textBoxCSVFilename, "CSV file name \"" + filenameBase + "\" includes an invalid character.");
+                errorProviderCSVFilename.Icon = Util.IconError;
+                textBoxCSVFilenameExample.Text = String.Empty;
+                return false;
             }
+
+            if (filenameBase.IndexOf("%Y") < 0 ||
+                filenameBase.IndexOf("%m") < 0 ||
+                filenameBase.IndexOf("%d") < 0 ||
+                filenameBase.IndexOf("%H") < 0 ||
+                filenameBase.IndexOf("%M") < 0 ||
+                filenameBase.IndexOf("%S") < 0)
+            {
+                errorProviderCSVFilename.SetError(textBoxCSVFilename, "Please consider including date and time (%Y, %m, %d, %H, %M, %S) because recording stops if the same file name exists.");
+                errorProviderCSVFilename.Icon = Util.IconWarning;
+            }
+            else
+            {
+                errorProviderCSVFilename.SetError(textBoxCSVFilename, "");
+            }
+
+            textBoxCSVFilenameExample.Text = Util.FormatFilename(filenameBase, _dialogOpenDateTime);
+            return true;
         }
     }
 }
