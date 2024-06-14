@@ -94,7 +94,6 @@ namespace QSBLinearEncoderReader
             textBoxCSVFilename.Text = Properties.Settings.Default.CSVFilename;
             numericUpDownRecordingInterval.Value = Properties.Settings.Default.RecordingInterval;
             numericUpDownMaxRecordsPerFile.Value = Properties.Settings.Default.MaxRecordsPerFile;
-            checkBoxRecordAbsoluteTime.Checked = Properties.Settings.Default.RecordAbsoluteTime;
         }
 
         public void SaveSettings()
@@ -103,7 +102,6 @@ namespace QSBLinearEncoderReader
             Properties.Settings.Default.CSVFilename = textBoxCSVFilename.Text;
             Properties.Settings.Default.RecordingInterval = Convert.ToInt32(numericUpDownRecordingInterval.Value);
             Properties.Settings.Default.MaxRecordsPerFile = Convert.ToInt32(numericUpDownMaxRecordsPerFile.Value);
-            Properties.Settings.Default.RecordAbsoluteTime = checkBoxRecordAbsoluteTime.Checked;
             Properties.Settings.Default.Save();
         }
 
