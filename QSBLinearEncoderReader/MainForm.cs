@@ -115,7 +115,7 @@ namespace QSBLinearEncoderReader
 
             if (dialogResult == DialogResult.OK)
             {
-                // TODO: implement
+                settingsDialog.saveSettings();
             }
 
             settingsDialog.Dispose();
