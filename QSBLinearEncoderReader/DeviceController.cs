@@ -41,8 +41,12 @@ namespace QSBLinearEncoderReader
         private object _statusLock = new object();
 
         private StreamWriter _recorder;
-        private long _recorderNumOfLine = 0;
+        private long _recorderTotalNumOfRecords = 0;
         private uint _recorderFirstTimestamp = 0;
+        private string _recorderOutputDir;
+        private string _recorderFilenameBase;
+        private string _recorderCurrentFilePath;
+        private long _recorderNumOfRecordsForFile = 0;
         private object _recorderLock = new object();
 
         private bool _statisticsOngoing = false;
@@ -574,7 +578,7 @@ namespace QSBLinearEncoderReader
                     {
                         if (IsRecording)
                         {
-                            if (_recorderNumOfLine == 0)
+                            if (_recorderTotalNumOfRecords == 0)
                             {
                                 _recorderFirstTimestamp = timestamp;
                                 Logger.Log("First timestamp of this recording session: " + timestamp);
@@ -590,7 +594,10 @@ namespace QSBLinearEncoderReader
                                 position_mm.ToString("0.00000000")
                                 ));
 
-                            _recorderNumOfLine++;
+                            _recorderTotalNumOfRecords++;
+                            _recorderNumOfRecordsForFile++;
+
+                            // TODO: Switch to a new file if _recorderNumOfRecrodsForFile reaches the limit.
                         }
                     }
 
@@ -772,10 +779,16 @@ namespace QSBLinearEncoderReader
             return newEncoderZeroPositionCount;
         }
 
-        public void StartRecording(String fileName)
+        public void StartRecording(String outputDir, string filenameBase, int recordingInterval, int maxRecordsPerFile)
         {
             try
             {
+                DateTime startTime = DateTime.Now;
+                string outputDirFull = Path.GetFullPath(outputDir);
+                Directory.CreateDirectory(outputDirFull);
+                string filename = Util.FormatFilename(filenameBase, startTime);
+                string filePath = Path.Combine(outputDirFull, filename);
+
                 lock (_recorderLock)
                 {
                     if (_recorder != null)
@@ -783,19 +796,29 @@ namespace QSBLinearEncoderReader
                         throw new InvalidOperationException("Recording is in progress.");
                     }
 
-                    Logger.Log("Starting recording in " + fileName);
+                    _recorderOutputDir = outputDirFull;
+                    _recorderFilenameBase = filenameBase;
+                    _recorderCurrentFilePath = filePath;
 
-                    _recorder = new StreamWriter(fileName);
-                    _recorderNumOfLine = 0;
+                    Logger.Log("Starting recording in " + _recorderCurrentFilePath);
+
+                    _recorder = new StreamWriter(_recorderCurrentFilePath);
+                    _recorderTotalNumOfRecords = 0;
+
+                    // Write the product type, serial number and start time.
+                    _recorder.WriteLine("# Product: " + _productType);
+                    _recorder.WriteLine("# Serial number: " + _serialNumber);
+                    _recorder.WriteLine("# Start time: " + startTime.ToString("yyyy-MM-dd HH:mm:ss.ffffff"));
 
                     // Write a header.
                     _recorder.WriteLine("Timestamp [ms], Raw Count, Position [mm]");
 
-                    Logger.Log("Started recording in " + fileName);
+                    Logger.Log("Started recording in " + _recorderCurrentFilePath);
                 }
             }
             catch (Exception ex)
             {
+                _recorder = null;
                 Logger.Log(ex.ToString());
                 throw ex;
             }
@@ -805,6 +828,11 @@ namespace QSBLinearEncoderReader
         {
             lock (_recorderLock)
             {
+                if (_recorder == null)
+                {
+                    return;
+                }
+
                 try
                 {
                     Logger.Log("Terminating the recording.");
