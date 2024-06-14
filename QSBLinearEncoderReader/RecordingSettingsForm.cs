@@ -25,6 +25,7 @@ namespace QSBLinearEncoderReader
         private void RecordingSettingsForm_Load(object sender, EventArgs e)
         {
             loadPreviousSettings();
+            calculateRecordingRate();
         }
 
         private void buttonSelectDirectory_Click(object sender, EventArgs e)
@@ -80,6 +81,11 @@ namespace QSBLinearEncoderReader
                 "CSV Filename",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
+
+        private void numericUpDownRecordingInterval_ValueChanged(object sender, EventArgs e)
+        {
+            calculateRecordingRate();
         }
 
         private void loadPreviousSettings()
@@ -165,6 +171,12 @@ namespace QSBLinearEncoderReader
 
             textBoxCSVFilenameExample.Text = Util.FormatFilename(filenameBase, _dialogOpenDateTime);
             return true;
+        }
+
+        private void calculateRecordingRate()
+        {
+            decimal recordingRate_Hz = Decimal.Divide(512.0m, numericUpDownRecordingInterval.Value);
+            labelRecordingRate.Text = String.Format("({0:0.###} Hz)", recordingRate_Hz);
         }
     }
 }
