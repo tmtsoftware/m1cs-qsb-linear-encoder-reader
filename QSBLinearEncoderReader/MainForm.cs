@@ -25,6 +25,7 @@ namespace QSBLinearEncoderReader
             string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             AppendOneLineLogMessage(appName + " " + appVersion);
             AppendOneLineLogMessage("Trace log is in " + Logger.TraceLogPath);
+            SetButtonsState();
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
@@ -115,7 +116,7 @@ namespace QSBLinearEncoderReader
 
             if (dialogResult == DialogResult.OK)
             {
-                settingsDialog.saveSettings();
+                settingsDialog.SaveSettings();
             }
 
             settingsDialog.Dispose();
@@ -296,8 +297,7 @@ namespace QSBLinearEncoderReader
             buttonConnect.Enabled = false;
 
             _connected = true;
-            SetRecordingButtonsState();
-            SetStatisticsButtonsState();
+            SetButtonsState();
 
             return true;
         }
@@ -336,8 +336,7 @@ namespace QSBLinearEncoderReader
             buttonConnect.Enabled = true;
 
             _connected = false;
-            SetRecordingButtonsState();
-            SetStatisticsButtonsState();
+            SetButtonsState();
         }
 
         private void StartRecording(String fileName)
@@ -372,7 +371,7 @@ namespace QSBLinearEncoderReader
             if (failed)
             {
                 _recording = false;
-                SetRecordingButtonsState();
+                SetButtonsState();
                 AppendOneLineLogMessage("Failed to start recording to " + fileName);
                 AppendOneLineLogMessage(failureMessage);
                 return;
@@ -380,7 +379,7 @@ namespace QSBLinearEncoderReader
 
             AppendOneLineLogMessage("Started recording to " + fileName);
 
-            SetRecordingButtonsState();
+            SetButtonsState();
         }
 
         private void StopRecording()
@@ -400,7 +399,7 @@ namespace QSBLinearEncoderReader
 
             AppendOneLineLogMessage("Stopped recording.");
 
-            SetRecordingButtonsState();
+            SetButtonsState();
         }
 
         private void StartStatistics()
@@ -432,7 +431,7 @@ namespace QSBLinearEncoderReader
                 AppendOneLineLogMessage("Started statistics.");
             }
 
-            SetStatisticsButtonsState();
+            SetButtonsState();
         }
 
         private void StopStatistics()
@@ -458,12 +457,18 @@ namespace QSBLinearEncoderReader
                 AppendOneLineLogMessage("Stopped statistics.");
             }
 
-            SetStatisticsButtonsState();
+            SetButtonsState();
         }
 
         private void AppendOneLineLogMessage(String message)
         {
             textBoxStatus.AppendText(message + Environment.NewLine);
+        }
+
+        private void SetButtonsState()
+        {
+            SetRecordingButtonsState();
+            SetStatisticsButtonsState();
         }
 
         private void SetRecordingButtonsState()
