@@ -88,6 +88,16 @@ namespace QSBLinearEncoderReader
             CalculateRecordingRate();
         }
 
+        private void numericUpDownRecordingInterval_KeyDown(object sender, KeyEventArgs e)
+        {
+            CalculateRecordingRate();
+        }
+
+        private void numericUpDownRecordingInterval_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalculateRecordingRate();
+        }
+
         private void LoadPreviousSettings()
         {
             textBoxOutputDirectory.Text = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.OutputDirectory);

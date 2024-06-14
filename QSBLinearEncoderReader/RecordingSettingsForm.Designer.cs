@@ -199,9 +199,10 @@
             0,
             0});
             this.numericUpDownMaxRecordsPerFile.Name = "numericUpDownMaxRecordsPerFile";
-            this.numericUpDownMaxRecordsPerFile.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDownMaxRecordsPerFile.Size = new System.Drawing.Size(71, 20);
             this.numericUpDownMaxRecordsPerFile.TabIndex = 6;
             this.numericUpDownMaxRecordsPerFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownMaxRecordsPerFile.ThousandsSeparator = true;
             this.numericUpDownMaxRecordsPerFile.Value = new decimal(new int[] {
             1024,
             0,
@@ -224,21 +225,24 @@
             0,
             0});
             this.numericUpDownRecordingInterval.Name = "numericUpDownRecordingInterval";
-            this.numericUpDownRecordingInterval.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDownRecordingInterval.Size = new System.Drawing.Size(71, 20);
             this.numericUpDownRecordingInterval.TabIndex = 7;
             this.numericUpDownRecordingInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownRecordingInterval.ThousandsSeparator = true;
             this.numericUpDownRecordingInterval.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numericUpDownRecordingInterval.ValueChanged += new System.EventHandler(this.numericUpDownRecordingInterval_ValueChanged);
+            this.numericUpDownRecordingInterval.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericUpDownRecordingInterval_KeyDown);
+            this.numericUpDownRecordingInterval.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericUpDownRecordingInterval_KeyUp);
             // 
             // labelRecordingRate
             // 
             this.labelRecordingRate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelRecordingRate.AutoSize = true;
-            this.labelRecordingRate.Location = new System.Drawing.Point(251, 146);
+            this.labelRecordingRate.Location = new System.Drawing.Point(257, 146);
             this.labelRecordingRate.Name = "labelRecordingRate";
             this.labelRecordingRate.Size = new System.Drawing.Size(29, 13);
             this.labelRecordingRate.TabIndex = 99;
