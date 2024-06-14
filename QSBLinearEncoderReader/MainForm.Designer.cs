@@ -74,6 +74,10 @@
             this.labelStdev = new System.Windows.Forms.Label();
             this.textBoxStdev = new System.Windows.Forms.TextBox();
             this.labelStdevUnit = new System.Windows.Forms.Label();
+            this.checkBoxAutoStopStatistics = new System.Windows.Forms.CheckBox();
+            this.labelAutoStopStatistics1 = new System.Windows.Forms.Label();
+            this.numericUpDownAutoStopStatisticsCount = new System.Windows.Forms.NumericUpDown();
+            this.labelAutoStopStatistics2 = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             this.groupBoxRecording.SuspendLayout();
             this.tableLayoutPanelRecording.SuspendLayout();
@@ -81,6 +85,7 @@
             this.groupBoxStatistics.SuspendLayout();
             this.tableLayoutPanelStatistics.SuspendLayout();
             this.flowLayoutPanelStatisticsButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutoStopStatisticsCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanelMain
@@ -347,34 +352,39 @@
             // 
             this.tableLayoutPanelStatistics.AutoSize = true;
             this.tableLayoutPanelStatistics.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanelStatistics.ColumnCount = 6;
+            this.tableLayoutPanelStatistics.ColumnCount = 7;
             this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanelStatistics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanelStatistics.Controls.Add(this.labelNumberOfSamples, 0, 0);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelDuration, 0, 1);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelAverage, 0, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.checkBoxAutoStopStatistics, 3, 3);
             this.tableLayoutPanelStatistics.Controls.Add(this.textBoxNumberOfSamples, 1, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelAutoStopStatistics1, 4, 3);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelDurationUnit, 2, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.numericUpDownAutoStopStatisticsCount, 5, 3);
             this.tableLayoutPanelStatistics.Controls.Add(this.textBoxDuration, 1, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelAutoStopStatistics2, 6, 3);
             this.tableLayoutPanelStatistics.Controls.Add(this.textBoxAverage, 1, 2);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelAverageUnit, 2, 2);
-            this.tableLayoutPanelStatistics.Controls.Add(this.labelMaximum, 3, 0);
-            this.tableLayoutPanelStatistics.Controls.Add(this.labelMinimum, 3, 1);
-            this.tableLayoutPanelStatistics.Controls.Add(this.labelPeakToPeak, 3, 2);
-            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxMaximum, 4, 0);
-            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxMinimum, 4, 1);
-            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxPeakToPeak, 4, 2);
-            this.tableLayoutPanelStatistics.Controls.Add(this.labelMaximumUnit, 5, 0);
-            this.tableLayoutPanelStatistics.Controls.Add(this.labelMinimumUnit, 5, 1);
-            this.tableLayoutPanelStatistics.Controls.Add(this.labelPeakToPeakUnit, 5, 2);
             this.tableLayoutPanelStatistics.Controls.Add(this.flowLayoutPanelStatisticsButtons, 0, 4);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelStdev, 0, 3);
             this.tableLayoutPanelStatistics.Controls.Add(this.textBoxStdev, 1, 3);
             this.tableLayoutPanelStatistics.Controls.Add(this.labelStdevUnit, 2, 3);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelPeakToPeakUnit, 6, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMinimumUnit, 6, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMaximumUnit, 6, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxMaximum, 5, 0);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxMinimum, 5, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.textBoxPeakToPeak, 5, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelPeakToPeak, 4, 2);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMinimum, 4, 1);
+            this.tableLayoutPanelStatistics.Controls.Add(this.labelMaximum, 4, 0);
             this.tableLayoutPanelStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelStatistics.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanelStatistics.Name = "tableLayoutPanelStatistics";
@@ -398,7 +408,7 @@
             this.flowLayoutPanelStatisticsButtons.Controls.Add(this.buttonResetStatistics);
             this.flowLayoutPanelStatisticsButtons.Location = new System.Drawing.Point(3, 101);
             this.flowLayoutPanelStatisticsButtons.Name = "flowLayoutPanelStatisticsButtons";
-            this.flowLayoutPanelStatisticsButtons.Size = new System.Drawing.Size(616, 29);
+            this.flowLayoutPanelStatisticsButtons.Size = new System.Drawing.Size(516, 29);
             this.flowLayoutPanelStatisticsButtons.TabIndex = 0;
             // 
             // buttonStartStatistics
@@ -476,7 +486,7 @@
             this.textBoxNumberOfSamples.Location = new System.Drawing.Point(108, 3);
             this.textBoxNumberOfSamples.Name = "textBoxNumberOfSamples";
             this.textBoxNumberOfSamples.ReadOnly = true;
-            this.textBoxNumberOfSamples.Size = new System.Drawing.Size(103, 20);
+            this.textBoxNumberOfSamples.Size = new System.Drawing.Size(93, 20);
             this.textBoxNumberOfSamples.TabIndex = 4;
             this.textBoxNumberOfSamples.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxNumberOfSamples.WordWrap = false;
@@ -485,7 +495,7 @@
             // 
             this.labelDurationUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelDurationUnit.AutoSize = true;
-            this.labelDurationUnit.Location = new System.Drawing.Point(217, 32);
+            this.labelDurationUnit.Location = new System.Drawing.Point(207, 32);
             this.labelDurationUnit.Name = "labelDurationUnit";
             this.labelDurationUnit.Size = new System.Drawing.Size(12, 13);
             this.labelDurationUnit.TabIndex = 5;
@@ -498,7 +508,7 @@
             this.textBoxDuration.Location = new System.Drawing.Point(108, 29);
             this.textBoxDuration.Name = "textBoxDuration";
             this.textBoxDuration.ReadOnly = true;
-            this.textBoxDuration.Size = new System.Drawing.Size(103, 20);
+            this.textBoxDuration.Size = new System.Drawing.Size(93, 20);
             this.textBoxDuration.TabIndex = 6;
             this.textBoxDuration.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxDuration.WordWrap = false;
@@ -509,7 +519,7 @@
             this.textBoxAverage.Location = new System.Drawing.Point(108, 55);
             this.textBoxAverage.Name = "textBoxAverage";
             this.textBoxAverage.ReadOnly = true;
-            this.textBoxAverage.Size = new System.Drawing.Size(103, 20);
+            this.textBoxAverage.Size = new System.Drawing.Size(93, 20);
             this.textBoxAverage.TabIndex = 7;
             this.textBoxAverage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxAverage.WordWrap = false;
@@ -518,7 +528,7 @@
             // 
             this.labelAverageUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelAverageUnit.AutoSize = true;
-            this.labelAverageUnit.Location = new System.Drawing.Point(217, 58);
+            this.labelAverageUnit.Location = new System.Drawing.Point(207, 58);
             this.labelAverageUnit.Name = "labelAverageUnit";
             this.labelAverageUnit.Size = new System.Drawing.Size(23, 13);
             this.labelAverageUnit.TabIndex = 8;
@@ -529,7 +539,7 @@
             // 
             this.labelMaximum.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMaximum.AutoSize = true;
-            this.labelMaximum.Location = new System.Drawing.Point(347, 6);
+            this.labelMaximum.Location = new System.Drawing.Point(369, 6);
             this.labelMaximum.Name = "labelMaximum";
             this.labelMaximum.Size = new System.Drawing.Size(51, 13);
             this.labelMaximum.TabIndex = 9;
@@ -540,7 +550,7 @@
             // 
             this.labelMinimum.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMinimum.AutoSize = true;
-            this.labelMinimum.Location = new System.Drawing.Point(350, 32);
+            this.labelMinimum.Location = new System.Drawing.Point(372, 32);
             this.labelMinimum.Name = "labelMinimum";
             this.labelMinimum.Size = new System.Drawing.Size(48, 13);
             this.labelMinimum.TabIndex = 10;
@@ -551,7 +561,7 @@
             // 
             this.labelPeakToPeak.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelPeakToPeak.AutoSize = true;
-            this.labelPeakToPeak.Location = new System.Drawing.Point(326, 58);
+            this.labelPeakToPeak.Location = new System.Drawing.Point(348, 58);
             this.labelPeakToPeak.Name = "labelPeakToPeak";
             this.labelPeakToPeak.Size = new System.Drawing.Size(72, 13);
             this.labelPeakToPeak.TabIndex = 11;
@@ -561,10 +571,10 @@
             // textBoxMaximum
             // 
             this.textBoxMaximum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMaximum.Location = new System.Drawing.Point(404, 3);
+            this.textBoxMaximum.Location = new System.Drawing.Point(426, 3);
             this.textBoxMaximum.Name = "textBoxMaximum";
             this.textBoxMaximum.ReadOnly = true;
-            this.textBoxMaximum.Size = new System.Drawing.Size(103, 20);
+            this.textBoxMaximum.Size = new System.Drawing.Size(93, 20);
             this.textBoxMaximum.TabIndex = 12;
             this.textBoxMaximum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxMaximum.WordWrap = false;
@@ -572,10 +582,10 @@
             // textBoxMinimum
             // 
             this.textBoxMinimum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxMinimum.Location = new System.Drawing.Point(404, 29);
+            this.textBoxMinimum.Location = new System.Drawing.Point(426, 29);
             this.textBoxMinimum.Name = "textBoxMinimum";
             this.textBoxMinimum.ReadOnly = true;
-            this.textBoxMinimum.Size = new System.Drawing.Size(103, 20);
+            this.textBoxMinimum.Size = new System.Drawing.Size(93, 20);
             this.textBoxMinimum.TabIndex = 13;
             this.textBoxMinimum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxMinimum.WordWrap = false;
@@ -583,10 +593,10 @@
             // textBoxPeakToPeak
             // 
             this.textBoxPeakToPeak.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPeakToPeak.Location = new System.Drawing.Point(404, 55);
+            this.textBoxPeakToPeak.Location = new System.Drawing.Point(426, 55);
             this.textBoxPeakToPeak.Name = "textBoxPeakToPeak";
             this.textBoxPeakToPeak.ReadOnly = true;
-            this.textBoxPeakToPeak.Size = new System.Drawing.Size(103, 20);
+            this.textBoxPeakToPeak.Size = new System.Drawing.Size(93, 20);
             this.textBoxPeakToPeak.TabIndex = 14;
             this.textBoxPeakToPeak.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxPeakToPeak.WordWrap = false;
@@ -595,7 +605,7 @@
             // 
             this.labelMaximumUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelMaximumUnit.AutoSize = true;
-            this.labelMaximumUnit.Location = new System.Drawing.Point(513, 6);
+            this.labelMaximumUnit.Location = new System.Drawing.Point(525, 6);
             this.labelMaximumUnit.Name = "labelMaximumUnit";
             this.labelMaximumUnit.Size = new System.Drawing.Size(23, 13);
             this.labelMaximumUnit.TabIndex = 15;
@@ -606,7 +616,7 @@
             // 
             this.labelMinimumUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelMinimumUnit.AutoSize = true;
-            this.labelMinimumUnit.Location = new System.Drawing.Point(513, 32);
+            this.labelMinimumUnit.Location = new System.Drawing.Point(525, 32);
             this.labelMinimumUnit.Name = "labelMinimumUnit";
             this.labelMinimumUnit.Size = new System.Drawing.Size(23, 13);
             this.labelMinimumUnit.TabIndex = 16;
@@ -617,7 +627,7 @@
             // 
             this.labelPeakToPeakUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelPeakToPeakUnit.AutoSize = true;
-            this.labelPeakToPeakUnit.Location = new System.Drawing.Point(513, 58);
+            this.labelPeakToPeakUnit.Location = new System.Drawing.Point(525, 58);
             this.labelPeakToPeakUnit.Name = "labelPeakToPeakUnit";
             this.labelPeakToPeakUnit.Size = new System.Drawing.Size(23, 13);
             this.labelPeakToPeakUnit.TabIndex = 17;
@@ -646,7 +656,7 @@
             this.textBoxStdev.Location = new System.Drawing.Point(108, 81);
             this.textBoxStdev.Name = "textBoxStdev";
             this.textBoxStdev.ReadOnly = true;
-            this.textBoxStdev.Size = new System.Drawing.Size(103, 20);
+            this.textBoxStdev.Size = new System.Drawing.Size(93, 20);
             this.textBoxStdev.TabIndex = 7;
             this.textBoxStdev.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxStdev.WordWrap = false;
@@ -655,12 +665,70 @@
             // 
             this.labelStdevUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelStdevUnit.AutoSize = true;
-            this.labelStdevUnit.Location = new System.Drawing.Point(217, 81);
+            this.labelStdevUnit.Location = new System.Drawing.Point(207, 81);
             this.labelStdevUnit.Name = "labelStdevUnit";
             this.labelStdevUnit.Size = new System.Drawing.Size(23, 13);
             this.labelStdevUnit.TabIndex = 8;
             this.labelStdevUnit.Text = "mm";
             this.labelStdevUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkBoxAutoStopStatistics
+            // 
+            this.checkBoxAutoStopStatistics.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.checkBoxAutoStopStatistics.AutoSize = true;
+            this.checkBoxAutoStopStatistics.Location = new System.Drawing.Point(306, 81);
+            this.checkBoxAutoStopStatistics.Name = "checkBoxAutoStopStatistics";
+            this.checkBoxAutoStopStatistics.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxAutoStopStatistics.TabIndex = 11;
+            this.checkBoxAutoStopStatistics.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxAutoStopStatistics.UseVisualStyleBackColor = true;
+            this.checkBoxAutoStopStatistics.CheckedChanged += new System.EventHandler(this.checkBoxAutoStopStatistics_CheckedChanged);
+            // 
+            // labelAutoStopStatistics1
+            // 
+            this.labelAutoStopStatistics1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelAutoStopStatistics1.AutoSize = true;
+            this.labelAutoStopStatistics1.Location = new System.Drawing.Point(329, 81);
+            this.labelAutoStopStatistics1.Name = "labelAutoStopStatistics1";
+            this.labelAutoStopStatistics1.Size = new System.Drawing.Size(91, 13);
+            this.labelAutoStopStatistics1.TabIndex = 12;
+            this.labelAutoStopStatistics1.Text = "Stop recording at ";
+            this.labelAutoStopStatistics1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericUpDownAutoStopStatisticsCount
+            // 
+            this.numericUpDownAutoStopStatisticsCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownAutoStopStatisticsCount.Location = new System.Drawing.Point(426, 81);
+            this.numericUpDownAutoStopStatisticsCount.Maximum = new decimal(new int[] {
+            44236800,
+            0,
+            0,
+            0});
+            this.numericUpDownAutoStopStatisticsCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownAutoStopStatisticsCount.Name = "numericUpDownAutoStopStatisticsCount";
+            this.numericUpDownAutoStopStatisticsCount.Size = new System.Drawing.Size(93, 20);
+            this.numericUpDownAutoStopStatisticsCount.TabIndex = 13;
+            this.numericUpDownAutoStopStatisticsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDownAutoStopStatisticsCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // labelAutoStopStatistics2
+            // 
+            this.labelAutoStopStatistics2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelAutoStopStatistics2.AutoSize = true;
+            this.labelAutoStopStatistics2.Location = new System.Drawing.Point(525, 81);
+            this.labelAutoStopStatistics2.Name = "labelAutoStopStatistics2";
+            this.labelAutoStopStatistics2.Size = new System.Drawing.Size(58, 13);
+            this.labelAutoStopStatistics2.TabIndex = 12;
+            this.labelAutoStopStatistics2.Text = "-th sample.";
+            this.labelAutoStopStatistics2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
@@ -689,6 +757,7 @@
             this.tableLayoutPanelStatistics.PerformLayout();
             this.flowLayoutPanelStatisticsButtons.ResumeLayout(false);
             this.flowLayoutPanelStatisticsButtons.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAutoStopStatisticsCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -740,6 +809,10 @@
         private System.Windows.Forms.Label labelStdev;
         private System.Windows.Forms.TextBox textBoxStdev;
         private System.Windows.Forms.Label labelStdevUnit;
+        private System.Windows.Forms.CheckBox checkBoxAutoStopStatistics;
+        private System.Windows.Forms.Label labelAutoStopStatistics1;
+        private System.Windows.Forms.NumericUpDown numericUpDownAutoStopStatisticsCount;
+        private System.Windows.Forms.Label labelAutoStopStatistics2;
     }
 }
 

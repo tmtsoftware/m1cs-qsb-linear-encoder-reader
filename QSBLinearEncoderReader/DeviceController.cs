@@ -46,6 +46,7 @@ namespace QSBLinearEncoderReader
         private object _recorderLock = new object();
 
         private bool _statisticsOngoing = false;
+        private ulong _statisticsStopCount = 0; // 0 means indefinite
         private ulong _statisticsNumberOfSamples = 0;
         private decimal _statisticsSum = 0.0M;
         private decimal _statisticsSquareSum = 0.0M;
@@ -618,6 +619,11 @@ namespace QSBLinearEncoderReader
                                     _statisticsMinimum = encoderCount;
                                 }
                             }
+
+                            if (_statisticsStopCount > 0 && _statisticsNumberOfSamples >= _statisticsStopCount)
+                            {
+                                StopStatistics();
+                            }
                         }
                     }
                 }
@@ -759,7 +765,7 @@ namespace QSBLinearEncoderReader
             {
                 if (_statisticsOngoing) {
                     StopStatistics();
-                    StartStatistics();
+                    StartStatistics(_statisticsStopCount);
                 }
             }
 
@@ -825,10 +831,11 @@ namespace QSBLinearEncoderReader
             }
         }
 
-        public void StartStatistics()
+        public void StartStatistics(ulong stopCount)
         {
             lock (_statisticsLock)
             {
+                _statisticsStopCount = stopCount;
                 _statisticsNumberOfSamples = 0;
                 _statisticsSum = 0.0M;
                 _statisticsSquareSum = 0.0M;
@@ -846,7 +853,7 @@ namespace QSBLinearEncoderReader
             }
         }
 
-        private bool IsStatisticsOngoing
+        public bool IsStatisticsOngoing
         {
             get
             {
