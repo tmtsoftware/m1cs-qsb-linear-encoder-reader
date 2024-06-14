@@ -87,16 +87,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 191);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 207);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelOutputDirectory
             // 
             this.labelOutputDirectory.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelOutputDirectory.AutoSize = true;
-            this.labelOutputDirectory.Location = new System.Drawing.Point(97, 7);
+            this.labelOutputDirectory.Location = new System.Drawing.Point(87, 8);
             this.labelOutputDirectory.Name = "labelOutputDirectory";
-            this.labelOutputDirectory.Size = new System.Drawing.Size(92, 12);
+            this.labelOutputDirectory.Size = new System.Drawing.Size(87, 13);
             this.labelOutputDirectory.TabIndex = 99;
             this.labelOutputDirectory.Text = "Output Directory:";
             this.labelOutputDirectory.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -105,9 +105,9 @@
             // 
             this.textBoxOutputDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxOutputDirectory, 2);
-            this.textBoxOutputDirectory.Location = new System.Drawing.Point(195, 4);
+            this.textBoxOutputDirectory.Location = new System.Drawing.Point(180, 4);
             this.textBoxOutputDirectory.Name = "textBoxOutputDirectory";
-            this.textBoxOutputDirectory.Size = new System.Drawing.Size(305, 19);
+            this.textBoxOutputDirectory.Size = new System.Drawing.Size(320, 20);
             this.textBoxOutputDirectory.TabIndex = 2;
             this.textBoxOutputDirectory.WordWrap = false;
             // 
@@ -115,9 +115,9 @@
             // 
             this.labelCSVFilename.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelCSVFilename.AutoSize = true;
-            this.labelCSVFilename.Location = new System.Drawing.Point(109, 34);
+            this.labelCSVFilename.Location = new System.Drawing.Point(98, 37);
             this.labelCSVFilename.Name = "labelCSVFilename";
-            this.labelCSVFilename.Size = new System.Drawing.Size(80, 12);
+            this.labelCSVFilename.Size = new System.Drawing.Size(76, 13);
             this.labelCSVFilename.TabIndex = 99;
             this.labelCSVFilename.Text = "CSV Filename:";
             this.labelCSVFilename.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -126,9 +126,9 @@
             // 
             this.textBoxCSVFilename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxCSVFilename, 2);
-            this.textBoxCSVFilename.Location = new System.Drawing.Point(195, 31);
+            this.textBoxCSVFilename.Location = new System.Drawing.Point(180, 33);
             this.textBoxCSVFilename.Name = "textBoxCSVFilename";
-            this.textBoxCSVFilename.Size = new System.Drawing.Size(305, 19);
+            this.textBoxCSVFilename.Size = new System.Drawing.Size(320, 20);
             this.textBoxCSVFilename.TabIndex = 4;
             this.textBoxCSVFilename.WordWrap = false;
             // 
@@ -136,9 +136,9 @@
             // 
             this.labelRecordAbsoluteTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelRecordAbsoluteTime.AutoSize = true;
-            this.labelRecordAbsoluteTime.Location = new System.Drawing.Point(68, 142);
+            this.labelRecordAbsoluteTime.Location = new System.Drawing.Point(59, 153);
             this.labelRecordAbsoluteTime.Name = "labelRecordAbsoluteTime";
-            this.labelRecordAbsoluteTime.Size = new System.Drawing.Size(121, 12);
+            this.labelRecordAbsoluteTime.Size = new System.Drawing.Size(115, 13);
             this.labelRecordAbsoluteTime.TabIndex = 99;
             this.labelRecordAbsoluteTime.Text = "Record Absolute Time:";
             this.labelRecordAbsoluteTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -147,9 +147,9 @@
             // 
             this.labelRecordingInterval.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelRecordingInterval.AutoSize = true;
-            this.labelRecordingInterval.Location = new System.Drawing.Point(89, 115);
+            this.labelRecordingInterval.Location = new System.Drawing.Point(77, 124);
             this.labelRecordingInterval.Name = "labelRecordingInterval";
-            this.labelRecordingInterval.Size = new System.Drawing.Size(100, 12);
+            this.labelRecordingInterval.Size = new System.Drawing.Size(97, 13);
             this.labelRecordingInterval.TabIndex = 99;
             this.labelRecordingInterval.Text = "Recording Interval:";
             this.labelRecordingInterval.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -158,9 +158,9 @@
             // 
             this.labelMaxRecords.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMaxRecords.AutoSize = true;
-            this.labelMaxRecords.Location = new System.Drawing.Point(3, 88);
+            this.labelMaxRecords.Location = new System.Drawing.Point(3, 95);
             this.labelMaxRecords.Name = "labelMaxRecords";
-            this.labelMaxRecords.Size = new System.Drawing.Size(186, 12);
+            this.labelMaxRecords.Size = new System.Drawing.Size(171, 13);
             this.labelMaxRecords.TabIndex = 99;
             this.labelMaxRecords.Text = "Maximum records per one CSV file:";
             this.labelMaxRecords.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -169,9 +169,9 @@
             // 
             this.labelCSVFilenameExample.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelCSVFilenameExample.AutoSize = true;
-            this.labelCSVFilenameExample.Location = new System.Drawing.Point(62, 61);
+            this.labelCSVFilenameExample.Location = new System.Drawing.Point(55, 66);
             this.labelCSVFilenameExample.Name = "labelCSVFilenameExample";
-            this.labelCSVFilenameExample.Size = new System.Drawing.Size(127, 12);
+            this.labelCSVFilenameExample.Size = new System.Drawing.Size(119, 13);
             this.labelCSVFilenameExample.TabIndex = 99;
             this.labelCSVFilenameExample.Text = "CSV Filename Example:";
             this.labelCSVFilenameExample.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -180,10 +180,10 @@
             // 
             this.textBoxCSVFilenameExample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxCSVFilenameExample, 2);
-            this.textBoxCSVFilenameExample.Location = new System.Drawing.Point(195, 58);
+            this.textBoxCSVFilenameExample.Location = new System.Drawing.Point(180, 62);
             this.textBoxCSVFilenameExample.Name = "textBoxCSVFilenameExample";
             this.textBoxCSVFilenameExample.ReadOnly = true;
-            this.textBoxCSVFilenameExample.Size = new System.Drawing.Size(305, 19);
+            this.textBoxCSVFilenameExample.Size = new System.Drawing.Size(320, 20);
             this.textBoxCSVFilenameExample.TabIndex = 99;
             this.textBoxCSVFilenameExample.TabStop = false;
             this.textBoxCSVFilenameExample.WordWrap = false;
@@ -192,7 +192,7 @@
             // 
             this.checkBoxRecordAbsoluteTime.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.checkBoxRecordAbsoluteTime.AutoSize = true;
-            this.checkBoxRecordAbsoluteTime.Location = new System.Drawing.Point(195, 141);
+            this.checkBoxRecordAbsoluteTime.Location = new System.Drawing.Point(180, 152);
             this.checkBoxRecordAbsoluteTime.Name = "checkBoxRecordAbsoluteTime";
             this.checkBoxRecordAbsoluteTime.Size = new System.Drawing.Size(15, 14);
             this.checkBoxRecordAbsoluteTime.TabIndex = 8;
@@ -201,7 +201,7 @@
             // numericUpDownMaxRecordsPerFile
             // 
             this.numericUpDownMaxRecordsPerFile.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.numericUpDownMaxRecordsPerFile.Location = new System.Drawing.Point(195, 85);
+            this.numericUpDownMaxRecordsPerFile.Location = new System.Drawing.Point(180, 91);
             this.numericUpDownMaxRecordsPerFile.Maximum = new decimal(new int[] {
             1048574,
             0,
@@ -213,7 +213,7 @@
             0,
             0});
             this.numericUpDownMaxRecordsPerFile.Name = "numericUpDownMaxRecordsPerFile";
-            this.numericUpDownMaxRecordsPerFile.Size = new System.Drawing.Size(120, 19);
+            this.numericUpDownMaxRecordsPerFile.Size = new System.Drawing.Size(120, 20);
             this.numericUpDownMaxRecordsPerFile.TabIndex = 6;
             this.numericUpDownMaxRecordsPerFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownMaxRecordsPerFile.Value = new decimal(new int[] {
@@ -225,9 +225,9 @@
             // buttonCSVFilenameHelp
             // 
             this.buttonCSVFilenameHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCSVFilenameHelp.Location = new System.Drawing.Point(506, 30);
+            this.buttonCSVFilenameHelp.Location = new System.Drawing.Point(506, 32);
             this.buttonCSVFilenameHelp.Name = "buttonCSVFilenameHelp";
-            this.buttonCSVFilenameHelp.Size = new System.Drawing.Size(75, 20);
+            this.buttonCSVFilenameHelp.Size = new System.Drawing.Size(75, 22);
             this.buttonCSVFilenameHelp.TabIndex = 5;
             this.buttonCSVFilenameHelp.Text = "Help...";
             this.buttonCSVFilenameHelp.UseVisualStyleBackColor = true;
@@ -237,15 +237,16 @@
             this.buttonSelectDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSelectDirectory.Location = new System.Drawing.Point(506, 3);
             this.buttonSelectDirectory.Name = "buttonSelectDirectory";
-            this.buttonSelectDirectory.Size = new System.Drawing.Size(75, 20);
+            this.buttonSelectDirectory.Size = new System.Drawing.Size(75, 22);
             this.buttonSelectDirectory.TabIndex = 3;
             this.buttonSelectDirectory.Text = "Select...";
             this.buttonSelectDirectory.UseVisualStyleBackColor = true;
+            this.buttonSelectDirectory.Click += new System.EventHandler(this.buttonSelectDirectory_Click);
             // 
             // numericUpDownRecordingInterval
             // 
             this.numericUpDownRecordingInterval.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.numericUpDownRecordingInterval.Location = new System.Drawing.Point(195, 112);
+            this.numericUpDownRecordingInterval.Location = new System.Drawing.Point(180, 120);
             this.numericUpDownRecordingInterval.Maximum = new decimal(new int[] {
             30720,
             0,
@@ -257,7 +258,7 @@
             0,
             0});
             this.numericUpDownRecordingInterval.Name = "numericUpDownRecordingInterval";
-            this.numericUpDownRecordingInterval.Size = new System.Drawing.Size(120, 19);
+            this.numericUpDownRecordingInterval.Size = new System.Drawing.Size(120, 20);
             this.numericUpDownRecordingInterval.TabIndex = 7;
             this.numericUpDownRecordingInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownRecordingInterval.Value = new decimal(new int[] {
@@ -270,9 +271,9 @@
             // 
             this.labelRecordingRate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelRecordingRate.AutoSize = true;
-            this.labelRecordingRate.Location = new System.Drawing.Point(321, 115);
+            this.labelRecordingRate.Location = new System.Drawing.Point(306, 124);
             this.labelRecordingRate.Name = "labelRecordingRate";
-            this.labelRecordingRate.Size = new System.Drawing.Size(30, 12);
+            this.labelRecordingRate.Size = new System.Drawing.Size(29, 13);
             this.labelRecordingRate.TabIndex = 99;
             this.labelRecordingRate.Text = "( Hz)";
             this.labelRecordingRate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -281,9 +282,9 @@
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(425, 166);
+            this.buttonOK.Location = new System.Drawing.Point(425, 179);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 21);
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -293,9 +294,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(506, 166);
+            this.buttonCancel.Location = new System.Drawing.Point(506, 179);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 21);
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -303,15 +304,15 @@
             // RecordingSettingsForm
             // 
             this.AcceptButton = this.buttonOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(584, 191);
+            this.ClientSize = new System.Drawing.Size(584, 207);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(600, 230);
+            this.MinimumSize = new System.Drawing.Size(600, 246);
             this.Name = "RecordingSettingsForm";
             this.Text = "Recording Settings";
             this.Load += new System.EventHandler(this.RecordingSettingsForm_Load);

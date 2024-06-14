@@ -44,9 +44,47 @@ namespace QSBLinearEncoderReader
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            // TODO: Validate the output directory path.
+            List<string> errMsgs = new List<string>();
+
+            // Validate the output directory path.
             string outputDir = textBoxOutputDirectory.Text;
-            this.DialogResult = DialogResult.None;
+            try
+            {
+                string outputDirFull = Path.GetFullPath(outputDir);
+                if (!outputDir.Equals(outputDirFull))
+                {
+                    errMsgs.Add("Output directory \"" + outputDir + "\" is not a full path.");
+                }
+                else if (File.Exists(outputDir))
+                {
+                    errMsgs.Add("\"" + outputDir + "\" is a file, not a directory.");
+                }
+            }
+            catch (Exception ex)
+            {
+                errMsgs.Add("Output directory \"" + outputDir + "\" is invalid. " + ex.Message);
+            }
+
+            if (errMsgs.Count > 0)
+            {
+                string fullErrMsg = String.Join(Environment.NewLine, errMsgs.ToArray());
+                MessageBox.Show(fullErrMsg, "Invalid settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Prevent the dialog from being closed.
+                this.DialogResult = DialogResult.None;
+            }
+        }
+
+        private void buttonSelectDirectory_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Select the folder to which you want to save CSV files";
+            dialog.ShowNewFolderButton = true;
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                textBoxOutputDirectory.Text = dialog.SelectedPath;
+            }
         }
     }
 }
