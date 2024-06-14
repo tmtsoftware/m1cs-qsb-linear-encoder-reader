@@ -24,8 +24,8 @@ namespace QSBLinearEncoderReader
 
         private void RecordingSettingsForm_Load(object sender, EventArgs e)
         {
-            loadPreviousSettings();
-            calculateRecordingRate();
+            LoadPreviousSettings();
+            CalculateRecordingRate();
         }
 
         private void buttonSelectDirectory_Click(object sender, EventArgs e)
@@ -85,10 +85,10 @@ namespace QSBLinearEncoderReader
 
         private void numericUpDownRecordingInterval_ValueChanged(object sender, EventArgs e)
         {
-            calculateRecordingRate();
+            CalculateRecordingRate();
         }
 
-        private void loadPreviousSettings()
+        private void LoadPreviousSettings()
         {
             textBoxOutputDirectory.Text = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.OutputDirectory);
             textBoxCSVFilename.Text = Properties.Settings.Default.CSVFilename;
@@ -97,7 +97,7 @@ namespace QSBLinearEncoderReader
             checkBoxRecordAbsoluteTime.Checked = Properties.Settings.Default.RecordAbsoluteTime;
         }
 
-        public void saveSettings()
+        public void SaveSettings()
         {
             Properties.Settings.Default.OutputDirectory = textBoxOutputDirectory.Text;
             Properties.Settings.Default.CSVFilename = textBoxCSVFilename.Text;
@@ -109,11 +109,11 @@ namespace QSBLinearEncoderReader
 
         private void validate()
         {
-            bool valid = validateOutputDirectory() && validateCSVFilename();
+            bool valid = ValidateOutputDirectory() && ValidateCSVFilename();
             buttonOK.Enabled = valid;
         }
 
-        private bool validateOutputDirectory()
+        private bool ValidateOutputDirectory()
         {
             string outputDir = textBoxOutputDirectory.Text;
             try
@@ -143,7 +143,7 @@ namespace QSBLinearEncoderReader
             return true;
         }
 
-        private bool validateCSVFilename()
+        private bool ValidateCSVFilename()
         {
             string filenameBase = textBoxCSVFilename.Text;
             if (filenameBase.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
@@ -173,7 +173,7 @@ namespace QSBLinearEncoderReader
             return true;
         }
 
-        private void calculateRecordingRate()
+        private void CalculateRecordingRate()
         {
             decimal recordingRate_Hz = Decimal.Divide(512.0m, numericUpDownRecordingInterval.Value);
             labelRecordingRate.Text = String.Format("({0:0.###} Hz)", recordingRate_Hz);
