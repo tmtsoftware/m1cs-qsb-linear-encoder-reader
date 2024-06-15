@@ -142,6 +142,11 @@ namespace QSBLinearEncoderReader
                     AppendOneLineLogMessage("Connection was closed unexpectedly. See more details in " + Logger.TraceLogPath);
                     Disconnect();
                 }
+
+                if (_controller != null && _controller.IsRecording)
+                {
+                    textBoxCSVOutputPath.Text = _controller.CurrentRecordingFilePath;
+                }
             }
 
             UpdateEncoderReadingDisplay();

@@ -268,18 +268,18 @@
             this.labelCSVOutputPath.AutoSize = true;
             this.labelCSVOutputPath.Location = new System.Drawing.Point(3, 6);
             this.labelCSVOutputPath.Name = "labelCSVOutputPath";
-            this.labelCSVOutputPath.Size = new System.Drawing.Size(91, 13);
+            this.labelCSVOutputPath.Size = new System.Drawing.Size(128, 13);
             this.labelCSVOutputPath.TabIndex = 0;
-            this.labelCSVOutputPath.Text = "CSV Output Path:";
+            this.labelCSVOutputPath.Text = "Current CSV Output Path:";
             this.labelCSVOutputPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxCSVOutputPath
             // 
             this.textBoxCSVOutputPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCSVOutputPath.Location = new System.Drawing.Point(100, 3);
+            this.textBoxCSVOutputPath.Location = new System.Drawing.Point(137, 3);
             this.textBoxCSVOutputPath.Name = "textBoxCSVOutputPath";
             this.textBoxCSVOutputPath.ReadOnly = true;
-            this.textBoxCSVOutputPath.Size = new System.Drawing.Size(519, 20);
+            this.textBoxCSVOutputPath.Size = new System.Drawing.Size(482, 20);
             this.textBoxCSVOutputPath.TabIndex = 1;
             // 
             // flowLayoutPanelRecordingButtons
