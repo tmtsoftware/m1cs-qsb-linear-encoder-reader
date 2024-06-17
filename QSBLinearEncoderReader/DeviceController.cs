@@ -11,9 +11,7 @@ namespace QSBLinearEncoderReader
 
         private Qsb _qsb;
         private ConnectionState _connectionState;
-
-        private int _encoderZeroPositionCount;
-        private decimal _encoderResolution_nm;
+        private EncoderCountProcessor _processor;
 
         /// <summary>
         /// This class handles RS-232 communication with an QSB-D.
@@ -26,6 +24,7 @@ namespace QSBLinearEncoderReader
         {
             _connectionStateListener = connectionStateListener;
             _qsb = new Qsb(connectionStateListener);
+            _processor = new EncoderCountProcessor();
         }
 
         /// <summary>
@@ -40,8 +39,7 @@ namespace QSBLinearEncoderReader
             decimal encoderResolution_nm)
         {
             _qsb.Connect(portName, baudRate, quadratureMode, encoderDirection);
-            _encoderZeroPositionCount = encoderZeroPositionCount;
-            _encoderResolution_nm = encoderResolution_nm;
+            _processor.Reset(encoderZeroPositionCount, encoderResolution_nm);
         }
 
         public void Disconnect()
@@ -49,13 +47,56 @@ namespace QSBLinearEncoderReader
             _qsb.Disconnect();
         }
 
-        public ConnectionInfo ConnectionInfo
+        /// <summary>
+        /// This method is supposed to be called as a separate thread. It is an infinite
+        /// loop until disconnected.
+        /// </summary>
+        private void EncoderCountReaderLoop()
         {
-            get
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
+            try
             {
-                return _qsb.ConnectionInfo;
+                Logger.Log("Started EncoderCountReaderLoop.");
+
+                while (_qsb.ConnectionState == ConnectionState.Connected)
+                {
+                    int encoderCount;
+                    uint timestamp;
+
+                    _qsb.ReadEncoderCount(out encoderCount, out timestamp);
+                    _processor.AddNewSample(encoderCount);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Terminate this thread when it encouters an exception.
+                Logger.Log(ex.ToString());
+                Logger.Log("Terminating EncoderCountReaderLoop because of the exception above.");
+                Disconnect();
+                return;
             }
         }
+
+        /// <summary>
+        /// Set the current encoder count as the zero position.
+        /// </summary>
+        /// <returns>New encoder count of the zero position.</returns>
+        public int Zero()
+        {
+            int newZeroPositionCount = _processor.Zero();
+
+            // TODO: reset the statistics
+
+            return newZeroPositionCount;
+        }
+
+        public ConnectionState ConnectionState { get { return _qsb.ConnectionState; } }
+
+        public ConnectionInfo ConnectionInfo { get { return _qsb.ConnectionInfo; } }
+        public decimal ResolutionInNanometers {  get { return _processor.ResolutionInNanometers; } }
+        public int ZeroPositionCount { get { return _processor.ZeroPositionCount; } }
+        public decimal CurrentPositionInMillimeters { get { return _processor.CurrentPositionInMillimeters; } }
     }
 
         /*

@@ -228,13 +228,11 @@ namespace QSBLinearEncoderReader
                 }
                 catch (TimeoutException e)
                 {
-                    Disconnect();
                     Logger.Log(e.ToString());
                     throw new TimeoutException("The device didn't have encoder value in the stream buffer.", e);
                 }
                 catch (Exception e)
                 {
-                    Disconnect();
                     Logger.Log(e.ToString());
                     throw e;
                 }
@@ -464,15 +462,8 @@ namespace QSBLinearEncoderReader
             _connectionStateListener.ConnectionStateChanged(newState);
         }
 
-        public ConnectionInfo ConnectionInfo
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _qsbInfo;
-                }
-            }
-        }
+        public ConnectionState ConnectionState { get { lock (_lock){ return _connectionState; } } }
+
+        public ConnectionInfo ConnectionInfo { get { lock (_lock){ return _qsbInfo; } } }
     }
 }

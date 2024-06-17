@@ -87,20 +87,20 @@
             this.textBoxQuadratureMode = new System.Windows.Forms.TextBox();
             this.labelCOMPort = new System.Windows.Forms.Label();
             this.textBoxCOMPort = new System.Windows.Forms.TextBox();
-            this.labelZeroPositionCount = new System.Windows.Forms.Label();
             this.labelSerialNumber = new System.Windows.Forms.Label();
             this.textBoxSerialNumber = new System.Windows.Forms.TextBox();
-            this.labelProductType = new System.Windows.Forms.Label();
             this.textBoxProductType = new System.Windows.Forms.TextBox();
-            this.textBoxZeroPositionCount = new System.Windows.Forms.TextBox();
-            this.labelResolution = new System.Windows.Forms.Label();
-            this.textBoxResolution = new System.Windows.Forms.TextBox();
-            this.labelBaudRate = new System.Windows.Forms.Label();
-            this.textBoxBaudRate = new System.Windows.Forms.TextBox();
-            this.labelFirmwareVersion = new System.Windows.Forms.Label();
             this.textBoxFirmwareVersion = new System.Windows.Forms.TextBox();
-            this.timerDisplayUpdateLoop = new System.Windows.Forms.Timer(this.components);
+            this.textBoxBaudRate = new System.Windows.Forms.TextBox();
+            this.textBoxResolution = new System.Windows.Forms.TextBox();
+            this.textBoxZeroPositionCount = new System.Windows.Forms.TextBox();
+            this.labelZeroPositionCount = new System.Windows.Forms.Label();
+            this.labelResolution = new System.Windows.Forms.Label();
+            this.labelBaudRate = new System.Windows.Forms.Label();
+            this.labelFirmwareVersion = new System.Windows.Forms.Label();
+            this.labelProductType = new System.Windows.Forms.Label();
             this.pictureBoxConnectionState = new System.Windows.Forms.PictureBox();
+            this.timerDisplayUpdateLoop = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanelMain.SuspendLayout();
             this.groupBoxRecording.SuspendLayout();
             this.tableLayoutPanelRecording.SuspendLayout();
@@ -898,17 +898,6 @@
             this.textBoxCOMPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxCOMPort.WordWrap = false;
             // 
-            // labelZeroPositionCount
-            // 
-            this.labelZeroPositionCount.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelZeroPositionCount.AutoSize = true;
-            this.labelZeroPositionCount.Location = new System.Drawing.Point(369, 110);
-            this.labelZeroPositionCount.Name = "labelZeroPositionCount";
-            this.labelZeroPositionCount.Size = new System.Drawing.Size(100, 13);
-            this.labelZeroPositionCount.TabIndex = 2;
-            this.labelZeroPositionCount.Text = "Zero Position Count";
-            this.labelZeroPositionCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // labelSerialNumber
             // 
             this.labelSerialNumber.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -931,17 +920,6 @@
             this.textBoxSerialNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxSerialNumber.WordWrap = false;
             // 
-            // labelProductType
-            // 
-            this.labelProductType.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelProductType.AutoSize = true;
-            this.labelProductType.Location = new System.Drawing.Point(401, 6);
-            this.labelProductType.Name = "labelProductType";
-            this.labelProductType.Size = new System.Drawing.Size(68, 13);
-            this.labelProductType.TabIndex = 2;
-            this.labelProductType.Text = "ProductType";
-            this.labelProductType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // textBoxProductType
             // 
             this.textBoxProductType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -952,72 +930,6 @@
             this.textBoxProductType.TabIndex = 4;
             this.textBoxProductType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxProductType.WordWrap = false;
-            // 
-            // textBoxZeroPositionCount
-            // 
-            this.textBoxZeroPositionCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxZeroPositionCount.Location = new System.Drawing.Point(475, 107);
-            this.textBoxZeroPositionCount.Name = "textBoxZeroPositionCount";
-            this.textBoxZeroPositionCount.ReadOnly = true;
-            this.textBoxZeroPositionCount.Size = new System.Drawing.Size(144, 20);
-            this.textBoxZeroPositionCount.TabIndex = 4;
-            this.textBoxZeroPositionCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxZeroPositionCount.WordWrap = false;
-            // 
-            // labelResolution
-            // 
-            this.labelResolution.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelResolution.AutoSize = true;
-            this.labelResolution.Location = new System.Drawing.Point(412, 84);
-            this.labelResolution.Name = "labelResolution";
-            this.labelResolution.Size = new System.Drawing.Size(57, 13);
-            this.labelResolution.TabIndex = 2;
-            this.labelResolution.Text = "Resolution";
-            this.labelResolution.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBoxResolution
-            // 
-            this.textBoxResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxResolution.Location = new System.Drawing.Point(475, 81);
-            this.textBoxResolution.Name = "textBoxResolution";
-            this.textBoxResolution.ReadOnly = true;
-            this.textBoxResolution.Size = new System.Drawing.Size(144, 20);
-            this.textBoxResolution.TabIndex = 4;
-            this.textBoxResolution.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxResolution.WordWrap = false;
-            // 
-            // labelBaudRate
-            // 
-            this.labelBaudRate.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelBaudRate.AutoSize = true;
-            this.labelBaudRate.Location = new System.Drawing.Point(411, 58);
-            this.labelBaudRate.Name = "labelBaudRate";
-            this.labelBaudRate.Size = new System.Drawing.Size(58, 13);
-            this.labelBaudRate.TabIndex = 2;
-            this.labelBaudRate.Text = "Baud Rate";
-            this.labelBaudRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBoxBaudRate
-            // 
-            this.textBoxBaudRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxBaudRate.Location = new System.Drawing.Point(475, 55);
-            this.textBoxBaudRate.Name = "textBoxBaudRate";
-            this.textBoxBaudRate.ReadOnly = true;
-            this.textBoxBaudRate.Size = new System.Drawing.Size(144, 20);
-            this.textBoxBaudRate.TabIndex = 4;
-            this.textBoxBaudRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxBaudRate.WordWrap = false;
-            // 
-            // labelFirmwareVersion
-            // 
-            this.labelFirmwareVersion.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.labelFirmwareVersion.AutoSize = true;
-            this.labelFirmwareVersion.Location = new System.Drawing.Point(385, 32);
-            this.labelFirmwareVersion.Name = "labelFirmwareVersion";
-            this.labelFirmwareVersion.Size = new System.Drawing.Size(84, 13);
-            this.labelFirmwareVersion.TabIndex = 2;
-            this.labelFirmwareVersion.Text = "FirmwareVersion";
-            this.labelFirmwareVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxFirmwareVersion
             // 
@@ -1030,10 +942,93 @@
             this.textBoxFirmwareVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxFirmwareVersion.WordWrap = false;
             // 
-            // timerDisplayUpdateLoop
+            // textBoxBaudRate
             // 
-            this.timerDisplayUpdateLoop.Enabled = true;
-            this.timerDisplayUpdateLoop.Tick += new System.EventHandler(this.timerDisplayUpdateLoop_Tick);
+            this.textBoxBaudRate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxBaudRate.Location = new System.Drawing.Point(475, 55);
+            this.textBoxBaudRate.Name = "textBoxBaudRate";
+            this.textBoxBaudRate.ReadOnly = true;
+            this.textBoxBaudRate.Size = new System.Drawing.Size(144, 20);
+            this.textBoxBaudRate.TabIndex = 4;
+            this.textBoxBaudRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxBaudRate.WordWrap = false;
+            // 
+            // textBoxResolution
+            // 
+            this.textBoxResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxResolution.Location = new System.Drawing.Point(475, 81);
+            this.textBoxResolution.Name = "textBoxResolution";
+            this.textBoxResolution.ReadOnly = true;
+            this.textBoxResolution.Size = new System.Drawing.Size(144, 20);
+            this.textBoxResolution.TabIndex = 4;
+            this.textBoxResolution.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxResolution.WordWrap = false;
+            // 
+            // textBoxZeroPositionCount
+            // 
+            this.textBoxZeroPositionCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxZeroPositionCount.Location = new System.Drawing.Point(475, 107);
+            this.textBoxZeroPositionCount.Name = "textBoxZeroPositionCount";
+            this.textBoxZeroPositionCount.ReadOnly = true;
+            this.textBoxZeroPositionCount.Size = new System.Drawing.Size(144, 20);
+            this.textBoxZeroPositionCount.TabIndex = 4;
+            this.textBoxZeroPositionCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxZeroPositionCount.WordWrap = false;
+            // 
+            // labelZeroPositionCount
+            // 
+            this.labelZeroPositionCount.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelZeroPositionCount.AutoSize = true;
+            this.labelZeroPositionCount.Location = new System.Drawing.Point(369, 110);
+            this.labelZeroPositionCount.Name = "labelZeroPositionCount";
+            this.labelZeroPositionCount.Size = new System.Drawing.Size(100, 13);
+            this.labelZeroPositionCount.TabIndex = 2;
+            this.labelZeroPositionCount.Text = "Zero Position Count";
+            this.labelZeroPositionCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelResolution
+            // 
+            this.labelResolution.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelResolution.AutoSize = true;
+            this.labelResolution.Location = new System.Drawing.Point(412, 84);
+            this.labelResolution.Name = "labelResolution";
+            this.labelResolution.Size = new System.Drawing.Size(57, 13);
+            this.labelResolution.TabIndex = 2;
+            this.labelResolution.Text = "Resolution";
+            this.labelResolution.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelBaudRate
+            // 
+            this.labelBaudRate.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelBaudRate.AutoSize = true;
+            this.labelBaudRate.Location = new System.Drawing.Point(411, 58);
+            this.labelBaudRate.Name = "labelBaudRate";
+            this.labelBaudRate.Size = new System.Drawing.Size(58, 13);
+            this.labelBaudRate.TabIndex = 2;
+            this.labelBaudRate.Text = "Baud Rate";
+            this.labelBaudRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelFirmwareVersion
+            // 
+            this.labelFirmwareVersion.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelFirmwareVersion.AutoSize = true;
+            this.labelFirmwareVersion.Location = new System.Drawing.Point(385, 32);
+            this.labelFirmwareVersion.Name = "labelFirmwareVersion";
+            this.labelFirmwareVersion.Size = new System.Drawing.Size(84, 13);
+            this.labelFirmwareVersion.TabIndex = 2;
+            this.labelFirmwareVersion.Text = "FirmwareVersion";
+            this.labelFirmwareVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelProductType
+            // 
+            this.labelProductType.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelProductType.AutoSize = true;
+            this.labelProductType.Location = new System.Drawing.Point(401, 6);
+            this.labelProductType.Name = "labelProductType";
+            this.labelProductType.Size = new System.Drawing.Size(68, 13);
+            this.labelProductType.TabIndex = 2;
+            this.labelProductType.Text = "ProductType";
+            this.labelProductType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pictureBoxConnectionState
             // 
@@ -1044,6 +1039,11 @@
             this.pictureBoxConnectionState.Size = new System.Drawing.Size(16, 16);
             this.pictureBoxConnectionState.TabIndex = 5;
             this.pictureBoxConnectionState.TabStop = false;
+            // 
+            // timerDisplayUpdateLoop
+            // 
+            this.timerDisplayUpdateLoop.Enabled = true;
+            this.timerDisplayUpdateLoop.Tick += new System.EventHandler(this.timerDisplayUpdateLoop_Tick);
             // 
             // MainForm
             // 
