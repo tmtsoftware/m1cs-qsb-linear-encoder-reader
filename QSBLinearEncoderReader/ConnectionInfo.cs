@@ -23,6 +23,20 @@ namespace QSBLinearEncoderReader
             ProductType = "Unknown";
         }
 
+        public ConnectionInfo(string portName,
+            int baudRate,
+            QuadratureMode quadratureMode,
+            EncoderDirection encoderDirection)
+        {
+            PortName = portName;
+            BaudRate = baudRate;
+            QuadratureMode = quadratureMode;
+            EncoderDirection = encoderDirection;
+            SerialNumber = 0;
+            ProductType = "QSB-D";
+            FirmwareVersion = 0;
+        }
+
         public ConnectionInfo(
             string portName,
             int baudRate,

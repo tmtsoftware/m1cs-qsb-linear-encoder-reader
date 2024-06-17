@@ -40,6 +40,9 @@ namespace QSBLinearEncoderReader
         {
             _qsb.Connect(portName, baudRate, quadratureMode, encoderDirection);
             _processor.Reset(encoderZeroPositionCount, encoderResolution_nm);
+
+            Thread encoderCountReaderThread = new Thread(new ThreadStart(EncoderCountReaderLoop));
+            encoderCountReaderThread.Start();
         }
 
         public void Disconnect()

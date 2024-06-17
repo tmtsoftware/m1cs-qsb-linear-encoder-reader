@@ -95,6 +95,7 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Qsb.cs" />
+    <Compile Include="QsbSimulator.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="RecordingSettingsForm.cs">
       <SubType>Form</SubType>

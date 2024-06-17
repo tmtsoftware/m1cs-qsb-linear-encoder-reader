@@ -16,6 +16,9 @@ namespace QSBLinearEncoderReader
         private SerialPort _serialPort = null;
         private ConnectionInfo _qsbInfo = new ConnectionInfo();
 
+        // If this is not null, the device is simulated (= simulation mode).
+        private QsbSimulator _simulator = null;
+
         public Qsb(IConnectionStateListener connectionStateListener)
         {
             _connectionStateListener = connectionStateListener;
@@ -85,82 +88,95 @@ namespace QSBLinearEncoderReader
                 {
                     Logger.Log(String.Format("Connecting to {0}. (Baud rate: {1})", portName, baudRate));
 
-                    _serialPort = new SerialPort();
-                    _serialPort.PortName = portName;
-                    _serialPort.BaudRate = baudRate;
-                    _serialPort.Parity = Parity.None;
-                    _serialPort.DataBits = 8;
-                    _serialPort.StopBits = StopBits.One;
-                    _serialPort.Handshake = Handshake.None;
-                    _serialPort.RtsEnable = true;
-                    _serialPort.NewLine = "\r\n";
-
-                    _serialPort.ReadTimeout = 1000;
-                    _serialPort.WriteTimeout = 1000;
-
-                    _serialPort.Open();
-                    Logger.Log(String.Format("Connected to {0}.", portName));
-
-                    // high-low-high transition on the DTR line resets the QSB-D.
-                    _serialPort.DtrEnable = true;
-                    _serialPort.DtrEnable = false;
-                    _serialPort.DtrEnable = true;
-
-                    // When QSB-D is reset, QSB-D first sends one line message "QSB-D  0E!\r\n",
-                    // but this is not a documented behavior. So, first try to read one line (=
-                    // wait until "\r\n" is received) and if it times out, simply proceed to
-                    // the next step.
-                    try
+                    if (portName == "Simulated Device")
                     {
-                        string firstLine = _serialPort.ReadLine();
-                        Logger.Log(String.Format("Received '{0}'.", firstLine));
+                        // Simulation mode.
+                        Logger.Log("Starting the simulation mode.");
+                        _simulator = new QsbSimulator();
+                        _qsbInfo = new ConnectionInfo(portName, baudRate, quadratureMode, encoderDirection);
+                        UpdateConnectionState(ConnectionState.Connected);
+                        Logger.Log("Started the simulation mode.");
+                        return;
                     }
-                    catch (TimeoutException)
+                    else
                     {
-                        Logger.Log("Didn't receive the first line.");
+                        _serialPort = new SerialPort();
+                        _serialPort.PortName = portName;
+                        _serialPort.BaudRate = baudRate;
+                        _serialPort.Parity = Parity.None;
+                        _serialPort.DataBits = 8;
+                        _serialPort.StopBits = StopBits.One;
+                        _serialPort.Handshake = Handshake.None;
+                        _serialPort.RtsEnable = true;
+                        _serialPort.NewLine = "\r\n";
+
+                        _serialPort.ReadTimeout = 1000;
+                        _serialPort.WriteTimeout = 1000;
+
+                        _serialPort.Open();
+                        Logger.Log(String.Format("Connected to {0}.", portName));
+
+                        // high-low-high transition on the DTR line resets the QSB-D.
+                        _serialPort.DtrEnable = true;
+                        _serialPort.DtrEnable = false;
+                        _serialPort.DtrEnable = true;
+
+                        // When QSB-D is reset, QSB-D first sends one line message "QSB-D  0E!\r\n",
+                        // but this is not a documented behavior. So, first try to read one line (=
+                        // wait until "\r\n" is received) and if it times out, simply proceed to
+                        // the next step.
+                        try
+                        {
+                            string firstLine = _serialPort.ReadLine();
+                            Logger.Log(String.Format("Received '{0}'.", firstLine));
+                        }
+                        catch (TimeoutException)
+                        {
+                            Logger.Log("Didn't receive the first line.");
+                        }
+
+                        // Change the reply format. All respnoses from the QSB-D from here on are
+                        // in the format of
+                        //
+                        //   +---------------------------+-------------------+---------------------+-------------------+
+                        //   | Command Response [1 byte] | whitespace (0x20) | Register [2 bytes]  | whitespace (0x20) |
+                        //   +---------------------------+-------------------+---------------------+-------------------+
+                        //   | Data [8 bytes]            | whitespace (0x20) | Timestamp [8 bytes] | whitespace (0x20) |
+                        //   +---------------------------+-------------------+---------------------+-------------------+
+                        //   | ! (0x21)                  | \r (0x0D)         | \n (0x0A)           |
+                        //   +---------------------------+-------------------+---------------------+
+                        //
+                        //    (26 bytes in total)
+                        //
+                        WriteCommand(0x15, 0x0000000F);
+
+                        // Get the product type, serial number and firmware version.
+                        uint versionResponse = ReadCommand(0x14);
+                        _qsbInfo = new ConnectionInfo(portName, baudRate, quadratureMode, encoderDirection, versionResponse);
+                        Logger.Log(
+                            String.Format("Product Type: {0}, Serial Number: {1}, Firmware Version: {2}",
+                            _qsbInfo.ProductType, _qsbInfo.SerialNumber, _qsbInfo.FirmwareVersion));
+
+                        // Set quadratue mode (x1, x2 or x4).
+                        WriteCommand(0x03, quadratureModeValue);
+
+                        // Set encoder direction.
+                        WriteCommand(0x04, encoderDirectionValue);
+
+                        // Set the threshold to 0 meaning that the encoder count will be reported regardless of the count difference from the previous one.
+                        WriteCommand(0x0B, 0x00000000);
+
+                        // Set the output interval to 1/512 x 1 Hz (1.953125 ms)
+                        WriteCommand(0x0C, 0x00000001);
+
+                        // Reset the 32-bit timestamp register to minimize the chance of rollover (every 94.5 days).
+                        WriteCommand(0x0D, 0x00000001);
+
+                        // Start streaming the encoder count at the specified interval.
+                        StreamCommand(0x0E);
+
+                        UpdateConnectionState(ConnectionState.Connected);
                     }
-
-                    // Change the reply format. All respnoses from the QSB-D from here on are
-                    // in the format of
-                    //
-                    //   +---------------------------+-------------------+---------------------+-------------------+
-                    //   | Command Response [1 byte] | whitespace (0x20) | Register [2 bytes]  | whitespace (0x20) |
-                    //   +---------------------------+-------------------+---------------------+-------------------+
-                    //   | Data [8 bytes]            | whitespace (0x20) | Timestamp [8 bytes] | whitespace (0x20) |
-                    //   +---------------------------+-------------------+---------------------+-------------------+
-                    //   | ! (0x21)                  | \r (0x0D)         | \n (0x0A)           |
-                    //   +---------------------------+-------------------+---------------------+
-                    //
-                    //    (26 bytes in total)
-                    //
-                    WriteCommand(0x15, 0x0000000F);
-
-                    // Get the product type, serial number and firmware version.
-                    uint versionResponse = ReadCommand(0x14);
-                    _qsbInfo = new ConnectionInfo(portName, baudRate, quadratureMode, encoderDirection, versionResponse);
-                    Logger.Log(
-                        String.Format("Product Type: {0}, Serial Number: {1}, Firmware Version: {2}",
-                        _qsbInfo.ProductType, _qsbInfo.SerialNumber, _qsbInfo.FirmwareVersion));
-
-                    // Set quadratue mode (x1, x2 or x4).
-                    WriteCommand(0x03, quadratureModeValue);
-
-                    // Set encoder direction.
-                    WriteCommand(0x04, encoderDirectionValue);
-
-                    // Set the threshold to 0 meaning that the encoder count will be reported regardless of the count difference from the previous one.
-                    WriteCommand(0x0B, 0x00000000);
-
-                    // Set the output interval to 1/512 x 1 Hz (1.953125 ms)
-                    WriteCommand(0x0C, 0x00000001);
-
-                    // Reset the 32-bit timestamp register to minimize the chance of rollover (every 94.5 days).
-                    WriteCommand(0x0D, 0x00000001);
-
-                    // Start streaming the encoder count at the specified interval.
-                    StreamCommand(0x0E);
-
-                    UpdateConnectionState(ConnectionState.Connected);
                 }
                 catch (Exception ex)
                 {
@@ -185,25 +201,37 @@ namespace QSBLinearEncoderReader
                 }
 
                 UpdateConnectionState(ConnectionState.Disconnecting);
-                string portName = _serialPort.PortName;
 
-                try
+                if (_simulator != null)
                 {
-                    if (_serialPort.IsOpen)
-                    {
-                        Logger.Log(String.Format("Disconnecting from {0}.", portName));
-                        _serialPort.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex.ToString());
-                    throw ex;
-                }
-                finally
-                {
+                    // Simulation mode.
+                    Logger.Log("Stopping the simulation mode.");
+                    _simulator = null;
                     UpdateConnectionState(ConnectionState.Disconnected);
-                    Logger.Log(String.Format("Disconnected from {0}.", portName));
+                    Logger.Log("Stopped the simulation mode.");
+                }
+                else
+                {
+                    string portName = _serialPort.PortName;
+                    try
+                    {
+                        if (_serialPort.IsOpen)
+                        {
+                            Logger.Log(String.Format("Disconnecting from {0}.", portName));
+                            _serialPort.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.ToString());
+                        throw ex;
+                    }
+                    finally
+                    {
+                        UpdateConnectionState(ConnectionState.Disconnected);
+                        Logger.Log(String.Format("Disconnected from {0}.", portName));
+                    }
+
                 }
             }
         }
@@ -221,20 +249,27 @@ namespace QSBLinearEncoderReader
                     throw ex;
                 }
 
-                try
+                if (_simulator != null)
                 {
-                    string response = _serialPort.ReadLine();
-                    ParseEncoderCountStreamResponse(response, out encoderCount, out timestamp);
+                    _simulator.ReadEncoderCount(out encoderCount, out timestamp);
                 }
-                catch (TimeoutException e)
+                else
                 {
-                    Logger.Log(e.ToString());
-                    throw new TimeoutException("The device didn't have encoder value in the stream buffer.", e);
-                }
-                catch (Exception e)
-                {
-                    Logger.Log(e.ToString());
-                    throw e;
+                    try
+                    {
+                        string response = _serialPort.ReadLine();
+                        ParseEncoderCountStreamResponse(response, out encoderCount, out timestamp);
+                    }
+                    catch (TimeoutException e)
+                    {
+                        Logger.Log(e.ToString());
+                        throw new TimeoutException("The device didn't have an encoder value in the stream buffer.", e);
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.Log(e.ToString());
+                        throw e;
+                    }
                 }
             }
         }
