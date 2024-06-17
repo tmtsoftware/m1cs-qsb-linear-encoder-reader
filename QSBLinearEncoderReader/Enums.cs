@@ -20,4 +20,12 @@ namespace QSBLinearEncoderReader
         CountUp,
         CountDown,
     }
+
+    public enum ConnectionState
+    {
+        Disconnected,
+        Connecting,
+        Connected,
+        Disconnecting,
+    }
 }

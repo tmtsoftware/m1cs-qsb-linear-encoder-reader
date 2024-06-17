@@ -10,17 +10,31 @@ namespace QSBLinearEncoderReader
     /// Immutable class that represents the information (serial number, firmware version
     /// and product type) of a QSB device.
     /// </summary>
-    internal class QsbInfo
+    internal class ConnectionInfo
     {
-        public QsbInfo()
+        public ConnectionInfo()
         {
+            PortName = "";
+            BaudRate = 0;
+            QuadratureMode = QuadratureMode.X1;
+            EncoderDirection = EncoderDirection.CountUp;
             SerialNumber = 0;
             FirmwareVersion = 0;
             ProductType = "Unknown";
         }
 
-        public QsbInfo(uint versionResponse)
+        public ConnectionInfo(
+            string portName,
+            int baudRate,
+            QuadratureMode quadratureMode,
+            EncoderDirection encoderDirection,
+            uint versionResponse)
         {
+            PortName = portName;
+            BaudRate = baudRate;
+            QuadratureMode = quadratureMode;
+            EncoderDirection = encoderDirection;
+
             SerialNumber = (versionResponse & 0xFFFFF000) >> 12;
             uint productTypeCode = (versionResponse & 0x00000F00) >> 8;
             FirmwareVersion = versionResponse & 0x000000FF;
@@ -42,6 +56,10 @@ namespace QSBLinearEncoderReader
             }
         }
 
+        public string PortName { get; }
+        public int BaudRate { get; }
+        public QuadratureMode QuadratureMode { get;  }
+        public EncoderDirection EncoderDirection { get; }
         public uint SerialNumber { get; }
         public uint FirmwareVersion { get; }
         public string ProductType { get; }

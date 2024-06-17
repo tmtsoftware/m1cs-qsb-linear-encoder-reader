@@ -13,6 +13,13 @@ namespace QSBLinearEncoderReader
         {
         }
     }
+    public class InvalidConnectionStateException : Exception
+    {
+        public InvalidConnectionStateException(ConnectionState currentState, string message)
+            : base("Current state is \"" + currentState.ToString() + "\". " + message)
+        {
+        }
+    }
     public class UnexpectedResponseException : Exception
     {
         public UnexpectedResponseException(string message)
@@ -21,22 +28,22 @@ namespace QSBLinearEncoderReader
         }
 
         public UnexpectedResponseException(string message, string response)
-            : base(message + " (Response: " + response + ")")
+            : base(message + " (Response: \"" + response + "\")")
         {
         }
 
         public UnexpectedResponseException(string message, string response, Exception innerException)
-            : base(message + " (Response: " + response + ")", innerException)
+            : base(message + " (Response: \"" + response + "\")", innerException)
         {
         }
 
         public UnexpectedResponseException(string message, string command, string response)
-            : base(message + " (Command: " + command + ", response: " + response + ")")
+            : base(message + " (Command: \"" + command + "\", response: \"" + response + "\")")
         {
         }
 
         public UnexpectedResponseException(string message, string command, string response, Exception innerException)
-            : base(message + " (Command: " + command + ", response: " + response + ")", innerException)
+            : base(message + " (Command: \"" + command + "\", response: \"" + response + "\")", innerException)
         {
         }
     }

@@ -89,7 +89,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QsbInfo.cs" />
+    <Compile Include="ListenerInterfaces.cs" />
+    <Compile Include="ConnectionInfo.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Qsb.cs" />
