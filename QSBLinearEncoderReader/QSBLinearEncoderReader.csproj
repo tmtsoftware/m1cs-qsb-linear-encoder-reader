@@ -89,6 +89,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QsbInfo.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Qsb.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="RecordingSettingsForm.cs">
       <SubType>Form</SubType>
