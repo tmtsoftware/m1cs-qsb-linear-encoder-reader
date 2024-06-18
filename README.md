@@ -105,8 +105,12 @@ If you want to uninstall this application, open Control Panel and select `Uninst
 
 TMT International Observatory holds the copyright of software, images and documents in this repository except the files below:
 
- * [docs/qsb-applications-examples.pdf](docs/qsb-applications-examples.pdf)
- * [docs/qsb-commands-list.pdf](docs/qsb-commands-list.pdf)
+ * the following documents distributed by US Digital:
+    * [docs/qsb-applications-examples.pdf](docs/qsb-applications-examples.pdf)
+    * [docs/qsb-commands-list.pdf](docs/qsb-commands-list.pdf)
+ * all image files under [icons/icnoir](icons/iconoir).
+    * They were obtained from https://github.com/iconoir-icons/iconoir.
+    * They are distributed under MIT license. See [LICENSE](icons/iconoir/LICENSE) for more information.
 
 ## Developer information
 
