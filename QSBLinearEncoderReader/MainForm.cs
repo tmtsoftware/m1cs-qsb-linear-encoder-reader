@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace QSBLinearEncoderReader
 {
-    public partial class MainForm : Form, IConnectionStatusListener, IStatisticsStateListener
+    public partial class MainForm : Form, IConnectionStatusListener, IEncoderCountListener
     {
         private DeviceController _controller = null;
         private ConnectionStatus _connectionStatus = new ConnectionStatus();
-        private StatisticsState _statisticsState = StatisticsState.Stopped;
+        private EncoderCount _encoderCount = new EncoderCount();
 
         public MainForm()
         {
@@ -28,8 +28,7 @@ namespace QSBLinearEncoderReader
 
             _controller = new DeviceController(this, this);
             SetConnectionStatus(new ConnectionStatus());
-            _statisticsState = StatisticsState.Stopped;
-            SetButtonsState();
+            SetEncoderCount(new EncoderCount());
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
@@ -140,11 +139,6 @@ namespace QSBLinearEncoderReader
         {
             SetButtonsState();
         }
-        private void timerDisplayUpdateLoop_Tick(object sender, EventArgs e)
-        {
-            UpdateEncoderReadingDisplay();
-            UpdateStatisticsDisplay();
-        }
 
         private void AppendOneLineLogMessage(String message)
         {
@@ -164,62 +158,8 @@ namespace QSBLinearEncoderReader
             }
         }
 
-        private void SetButtonsState()
-        {
-            switch (_connectionStatus.ConnectionState)
-            {
-                case ConnectionState.Connecting:
-                    buttonConnect.Enabled = false;
-                    buttonDisconnect.Enabled = false;
-                    buttonSetZero.Enabled = false;
-                    buttonStartStatistics.Enabled = false;
-                    buttonStopStatistics.Enabled = false;
-                    buttonResetStatistics.Enabled = false;
-                    break;
-                case ConnectionState.Connected:
-                    buttonConnect.Enabled = false;
-                    buttonDisconnect.Enabled = true;
-                    buttonSetZero.Enabled = true;
-                    switch (_statisticsState)
-                    {
-                        case StatisticsState.Ongoing:
-                            buttonStartStatistics.Enabled = false;
-                            buttonStopStatistics.Enabled = true;
-                            buttonResetStatistics.Enabled = true;
-                            checkBoxAutoStopStatistics.Enabled = false;
-                            numericUpDownAutoStopStatisticsCount.Enabled = false;
-                            break;
-                        case StatisticsState.Stopped:
-                            buttonStartStatistics.Enabled = true;
-                            buttonStopStatistics.Enabled = false;
-                            buttonResetStatistics.Enabled = false;
-                            checkBoxAutoStopStatistics.Enabled = true;
-                            numericUpDownAutoStopStatisticsCount.Enabled = checkBoxAutoStopStatistics.Checked;
-                            break;
-                    }
-                    break;
-                case ConnectionState.Disconnecting:
-                    buttonConnect.Enabled = false;
-                    buttonDisconnect.Enabled = false;
-                    buttonSetZero.Enabled = false;
-                    buttonStartStatistics.Enabled = false;
-                    buttonStopStatistics.Enabled = false;
-                    buttonResetStatistics.Enabled = false;
-                    break;
-                case ConnectionState.Disconnected:
-                    buttonConnect.Enabled = true;
-                    buttonDisconnect.Enabled = false;
-                    buttonSetZero.Enabled = false;
-                    buttonStartStatistics.Enabled = false;
-                    buttonStopStatistics.Enabled = false;
-                    buttonResetStatistics.Enabled = false;
-                    break;
-            }
-        }
-
         public void SetConnectionStatus(ConnectionStatus status)
         {
-            _connectionStatus = status;
             AppendOneLineLogMessage("Connection state: " + status.ConnectionState);
 
             textBoxConnectionState.Text = status.ConnectionState.ToString();
@@ -268,7 +208,107 @@ namespace QSBLinearEncoderReader
                 textBoxDirection.Text = "";
             }
 
+            _connectionStatus = status;
             SetButtonsState();
+        }
+
+        public void EncoderCountChanged(EncoderCount newCount)
+        {
+            if (this.InvokeRequired)
+            {
+                Action action = delegate { SetEncoderCount(newCount); };
+                this.Invoke(action);
+            }
+            else
+            {
+                SetEncoderCount(newCount);
+            }
+        }
+
+        public void SetEncoderCount(EncoderCount newCount)
+        {
+            labelEncoderReading.Text = newCount.PositionInMillimeters.ToString("F6");
+            textBoxResolution.Text = newCount.ResolutionInNanometers + " nm/count";
+            textBoxZeroPositionCount.Text = newCount.ZeroPositionCount.ToString();
+
+            EncoderCountStatistics stats = newCount.Statistics;
+            textBoxNumberOfSamples.Text = stats.NumberOfSamples.ToString();
+            textBoxDuration.Text = stats.DurationInSeconds.ToString("F3");
+            textBoxAverage.Text = stats.AverageInMillimeters.ToString("F6");
+            textBoxStdev.Text = stats.StdevInMillimeters.ToString("F6");
+            textBoxMaximum.Text = stats.MaximumInMillimeters.ToString("F6");
+            textBoxMinimum.Text = stats.MinimumInMillimeters.ToString("F6");
+
+            decimal p2p_mm = stats.MaximumInMillimeters - stats.MinimumInMillimeters;
+            textBoxPeakToPeak.Text = p2p_mm.ToString("F6");
+
+            if (_encoderCount.Statistics.State != newCount.Statistics.State)
+            {
+                if (newCount.Statistics.State == StatisticsState.Ongoing)
+                {
+                    AppendOneLineLogMessage("Started statistics");
+                }
+                else if (newCount.Statistics.State == StatisticsState.Stopped)
+                {
+                    AppendOneLineLogMessage("Stopped statistics");
+                }
+            }
+
+            _encoderCount = newCount;
+            SetButtonsState();
+        }
+
+        private void SetButtonsState()
+        {
+            switch (_connectionStatus.ConnectionState)
+            {
+                case ConnectionState.Connecting:
+                    buttonConnect.Enabled = false;
+                    buttonDisconnect.Enabled = false;
+                    buttonSetZero.Enabled = false;
+                    buttonStartStatistics.Enabled = false;
+                    buttonStopStatistics.Enabled = false;
+                    buttonResetStatistics.Enabled = false;
+                    break;
+                case ConnectionState.Connected:
+                    buttonConnect.Enabled = false;
+                    buttonDisconnect.Enabled = true;
+                    buttonSetZero.Enabled = true;
+                    switch (_encoderCount.Statistics.State)
+                    {
+                        case StatisticsState.Ongoing:
+                            buttonStartStatistics.Enabled = false;
+                            buttonStopStatistics.Enabled = true;
+                            buttonResetStatistics.Enabled = true;
+                            checkBoxAutoStopStatistics.Enabled = false;
+                            numericUpDownAutoStopStatisticsCount.Enabled = false;
+                            break;
+                        case StatisticsState.Stopped:
+                            buttonStartStatistics.Enabled = true;
+                            buttonStopStatistics.Enabled = false;
+                            buttonResetStatistics.Enabled = false;
+                            checkBoxAutoStopStatistics.Enabled = true;
+                            numericUpDownAutoStopStatisticsCount.Enabled = checkBoxAutoStopStatistics.Checked;
+                            break;
+                    }
+                    break;
+                case ConnectionState.Disconnecting:
+                    buttonConnect.Enabled = false;
+                    buttonDisconnect.Enabled = false;
+                    buttonSetZero.Enabled = false;
+                    buttonStartStatistics.Enabled = false;
+                    buttonStopStatistics.Enabled = false;
+                    buttonResetStatistics.Enabled = false;
+                    break;
+                case ConnectionState.Disconnected:
+                    buttonConnect.Enabled = true;
+                    buttonDisconnect.Enabled = false;
+                    buttonSetZero.Enabled = false;
+                    buttonStartStatistics.Enabled = false;
+                    buttonStopStatistics.Enabled = false;
+                    buttonResetStatistics.Enabled = false;
+                    break;
+            }
         }
 
         private bool Connect(
@@ -283,7 +323,7 @@ namespace QSBLinearEncoderReader
 
             try
             {
-                ulong numberOfSamplesToStopStatistics = EncoderCountStatistics.Indefinite;
+                ulong numberOfSamplesToStopStatistics = EncoderCountProcessor.Indefinite;
                 if (checkBoxAutoStopStatistics.Checked)
                 {
                     numberOfSamplesToStopStatistics = (ulong)numericUpDownAutoStopStatisticsCount.Value;
@@ -326,14 +366,11 @@ namespace QSBLinearEncoderReader
             int newZeroPositionCount = _controller.Zero();
 
             AppendOneLineLogMessage("Set the encoder zero position count: " + newZeroPositionCount);
-            textBoxZeroPositionCount.Text = newZeroPositionCount.ToString();
-            UpdateEncoderReadingDisplay();
-            UpdateStatisticsDisplay();
         }
 
         public void StartStatistics()
         {
-            ulong numberOfSamplesToStopStatistics = EncoderCountStatistics.Indefinite;
+            ulong numberOfSamplesToStopStatistics = EncoderCountProcessor.Indefinite;
             if (checkBoxAutoStopStatistics.Checked)
             {
                 numberOfSamplesToStopStatistics = (ulong)numericUpDownAutoStopStatisticsCount.Value;
@@ -350,52 +387,7 @@ namespace QSBLinearEncoderReader
         public void ResetStatistics()
         {
             _controller.ResetStatistics();
-        }
-
-        private void UpdateEncoderReadingDisplay()
-        {
-            // TODO: implement
-        }
-
-        private void UpdateStatisticsDisplay()
-        {
-            ulong numberOfSamples = 0;
-            decimal duration_s = 0.0M;
-            decimal average_mm = 0.0M;
-            decimal stdev_mm = 0.0M;
-            decimal maximum_mm = 0.0M;
-            decimal minimum_mm = 0.0M;
-            decimal p2p_mm = 0.0M;
-
-            // TODO: implement
-
-            textBoxNumberOfSamples.Text = numberOfSamples.ToString();
-            textBoxDuration.Text = duration_s.ToString("F3");
-            textBoxAverage.Text = average_mm.ToString("F6");
-            textBoxStdev.Text = stdev_mm.ToString("F6");
-            textBoxMaximum.Text = maximum_mm.ToString("F6");
-            textBoxMinimum.Text = minimum_mm.ToString("F6");
-            textBoxPeakToPeak.Text = p2p_mm.ToString("F6");
-        }
-
-        public void StatisticsStateChanged(StatisticsState newState)
-        {
-            if (this.InvokeRequired)
-            {
-                Action action = delegate { _StatisticsStateChanged(newState); };
-                this.Invoke(action);
-            }
-            else
-            {
-                _StatisticsStateChanged(newState);
-            }
-        }
-
-        private void _StatisticsStateChanged(StatisticsState newState)
-        {
-            _statisticsState = newState;
-            UpdateStatisticsDisplay();
-            SetButtonsState();
+            AppendOneLineLogMessage("Reset statistics");
         }
     }
 }

@@ -10,8 +10,12 @@ namespace QSBLinearEncoderReader
     /// Immutable class that represents the current encoder count with 
     /// auxiliary information.
     /// </summary>
-    internal class EncoderCount
+    public class EncoderCount
     {
+        public EncoderCount() : this(0, 0, 5.0M, new EncoderCountStatistics())
+        {
+        }
+
         public EncoderCount(
             int rawCount,
             int zeroPositionCount,

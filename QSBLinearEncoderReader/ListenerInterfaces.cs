@@ -13,6 +13,6 @@ namespace QSBLinearEncoderReader
 
     internal interface IEncoderCountListener
     {
-        void EncoderCountChanged(StatisticsState newState);
+        void EncoderCountChanged(EncoderCount newCount);
     }
 }

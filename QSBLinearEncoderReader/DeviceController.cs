@@ -8,11 +8,11 @@ namespace QSBLinearEncoderReader
     internal class DeviceController
     {
         private IConnectionStatusListener _connectionStateListener;
+        private IEncoderCountListener _encoderCountListener;
 
         private Qsb _qsb;
         private ConnectionState _connectionState;
         private EncoderCountProcessor _processor;
-        private EncoderCountStatistics _statistics;
 
         /// <summary>
         /// This class handles RS-232 communication with an QSB-D.
@@ -23,12 +23,11 @@ namespace QSBLinearEncoderReader
         /// </summary>
         public DeviceController(
             IConnectionStatusListener connectionStateListener,
-            IStatisticsStateListener statisticsStateListener)
+            IEncoderCountListener encoderCountListener)
         {
             _connectionStateListener = connectionStateListener;
             _qsb = new Qsb(connectionStateListener);
-            _processor = new EncoderCountProcessor();
-            _statistics = new EncoderCountStatistics(statisticsStateListener);
+            _processor = new EncoderCountProcessor(encoderCountListener);
         }
 
         /// <summary>
@@ -44,8 +43,7 @@ namespace QSBLinearEncoderReader
             ulong numberOfSamplesToStopStatistics)
         {
             _qsb.Connect(portName, baudRate, quadratureMode, encoderDirection);
-            _processor.Reset(encoderZeroPositionCount, encoderResolution_nm);
-            _statistics.Start(encoderZeroPositionCount, encoderResolution_nm, numberOfSamplesToStopStatistics);
+            _processor.Reset(encoderZeroPositionCount, encoderResolution_nm, numberOfSamplesToStopStatistics);
 
             Thread encoderCountReaderThread = new Thread(new ThreadStart(EncoderCountReaderLoop));
             encoderCountReaderThread.Start();
@@ -53,7 +51,7 @@ namespace QSBLinearEncoderReader
 
         public void Disconnect()
         {
-            _statistics.Stop();
+            _processor.StopStatistics();
             _qsb.Disconnect();
         }
 
@@ -76,7 +74,6 @@ namespace QSBLinearEncoderReader
 
                     _qsb.ReadEncoderCount(out encoderCount, out timestamp);
                     _processor.AddNewSample(encoderCount);
-                    _statistics.AddNewSample(encoderCount);
                 }
             }
             catch (Exception ex)
@@ -96,27 +93,23 @@ namespace QSBLinearEncoderReader
         public int Zero()
         {
             int newZeroPositionCount = _processor.Zero();
-            _statistics.Reset(newZeroPositionCount);
 
             return newZeroPositionCount;
         }
 
         public void StartStatistics(ulong numberOfSamplesToStop)
         {
-            _statistics.Start(
-                _processor.ZeroPositionCount,
-                _processor.ResolutionInNanometers,
-                numberOfSamplesToStop);
+            _processor.StartStatistics(numberOfSamplesToStop);
         }
 
         public void StopStatistics()
         {
-            _statistics.Stop();
+            _processor.StopStatistics();
         }
 
         public void ResetStatistics()
         {
-            _statistics.Reset();
+            _processor.ResetStatistics();
         }
     }
 }
