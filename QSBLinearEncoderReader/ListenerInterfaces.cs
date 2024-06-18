@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace QSBLinearEncoderReader
 {
-    internal interface IConnectionStateListener
+    internal interface IConnectionStatusListener
     {
-        void ConnectionStateChanged(ConnectionState newState);
+        void ConnectionStatusChanged(ConnectionStatus newStatus);
     }
 
     internal interface IStatisticsStateListener

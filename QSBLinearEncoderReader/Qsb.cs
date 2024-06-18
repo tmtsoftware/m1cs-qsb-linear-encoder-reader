@@ -8,13 +8,13 @@ namespace QSBLinearEncoderReader
     {
         private object _lock = new object();
 
-        private ConnectionState _connectionState = ConnectionState.Disconnected;
-        private IConnectionStateListener _connectionStateListener = null;
+        private ConnectionStatus _connectionStatus = new ConnectionStatus();
+        private IConnectionStatusListener _connectionStatusListener = null;
 
         // The instance variables below are valid only when the 
         // _connectionState is ConnectionState.Connected.
         private SerialPort _serialPort = null;
-        private ConnectionInfo _qsbInfo = new ConnectionInfo();
+        private ConnectionStatus _connectionInfo = new ConnectionStatus();
 
         // If this is not null, the device is simulated (= simulation mode).
         private QsbSimulator _simulator = null;
@@ -24,9 +24,9 @@ namespace QSBLinearEncoderReader
         /// This class is thread-safe. Public methods and members can
         /// be called or accessed from multiple threads.
         /// </summary>
-        public Qsb(IConnectionStateListener connectionStateListener)
+        public Qsb(IConnectionStatusListener connectionStatusListener)
         {
-            _connectionStateListener = connectionStateListener;
+            _connectionStatusListener = connectionStatusListener;
         }
 
         /// <summary>
@@ -80,14 +80,14 @@ namespace QSBLinearEncoderReader
 
             lock (_lock)
             {
-                if (_connectionState != ConnectionState.Disconnected)
+                if (_connectionStatus.ConnectionState != ConnectionState.Disconnected)
                 {
                     throw new InvalidConnectionStateException(
-                        _connectionState,
+                        _connectionStatus.ConnectionState,
                         "New connection can be made only when the connection state is \"Disconnected\".");
                 }
 
-                UpdateConnectionState(ConnectionState.Connecting);
+                UpdateConnectionStatus(new ConnectionStatus(ConnectionState.Connecting));
 
                 try
                 {
@@ -98,8 +98,12 @@ namespace QSBLinearEncoderReader
                         // Simulation mode.
                         Logger.Log("Starting the simulation mode.");
                         _simulator = new QsbSimulator();
-                        _qsbInfo = new ConnectionInfo(portName, baudRate, quadratureMode, encoderDirection);
-                        UpdateConnectionState(ConnectionState.Connected);
+                        UpdateConnectionStatus(new ConnectionStatus(
+                                ConnectionState.Connected,
+                                portName,
+                                baudRate,
+                                quadratureMode,
+                                encoderDirection));
                         Logger.Log("Started the simulation mode.");
                         return;
                     }
@@ -157,10 +161,19 @@ namespace QSBLinearEncoderReader
 
                         // Get the product type, serial number and firmware version.
                         uint versionResponse = ReadCommand(0x14);
-                        _qsbInfo = new ConnectionInfo(portName, baudRate, quadratureMode, encoderDirection, versionResponse);
+                        ConnectionStatus intermediateConnectionStatus =
+                            new ConnectionStatus(
+                                ConnectionState.Connecting,
+                                portName,
+                                baudRate,
+                                quadratureMode,
+                                encoderDirection,
+                                versionResponse);
                         Logger.Log(
                             String.Format("Product Type: {0}, Serial Number: {1}, Firmware Version: {2}",
-                            _qsbInfo.ProductType, _qsbInfo.SerialNumber, _qsbInfo.FirmwareVersion));
+                            intermediateConnectionStatus.ProductType,
+                            intermediateConnectionStatus.SerialNumber,
+                            intermediateConnectionStatus.FirmwareVersion));
 
                         // Set quadratue mode (x1, x2 or x4).
                         WriteCommand(0x03, quadratureModeValue);
@@ -180,7 +193,15 @@ namespace QSBLinearEncoderReader
                         // Start streaming the encoder count at the specified interval.
                         StreamCommand(0x0E);
 
-                        UpdateConnectionState(ConnectionState.Connected);
+                        ConnectionStatus finalConnectionStatus =
+                            new ConnectionStatus(
+                                ConnectionState.Connected,
+                                portName,
+                                baudRate,
+                                quadratureMode,
+                                encoderDirection,
+                                versionResponse);
+                        UpdateConnectionStatus(finalConnectionStatus);
                     }
                 }
                 catch (Exception ex)
@@ -196,23 +217,24 @@ namespace QSBLinearEncoderReader
         {
             lock (_lock)
             {
-                if (_connectionState == ConnectionState.Disconnecting || _connectionState == ConnectionState.Disconnected)
+                if (_connectionStatus.ConnectionState == ConnectionState.Disconnecting
+                    || _connectionStatus.ConnectionState == ConnectionState.Disconnected)
                 {
                     InvalidConnectionStateException ex = new InvalidConnectionStateException(
-                        _connectionState,
+                        _connectionStatus.ConnectionState,
                         "No need to disconnect.");
                     Logger.Log(ex.ToString());
                     throw ex;
                 }
 
-                UpdateConnectionState(ConnectionState.Disconnecting);
+                UpdateConnectionStatus(new ConnectionStatus(ConnectionState.Disconnecting));
 
                 if (_simulator != null)
                 {
                     // Simulation mode.
                     Logger.Log("Stopping the simulation mode.");
                     _simulator = null;
-                    UpdateConnectionState(ConnectionState.Disconnected);
+                    UpdateConnectionStatus(new ConnectionStatus(ConnectionState.Disconnected));
                     Logger.Log("Stopped the simulation mode.");
                 }
                 else
@@ -233,7 +255,7 @@ namespace QSBLinearEncoderReader
                     }
                     finally
                     {
-                        UpdateConnectionState(ConnectionState.Disconnected);
+                        UpdateConnectionStatus(new ConnectionStatus(ConnectionState.Disconnected));
                         Logger.Log(String.Format("Disconnected from {0}.", portName));
                     }
 
@@ -245,10 +267,10 @@ namespace QSBLinearEncoderReader
         {
             lock (_lock)
             {
-                if (_connectionState != ConnectionState.Connected)
+                if (_connectionStatus.ConnectionState != ConnectionState.Connected)
                 {
                     InvalidConnectionStateException ex = new InvalidConnectionStateException(
-                        _connectionState,
+                        _connectionStatus.ConnectionState,
                         "ReadEncoderCount() can be called only when the connection state is \"Connected\".");
                     Logger.Log(ex.ToString());
                     throw ex;
@@ -495,15 +517,13 @@ namespace QSBLinearEncoderReader
             }
         }
 
-        private void UpdateConnectionState(ConnectionState newState)
+        private void UpdateConnectionStatus(ConnectionStatus newStatus)
         {
-            Logger.Log("Switching to \"" + newState.ToString() + "\" state");
-            _connectionState = newState;
-            _connectionStateListener.ConnectionStateChanged(newState);
+            Logger.Log("Switching to \"" + newStatus.ConnectionState.ToString() + "\" state");
+            _connectionStatus = newStatus;
+            _connectionStatusListener.ConnectionStatusChanged(newStatus);
         }
 
-        public ConnectionState ConnectionState { get { lock (_lock){ return _connectionState; } } }
-
-        public ConnectionInfo ConnectionInfo { get { lock (_lock){ return _qsbInfo; } } }
+        public ConnectionState ConnectionState { get { lock (_lock){ return _connectionStatus.ConnectionState; } } }
     }
 }

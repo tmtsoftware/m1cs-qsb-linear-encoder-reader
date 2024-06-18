@@ -157,7 +157,5 @@ namespace QSBLinearEncoderReader
                 }
             }
         }
-
-        public StatisticsState CurrentState { get { lock(_lock) { return _state; } } }
     }
 }

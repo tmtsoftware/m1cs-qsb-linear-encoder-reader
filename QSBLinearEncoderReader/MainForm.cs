@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace QSBLinearEncoderReader
 {
-    public partial class MainForm : Form, IConnectionStateListener, IStatisticsStateListener
+    public partial class MainForm : Form, IConnectionStatusListener, IStatisticsStateListener
     {
         private DeviceController _controller = null;
-        private ConnectionState _connectionState = ConnectionState.Disconnected;
+        private ConnectionStatus _connectionStatus = new ConnectionStatus();
         private StatisticsState _statisticsState = StatisticsState.Stopped;
 
         public MainForm()
@@ -27,10 +27,9 @@ namespace QSBLinearEncoderReader
             AppendOneLineLogMessage("Trace log is in " + Logger.TraceLogPath);
 
             _controller = new DeviceController(this, this);
-            _connectionState = ConnectionState.Disconnected;
+            SetConnectionStatus(new ConnectionStatus());
             _statisticsState = StatisticsState.Stopped;
             SetButtonsState();
-            SetConnectionStatus();
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
@@ -152,50 +151,22 @@ namespace QSBLinearEncoderReader
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
 
-        public void ConnectionStateChanged(ConnectionState newState)
+        public void ConnectionStatusChanged(ConnectionStatus newStatus)
         {
             if (this.InvokeRequired)
             {
-                Action action = delegate { _ConnectionStateChanged(newState); };
+                Action action = delegate { SetConnectionStatus(newStatus); };
                 this.Invoke(action);
             }
             else
             {
-                _ConnectionStateChanged(newState);
-            }
-        }
-
-        private void _ConnectionStateChanged(ConnectionState newState)
-        {
-            AppendOneLineLogMessage("Connection state: " + newState);
-            _connectionState = newState;
-            SetButtonsState();
-            SetConnectionStatus();
-
-            if (newState == ConnectionState.Connected)
-            {
-                // Show product type, serial number, firmware and configuration
-                ConnectionInfo info = _controller.ConnectionInfo;
-
-                string productType = info.ProductType;
-                AppendOneLineLogMessage(String.Format("Product Type: {0}", productType));
-                if (productType != "QSB-D")
-                {
-                    AppendOneLineLogMessage(String.Format("Warning: this application was not tested with '{0}'.", productType));
-                }
-
-                AppendOneLineLogMessage(String.Format("Serial Number: {0}", info.SerialNumber));
-                AppendOneLineLogMessage(String.Format("Firmware Version: {0}", info.FirmwareVersion));
-                AppendOneLineLogMessage(String.Format("Quadrature Mode: {0}", info.QuadratureMode));
-                AppendOneLineLogMessage(String.Format("Encoder Direction: {0}", info.EncoderDirection));
-                AppendOneLineLogMessage(String.Format("Encoder resolution: {0} nm/count", _controller.ResolutionInNanometers.ToString("0.00")));
-                AppendOneLineLogMessage("Set the encoder zero position count: " + _controller.ZeroPositionCount);
+                SetConnectionStatus(newStatus);
             }
         }
 
         private void SetButtonsState()
         {
-            switch (_connectionState)
+            switch (_connectionStatus.ConnectionState)
             {
                 case ConnectionState.Connecting:
                     buttonConnect.Enabled = false;
@@ -246,28 +217,40 @@ namespace QSBLinearEncoderReader
             }
         }
 
-        public void SetConnectionStatus()
+        public void SetConnectionStatus(ConnectionStatus status)
         {
-            textBoxConnectionState.Text = _connectionState.ToString();
+            _connectionStatus = status;
+            AppendOneLineLogMessage("Connection state: " + status.ConnectionState);
 
-            if (_connectionState == ConnectionState.Connected)
+            textBoxConnectionState.Text = status.ConnectionState.ToString();
+
+            if (status.ConnectionState == ConnectionState.Connected)
             {
                 pictureBoxConnectionState.Image = Util.ResizeIconForErrorProvider(SystemIcons.Information).ToBitmap();
 
-                ConnectionInfo info = _controller.ConnectionInfo;
-                textBoxProductType.Text = info.ProductType;
-                textBoxSerialNumber.Text = info.SerialNumber.ToString();
-                textBoxFirmwareVersion.Text = info.FirmwareVersion.ToString();
-                textBoxCOMPort.Text = info.PortName;
-                textBoxBaudRate.Text = info.BaudRate.ToString();
-                textBoxQuadratureMode.Text = info.QuadratureMode.ToString();
-                textBoxDirection.Text = info.EncoderDirection.ToString();
-                textBoxResolution.Text = _controller.ResolutionInNanometers.ToString("0.00") + " nm/count";
-                textBoxZeroPositionCount.Text = _controller.ZeroPositionCount.ToString();
+                textBoxProductType.Text = status.ProductType;
+                textBoxSerialNumber.Text = status.SerialNumber.ToString();
+                textBoxFirmwareVersion.Text = status.FirmwareVersion.ToString();
+                textBoxCOMPort.Text = status.PortName;
+                textBoxBaudRate.Text = status.BaudRate.ToString();
+                textBoxQuadratureMode.Text = status.QuadratureMode.ToString();
+                textBoxDirection.Text = status.EncoderDirection.ToString();
+
+                AppendOneLineLogMessage(String.Format("Product Type: {0}", status.ProductType));
+                if (status.ProductType != "QSB-D")
+                {
+                    AppendOneLineLogMessage(String.Format("Warning: this application was not tested with '{0}'.", status.ProductType));
+                }
+
+                AppendOneLineLogMessage(String.Format("Serial Number: {0}", status.SerialNumber));
+                AppendOneLineLogMessage(String.Format("Firmware Version: {0}", status.FirmwareVersion));
+                AppendOneLineLogMessage(String.Format("Quadrature Mode: {0}", status.QuadratureMode));
+                AppendOneLineLogMessage(String.Format("Encoder Direction: {0}", status.EncoderDirection));
             }
             else
             {
-                if (_connectionState == ConnectionState.Connecting || _connectionState == ConnectionState.Disconnecting)
+                if (status.ConnectionState == ConnectionState.Connecting
+                    || status.ConnectionState == ConnectionState.Disconnecting)
                 {
                     pictureBoxConnectionState.Image = Util.ResizeIconForErrorProvider(SystemIcons.Warning).ToBitmap();
                 }
@@ -283,9 +266,9 @@ namespace QSBLinearEncoderReader
                 textBoxBaudRate.Text = "";
                 textBoxQuadratureMode.Text = "";
                 textBoxDirection.Text = "";
-                textBoxResolution.Text = "";
-                textBoxZeroPositionCount.Text = "";
             }
+
+            SetButtonsState();
         }
 
         private bool Connect(
@@ -371,7 +354,7 @@ namespace QSBLinearEncoderReader
 
         private void UpdateEncoderReadingDisplay()
         {
-            labelEncoderReading.Text = _controller.CurrentPositionInMillimeters.ToString("0.000000");
+            // TODO: implement
         }
 
         private void UpdateStatisticsDisplay()
@@ -384,14 +367,7 @@ namespace QSBLinearEncoderReader
             decimal minimum_mm = 0.0M;
             decimal p2p_mm = 0.0M;
 
-            _controller.GetCurrentStatistics(
-                out numberOfSamples,
-                out duration_s,
-                out average_mm,
-                out stdev_mm,
-                out maximum_mm,
-                out minimum_mm,
-                out p2p_mm);
+            // TODO: implement
 
             textBoxNumberOfSamples.Text = numberOfSamples.ToString();
             textBoxDuration.Text = duration_s.ToString("F3");

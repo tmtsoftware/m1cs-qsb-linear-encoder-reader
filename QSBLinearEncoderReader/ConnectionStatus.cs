@@ -7,27 +7,29 @@ using System.Threading.Tasks;
 namespace QSBLinearEncoderReader
 {
     /// <summary>
-    /// Immutable class that represents the information (serial number, firmware version
-    /// and product type) of a QSB device.
+    /// Immutable class that represents the connection status (conneciton state,
+    /// connection configuration, serial number, firmware version, product type)
+    /// of a QSB device.
     /// </summary>
-    internal class ConnectionInfo
+    public class ConnectionStatus
     {
-        public ConnectionInfo()
+        public ConnectionStatus() : this(ConnectionState.Disconnected)
         {
-            PortName = "";
-            BaudRate = 0;
-            QuadratureMode = QuadratureMode.X1;
-            EncoderDirection = EncoderDirection.CountUp;
-            SerialNumber = 0;
-            FirmwareVersion = 0;
-            ProductType = "Unknown";
         }
 
-        public ConnectionInfo(string portName,
+        public ConnectionStatus(ConnectionState connectionState) :
+            this(connectionState, "", 0, QuadratureMode.X1, EncoderDirection.CountUp)
+        {
+        }
+
+        public ConnectionStatus(
+            ConnectionState connectionState,
+            string portName,
             int baudRate,
             QuadratureMode quadratureMode,
             EncoderDirection encoderDirection)
         {
+            ConnectionState = connectionState;
             PortName = portName;
             BaudRate = baudRate;
             QuadratureMode = quadratureMode;
@@ -37,13 +39,15 @@ namespace QSBLinearEncoderReader
             FirmwareVersion = 0;
         }
 
-        public ConnectionInfo(
+        public ConnectionStatus(
+            ConnectionState connectionState,
             string portName,
             int baudRate,
             QuadratureMode quadratureMode,
             EncoderDirection encoderDirection,
             uint versionResponse)
         {
+            ConnectionState = connectionState;
             PortName = portName;
             BaudRate = baudRate;
             QuadratureMode = quadratureMode;
@@ -70,6 +74,7 @@ namespace QSBLinearEncoderReader
             }
         }
 
+        public ConnectionState ConnectionState { get; }
         public string PortName { get; }
         public int BaudRate { get; }
         public QuadratureMode QuadratureMode { get;  }

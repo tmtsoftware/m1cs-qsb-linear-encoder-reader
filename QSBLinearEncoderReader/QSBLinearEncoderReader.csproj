@@ -91,7 +91,7 @@
   <ItemGroup>
     <Compile Include="EncoderCountProcessor.cs" />
     <Compile Include="ListenerInterfaces.cs" />
-    <Compile Include="ConnectionInfo.cs" />
+    <Compile Include="ConnectionStatus.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Qsb.cs" />

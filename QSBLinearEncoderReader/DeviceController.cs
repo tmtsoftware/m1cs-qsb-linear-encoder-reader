@@ -7,7 +7,7 @@ namespace QSBLinearEncoderReader
 {
     internal class DeviceController
     {
-        private IConnectionStateListener _connectionStateListener;
+        private IConnectionStatusListener _connectionStateListener;
 
         private Qsb _qsb;
         private ConnectionState _connectionState;
@@ -22,7 +22,7 @@ namespace QSBLinearEncoderReader
         /// https://www.usdigital.com/media/gwqpsnym/qsb-commands-list.pdf
         /// </summary>
         public DeviceController(
-            IConnectionStateListener connectionStateListener,
+            IConnectionStatusListener connectionStateListener,
             IStatisticsStateListener statisticsStateListener)
         {
             _connectionStateListener = connectionStateListener;
@@ -118,29 +118,5 @@ namespace QSBLinearEncoderReader
         {
             _statistics.Reset();
         }
-
-        public void GetCurrentStatistics(
-            out ulong numberOfSamples,
-            out decimal duration_s,
-            out decimal average_mm,
-            out decimal stdev_mm,
-            out decimal maximum_mm,
-            out decimal minimum_mm,
-            out decimal p2p_mm)
-        {
-            _statistics.GetAll(
-                out numberOfSamples,
-                out duration_s,
-                out average_mm,
-                out stdev_mm,
-                out maximum_mm,
-                out minimum_mm,
-                out p2p_mm);
-        }
-
-        public ConnectionInfo ConnectionInfo { get { return _qsb.ConnectionInfo; } }
-        public decimal ResolutionInNanometers {  get { return _processor.ResolutionInNanometers; } }
-        public int ZeroPositionCount { get { return _processor.ZeroPositionCount; } }
-        public decimal CurrentPositionInMillimeters { get { return _processor.CurrentPositionInMillimeters; } }
     }
 }
