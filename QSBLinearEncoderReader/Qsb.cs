@@ -19,6 +19,11 @@ namespace QSBLinearEncoderReader
         // If this is not null, the device is simulated (= simulation mode).
         private QsbSimulator _simulator = null;
 
+        /// <summary>
+        /// This class represents a connection to one QSB device.
+        /// This class is thread-safe. Public methods and members can
+        /// be called or accessed from multiple threads.
+        /// </summary>
         public Qsb(IConnectionStateListener connectionStateListener)
         {
             _connectionStateListener = connectionStateListener;

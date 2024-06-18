@@ -9,11 +9,18 @@ namespace QSBLinearEncoderReader
 {
     internal class QsbSimulator
     {
+        private object _lock = new object();
+
         static Random rand = new Random();
 
         private DateTime _lastTick;
         private uint _lastTimestamp;
 
+        /// <summary>
+        /// This class simulates a simulated QSB-D encoder reader.
+        /// This class is thread-safe. Public methods and members can
+        /// be called or accessed from multiple threads.
+        /// </summary>
         public QsbSimulator()
         {
             _lastTick = DateTime.Now;
@@ -22,17 +29,20 @@ namespace QSBLinearEncoderReader
 
         public void ReadEncoderCount(out int encoderCount, out uint timestamp)
         {
-            _lastTimestamp = _lastTimestamp + 1;
-            _lastTick = _lastTick.AddMilliseconds(1.953125);
-
-            TimeSpan diff = DateTime.Now - _lastTick;
-            if (diff.TotalMilliseconds < 1.953125)
+            lock (_lock)
             {
-                Thread.Sleep(2);
-            }
+                _lastTimestamp = _lastTimestamp + 1;
+                _lastTick = _lastTick.AddMilliseconds(1.953125);
 
-            encoderCount = rand.Next(-1000, 1000);
-            timestamp = _lastTimestamp;
+                TimeSpan diff = DateTime.Now - _lastTick;
+                if (diff.TotalMilliseconds < 1.953125)
+                {
+                    Thread.Sleep(2);
+                }
+
+                encoderCount = rand.Next(-1000, 1000);
+                timestamp = _lastTimestamp;
+            }
         }
     }
 }

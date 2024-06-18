@@ -14,6 +14,11 @@ namespace QSBLinearEncoderReader
         int _zeroPositionCount;
         int _currentCount;
 
+        /// <summary>
+        /// This class converts a raw encoder value to a physical unit in mm.
+        /// This class is thread-safe. Public methods and members can
+        /// be called or accessed from multiple threads.
+        /// </summary>
         public EncoderCountProcessor()
         {
             _zeroPositionCount = 0;

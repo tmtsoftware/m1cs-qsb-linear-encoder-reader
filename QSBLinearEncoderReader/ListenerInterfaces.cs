@@ -10,4 +10,9 @@ namespace QSBLinearEncoderReader
     {
         void ConnectionStateChanged(ConnectionState newState);
     }
+
+    internal interface IStatisticsStateListener
+    {
+        void StatisticsStateChanged(StatisticsState newState);
+    }
 }

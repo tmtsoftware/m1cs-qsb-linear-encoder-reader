@@ -28,4 +28,10 @@ namespace QSBLinearEncoderReader
         Connected,
         Disconnecting,
     }
+
+    public enum StatisticsState
+    {
+        Ongoing,
+        Stopped,
+    }
 }
