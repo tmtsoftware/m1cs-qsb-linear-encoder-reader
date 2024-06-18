@@ -35,5 +35,20 @@
     <Setting Name="DisplayUpdateInterval" Type="System.UInt64" Scope="User">
       <Value Profile="(Default)">64</Value>
     </Setting>
+    <Setting Name="ExpandConnectionStatus" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ExpandRecording" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ExpandStatistics" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ExpandStatus" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TextBoxStatusHeight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">125</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

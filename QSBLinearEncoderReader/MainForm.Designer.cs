@@ -180,6 +180,7 @@
             this.textBoxStatus.Size = new System.Drawing.Size(578, 125);
             this.textBoxStatus.TabIndex = 999;
             this.textBoxStatus.TabStop = false;
+            this.textBoxStatus.Resize += new System.EventHandler(this.textBoxStatus_Resize);
             // 
             // labelStatus
             // 

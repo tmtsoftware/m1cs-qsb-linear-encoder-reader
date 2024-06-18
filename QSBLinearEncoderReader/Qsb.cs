@@ -225,7 +225,7 @@ namespace QSBLinearEncoderReader
                         _connectionStatus.ConnectionState,
                         "No need to disconnect.");
                     Logger.Log(ex.ToString());
-                    throw ex;
+                    return;
                 }
 
                 UpdateConnectionStatus(new ConnectionStatus(ConnectionState.Disconnecting));

@@ -14,7 +14,8 @@ namespace QSBLinearEncoderReader
         private DeviceController _controller = null;
         private ConnectionStatus _connectionStatus = new ConnectionStatus();
         private EncoderCount _encoderCount = new EncoderCount();
-        private int _previousTextBoxStatusHeight = 125;
+        private int _previousWindowHeight = 0;
+        private int _defaultTextBoxStatusHeight = 125;
 
         public MainForm()
         {
@@ -23,6 +24,9 @@ namespace QSBLinearEncoderReader
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            _previousWindowHeight = this.Size.Height;
+            _defaultTextBoxStatusHeight = textBoxStatus.Size.Height;
+
             string appName = Assembly.GetExecutingAssembly().GetName().Name;
             string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             AppendOneLineLogMessage(appName + " " + appVersion);
@@ -31,6 +35,45 @@ namespace QSBLinearEncoderReader
             _controller = new DeviceController(this, this);
             SetConnectionStatus(new ConnectionStatus());
             SetEncoderCount(new EncoderCount());
+
+            if (!Properties.Settings.Default.ExpandConnectionStatus)
+            {
+                groupBoxConnectionStatus.Visible = false;
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxConnectionStatus.Size.Height);
+                this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxConnectionStatus.Size.Height);
+            }
+
+            if (!Properties.Settings.Default.ExpandRecording)
+            {
+                groupBoxRecording.Visible = false;
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxRecording.Size.Height);
+                this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxRecording.Size.Height);
+            }
+
+            if (!Properties.Settings.Default.ExpandStatistics)
+            {
+                groupBoxStatistics.Visible = false;
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxStatistics.Size.Height);
+                this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxStatistics.Size.Height);
+            }
+
+            if (!Properties.Settings.Default.ExpandStatus)
+            {
+                _previousWindowHeight = this.Size.Height;
+                Properties.Settings.Default.TextBoxStatusHeight = textBoxStatus.Size.Height;
+                textBoxStatus.Visible = false;
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - _defaultTextBoxStatusHeight);
+                this.Size = new Size(this.Size.Width, this.Size.Height - Properties.Settings.Default.TextBoxStatusHeight);
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Console.WriteLine("Current height: " + this.Size.Height);
+                Console.WriteLine("Target height: " + (this.Size.Height - _defaultTextBoxStatusHeight + Properties.Settings.Default.TextBoxStatusHeight));
+                this.Size = new Size(
+                    this.Size.Width,
+                    this.Size.Height - _defaultTextBoxStatusHeight + Properties.Settings.Default.TextBoxStatusHeight);
+            }
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
@@ -151,12 +194,16 @@ namespace QSBLinearEncoderReader
                 groupBoxConnectionStatus.Visible = false;
                 this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxConnectionStatus.Size.Height);
                 this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxConnectionStatus.Size.Height);
+                Properties.Settings.Default.ExpandConnectionStatus = false;
+                Properties.Settings.Default.Save();
             }
             else
             {
                 groupBoxConnectionStatus.Visible = true;
                 this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxConnectionStatus.Size.Height);
                 this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + groupBoxConnectionStatus.Size.Height);
+                Properties.Settings.Default.ExpandConnectionStatus = true;
+                Properties.Settings.Default.Save();
             }
 
             SetButtonsState();
@@ -169,12 +216,16 @@ namespace QSBLinearEncoderReader
                 groupBoxRecording.Visible = false;
                 this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxRecording.Size.Height);
                 this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxRecording.Size.Height);
+                Properties.Settings.Default.ExpandRecording = false;
+                Properties.Settings.Default.Save();
             }
             else
             {
                 groupBoxRecording.Visible = true;
                 this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxRecording.Size.Height);
                 this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + groupBoxRecording.Size.Height);
+                Properties.Settings.Default.ExpandRecording = true;
+                Properties.Settings.Default.Save();
             }
 
             SetButtonsState();
@@ -187,12 +238,16 @@ namespace QSBLinearEncoderReader
                 groupBoxStatistics.Visible = false;
                 this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxStatistics.Size.Height);
                 this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxStatistics.Size.Height);
+                Properties.Settings.Default.ExpandStatistics = false;
+                Properties.Settings.Default.Save();
             }
             else
             {
                 groupBoxStatistics.Visible = true;
                 this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxStatistics.Size.Height);
                 this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + groupBoxStatistics.Size.Height);
+                Properties.Settings.Default.ExpandStatistics = true;
+                Properties.Settings.Default.Save();
             }
 
             SetButtonsState();
@@ -202,19 +257,44 @@ namespace QSBLinearEncoderReader
         {
             if (textBoxStatus.Visible)
             {
-                _previousTextBoxStatusHeight = textBoxStatus.Size.Height;
+                _previousWindowHeight = this.Size.Height;
+                Properties.Settings.Default.TextBoxStatusHeight = textBoxStatus.Size.Height;
                 textBoxStatus.Visible = false;
-                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - _previousTextBoxStatusHeight);
-                this.Size = new Size(this.Size.Width, this.Size.Height - _previousTextBoxStatusHeight);
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - _defaultTextBoxStatusHeight);
+                this.Size = new Size(this.Size.Width, this.Size.Height - Properties.Settings.Default.TextBoxStatusHeight);
+                Properties.Settings.Default.ExpandStatus = false;
+                Properties.Settings.Default.Save();
             }
             else
             {
+                bool restorePreviousHeight = false;
+                if (this.Size.Height == this.MinimumSize.Height)
+                {
+                    restorePreviousHeight = true;
+                }
+
                 textBoxStatus.Visible = true;
-                this.Size = new Size(this.Size.Width, this.Size.Height + _previousTextBoxStatusHeight);
-                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + _previousTextBoxStatusHeight);
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + _defaultTextBoxStatusHeight);
+
+                if (restorePreviousHeight)
+                {
+                    this.Size = new Size(this.Size.Width, _previousWindowHeight);
+                }
+                Properties.Settings.Default.ExpandStatus = true;
+                Properties.Settings.Default.Save();
             }
 
             SetButtonsState();
+        }
+
+        private void textBoxStatus_Resize(object sender, EventArgs e)
+        {
+            if (textBoxStatus.Visible && textBoxStatus.Size.Height > _defaultTextBoxStatusHeight)
+            {
+                Logger.Log("Height: " + textBoxStatus.Size.Height);
+                Properties.Settings.Default.TextBoxStatusHeight = textBoxStatus.Size.Height;
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void AppendOneLineLogMessage(String message)
