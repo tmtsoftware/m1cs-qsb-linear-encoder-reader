@@ -14,7 +14,7 @@ namespace QSBLinearEncoderReader
         private DeviceController _controller = null;
         private ConnectionStatus _connectionStatus = new ConnectionStatus();
         private EncoderCount _encoderCount = new EncoderCount();
-        private int _previousTextBoxStatusHeight = 0;
+        private int _previousTextBoxStatusHeight = 125;
 
         public MainForm()
         {
@@ -149,12 +149,14 @@ namespace QSBLinearEncoderReader
             if (groupBoxConnectionStatus.Visible)
             {
                 groupBoxConnectionStatus.Visible = false;
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxConnectionStatus.Size.Height);
                 this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxConnectionStatus.Size.Height);
             }
             else
             {
                 groupBoxConnectionStatus.Visible = true;
                 this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxConnectionStatus.Size.Height);
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + groupBoxConnectionStatus.Size.Height);
             }
 
             SetButtonsState();
@@ -165,12 +167,14 @@ namespace QSBLinearEncoderReader
             if (groupBoxRecording.Visible)
             {
                 groupBoxRecording.Visible = false;
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxRecording.Size.Height);
                 this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxRecording.Size.Height);
             }
             else
             {
                 groupBoxRecording.Visible = true;
                 this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxRecording.Size.Height);
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + groupBoxRecording.Size.Height);
             }
 
             SetButtonsState();
@@ -181,12 +185,14 @@ namespace QSBLinearEncoderReader
             if (groupBoxStatistics.Visible)
             {
                 groupBoxStatistics.Visible = false;
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - groupBoxStatistics.Size.Height);
                 this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxStatistics.Size.Height);
             }
             else
             {
                 groupBoxStatistics.Visible = true;
                 this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxStatistics.Size.Height);
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + groupBoxStatistics.Size.Height);
             }
 
             SetButtonsState();
@@ -198,12 +204,14 @@ namespace QSBLinearEncoderReader
             {
                 _previousTextBoxStatusHeight = textBoxStatus.Size.Height;
                 textBoxStatus.Visible = false;
-                this.Size = new Size(this.Size.Width, this.Size.Height - textBoxStatus.Size.Height);
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height - _previousTextBoxStatusHeight);
+                this.Size = new Size(this.Size.Width, this.Size.Height - _previousTextBoxStatusHeight);
             }
             else
             {
                 textBoxStatus.Visible = true;
-               this.Size = new Size(this.Size.Width, this.Size.Height + _previousTextBoxStatusHeight);
+                this.Size = new Size(this.Size.Width, this.Size.Height + _previousTextBoxStatusHeight);
+                this.MinimumSize = new Size(this.MinimumSize.Width, this.MinimumSize.Height + _previousTextBoxStatusHeight);
             }
 
             SetButtonsState();
