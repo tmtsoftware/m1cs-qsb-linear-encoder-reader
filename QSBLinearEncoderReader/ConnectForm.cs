@@ -21,15 +21,24 @@ namespace QSBLinearEncoderReader
 
         private QuadratureModeOption[] _quadratureModeOptions = new QuadratureModeOption[]
         {
-                new QuadratureModeOption(QuadratureMode.X1, "x1 (one count per quadrature cycle)"),
-                new QuadratureModeOption(QuadratureMode.X2, "x2 (two counts per quadrature cycle)"),
-                new QuadratureModeOption(QuadratureMode.X4, "x4 (four counts per quadrature cycle)"),
+            new QuadratureModeOption(QuadratureMode.X1, "x1 (one count per quadrature cycle)"),
+            new QuadratureModeOption(QuadratureMode.X2, "x2 (two counts per quadrature cycle)"),
+            new QuadratureModeOption(QuadratureMode.X4, "x4 (four counts per quadrature cycle)"),
         };
 
         private EncoderDirectionOption[] _encoderDirectionOptions = new EncoderDirectionOption[]
         {
-                new EncoderDirectionOption(EncoderDirection.CountUp, "Count Up (Positive)"),
-                new EncoderDirectionOption(EncoderDirection.CountDown, "Count Down (Negative)"),
+            new EncoderDirectionOption(EncoderDirection.CountUp, "Count Up (Positive)"),
+            new EncoderDirectionOption(EncoderDirection.CountDown, "Count Down (Negative)"),
+        };
+
+        private DisplayUpdateRateOption[] _displayUpdateRateOptions = new DisplayUpdateRateOption[]
+        {
+            new DisplayUpdateRateOption(512),
+            new DisplayUpdateRateOption(256),
+            new DisplayUpdateRateOption(128),
+            new DisplayUpdateRateOption(64),
+            new DisplayUpdateRateOption(32),
         };
 
         public ConnectForm()
@@ -43,6 +52,7 @@ namespace QSBLinearEncoderReader
             populateBaudRateComboBox();
             populateQuadratureModeComboBox();
             populateDirectionComboBox();
+            populateDisplayUpdateRateComboBox();
 
             loadPreviousSettings();
         }
@@ -55,7 +65,7 @@ namespace QSBLinearEncoderReader
                 availablePortNames.Add(s);
             }
             // "Simulated Device" is for testing.
-            //availablePortNames.Add("Simulated Device");
+            availablePortNames.Add("Simulated Device");
             comboBoxCOMPort.DataSource = availablePortNames;
             comboBoxCOMPort.DropDownStyle = ComboBoxStyle.DropDown;
         }
@@ -87,6 +97,15 @@ namespace QSBLinearEncoderReader
             comboBoxDirection.SelectedValue = EncoderDirection.CountUp;
         }
 
+        private void populateDisplayUpdateRateComboBox()
+        {
+            comboBoxDisplayUpdateRate.DataSource = _displayUpdateRateOptions;
+            comboBoxDisplayUpdateRate.DisplayMember = "DisplayString";
+            comboBoxDisplayUpdateRate.ValueMember = "UpdateInterval";
+            comboBoxDisplayUpdateRate.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxDisplayUpdateRate.SelectedValue = 64;
+        }
+
         private void loadPreviousSettings()
         {
             // Port name setting
@@ -105,6 +124,7 @@ namespace QSBLinearEncoderReader
             numericUpDownResolution.Value = Properties.Settings.Default.Resolution_nm;
             numericUpDownZeroPositionCount.Value = Properties.Settings.Default.ZeroPositionCount;
             comboBoxDirection.SelectedValue = Properties.Settings.Default.Direction;
+            comboBoxDisplayUpdateRate.SelectedValue = Properties.Settings.Default.DisplayUpdateInterval;
         }
 
         public string PortName
@@ -135,6 +155,11 @@ namespace QSBLinearEncoderReader
         public EncoderDirection Direction
         {
             get { return (EncoderDirection)comboBoxDirection.SelectedValue; }
+        }
+
+        public ulong DisplayUpdateInterval
+        {
+            get { return (ulong)comboBoxDisplayUpdateRate.SelectedValue;  }
         }
     }
     public class BaudRateOption
@@ -207,5 +232,26 @@ namespace QSBLinearEncoderReader
         {
             get { return _displayString; }
         }
+    }
+
+    public class DisplayUpdateRateOption
+    {
+        private ulong _updateInterval;    // Update rate is (_updateInterval / 512) Hz
+
+        public DisplayUpdateRateOption(ulong updateInterval)
+        {
+            _updateInterval = updateInterval;
+        }
+
+        public ulong UpdateInterval
+        {
+            get { return _updateInterval;  }
+        }
+
+        public string DisplayString
+        {
+            get { return (512 / _updateInterval).ToString() + " Hz"; }
+        }
+
     }
 }

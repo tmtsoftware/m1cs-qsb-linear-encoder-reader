@@ -48,7 +48,8 @@ namespace QSBLinearEncoderReader
                     connectDialog.QuadratureMode,
                     connectDialog.Resolution_nm,
                     connectDialog.ZeroPositionCount,
-                    connectDialog.Direction);
+                    connectDialog.Direction,
+                    connectDialog.DisplayUpdateInterval);
 
                 // Save the successful configuration values as the default settings.
                 if (connected)
@@ -59,6 +60,7 @@ namespace QSBLinearEncoderReader
                     Properties.Settings.Default.Resolution_nm = connectDialog.Resolution_nm;
                     Properties.Settings.Default.ZeroPositionCount = connectDialog.ZeroPositionCount;
                     Properties.Settings.Default.Direction = connectDialog.Direction;
+                    Properties.Settings.Default.DisplayUpdateInterval = connectDialog.DisplayUpdateInterval;
                     Properties.Settings.Default.Save();
                 }
             }
@@ -317,7 +319,8 @@ namespace QSBLinearEncoderReader
             QuadratureMode quadratureMode,
             decimal resolution_nm,
             int zeroPositionCount,
-            EncoderDirection encoderDirection)
+            EncoderDirection encoderDirection,
+            ulong displayUpdateInterval)
         {
             AppendOneLineLogMessage(String.Format("Connecting to an US Digital QSB Encoder Reader via '{0}' (baud rate: {1}).", portName, baudRate));
 
@@ -336,7 +339,8 @@ namespace QSBLinearEncoderReader
                     encoderDirection,
                     zeroPositionCount,
                     resolution_nm,
-                    numberOfSamplesToStopStatistics);
+                    numberOfSamplesToStopStatistics,
+                    displayUpdateInterval);
             }
             catch (Exception e)
             {

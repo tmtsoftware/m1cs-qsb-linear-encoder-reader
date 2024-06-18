@@ -17,6 +17,7 @@ namespace QSBLinearEncoderReader
         private int _zeroPositionCount;
         private int _currentCount;
         private ulong _totalNumberOfSamples;
+        private ulong _listenerTriggerInterval;
 
         public const ulong Indefinite = 0;
         private ulong _statisticsNumberOfSamplesToStop;
@@ -41,6 +42,7 @@ namespace QSBLinearEncoderReader
             _resolution_nm = 5.0M;
             _currentCount = 0;
             _totalNumberOfSamples = 0;
+            _listenerTriggerInterval = 64;
 
             _statisticsState = StatisticsState.Stopped;
             _statisticsNumberOfSamplesToStop = Indefinite;
@@ -93,7 +95,11 @@ namespace QSBLinearEncoderReader
             }
         }
 
-        public void Reset(int zeroPositionCount, decimal resolution_nm, ulong statisticsNumberOfSamplesToStop)
+        public void Reset(
+            int zeroPositionCount,
+            decimal resolution_nm,
+            ulong statisticsNumberOfSamplesToStop,
+            ulong listenerTriggerInterval)
         {
             lock (_lock)
             {
@@ -101,6 +107,7 @@ namespace QSBLinearEncoderReader
                 _resolution_nm = resolution_nm;
                 _currentCount = 0;
                 _totalNumberOfSamples = 0;
+                _listenerTriggerInterval = listenerTriggerInterval;
 
                 _statisticsState = StatisticsState.Ongoing;
                 _statisticsNumberOfSamplesToStop = statisticsNumberOfSamplesToStop;
@@ -124,7 +131,7 @@ namespace QSBLinearEncoderReader
             {
                 _currentCount = encoderCount;
                 _totalNumberOfSamples += 1;
-                if (_totalNumberOfSamples % 128 == 0)
+                if (_totalNumberOfSamples % _listenerTriggerInterval == 0)
                 {
                     triggerListener = true;
                 }

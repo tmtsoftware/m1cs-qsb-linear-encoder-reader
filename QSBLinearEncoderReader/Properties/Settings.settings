@@ -32,5 +32,8 @@
     <Setting Name="MaxRecordsPerFile" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">86400</Value>
     </Setting>
+    <Setting Name="DisplayUpdateInterval" Type="System.UInt64" Scope="User">
+      <Value Profile="(Default)">64</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

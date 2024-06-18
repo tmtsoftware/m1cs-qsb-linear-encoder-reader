@@ -40,10 +40,15 @@ namespace QSBLinearEncoderReader
             EncoderDirection encoderDirection,
             int encoderZeroPositionCount,
             decimal encoderResolution_nm,
-            ulong numberOfSamplesToStopStatistics)
+            ulong numberOfSamplesToStopStatistics,
+            ulong listenerTriggerInterval)
         {
             _qsb.Connect(portName, baudRate, quadratureMode, encoderDirection);
-            _processor.Reset(encoderZeroPositionCount, encoderResolution_nm, numberOfSamplesToStopStatistics);
+            _processor.Reset(
+                encoderZeroPositionCount,
+                encoderResolution_nm,
+                numberOfSamplesToStopStatistics,
+                listenerTriggerInterval);
 
             Thread encoderCountReaderThread = new Thread(new ThreadStart(EncoderCountReaderLoop));
             encoderCountReaderThread.Start();
