@@ -11,8 +11,8 @@ namespace QSBLinearEncoderReader
         void ConnectionStatusChanged(ConnectionStatus newStatus);
     }
 
-    internal interface IStatisticsStateListener
+    internal interface IEncoderCountListener
     {
-        void StatisticsStateChanged(StatisticsState newState);
+        void EncoderCountChanged(StatisticsState newState);
     }
 }

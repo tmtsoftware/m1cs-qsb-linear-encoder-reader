@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EncoderCount.cs" />
     <Compile Include="EncoderCountProcessor.cs" />
     <Compile Include="ListenerInterfaces.cs" />
     <Compile Include="ConnectionStatus.cs" />
