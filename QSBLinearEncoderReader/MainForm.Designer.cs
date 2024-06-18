@@ -157,7 +157,7 @@
             this.labelEncoderReadingUnit.Padding = new System.Windows.Forms.Padding(0, 10, 10, 10);
             this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReadingUnit, 4);
             this.labelEncoderReadingUnit.Size = new System.Drawing.Size(100, 112);
-            this.labelEncoderReadingUnit.TabIndex = 0;
+            this.labelEncoderReadingUnit.TabIndex = 999;
             this.labelEncoderReadingUnit.Text = "mm";
             this.labelEncoderReadingUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -172,7 +172,7 @@
             this.labelEncoderReading.Padding = new System.Windows.Forms.Padding(10, 10, 0, 10);
             this.tableLayoutPanelMain.SetRowSpan(this.labelEncoderReading, 4);
             this.labelEncoderReading.Size = new System.Drawing.Size(232, 112);
-            this.labelEncoderReading.TabIndex = 0;
+            this.labelEncoderReading.TabIndex = 999;
             this.labelEncoderReading.Text = "-0.000000";
             this.labelEncoderReading.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -213,7 +213,7 @@
             this.buttonQuit.Location = new System.Drawing.Point(383, 87);
             this.buttonQuit.Name = "buttonQuit";
             this.buttonQuit.Size = new System.Drawing.Size(205, 22);
-            this.buttonQuit.TabIndex = 5;
+            this.buttonQuit.TabIndex = 3;
             this.buttonQuit.Text = "&Quit";
             this.buttonQuit.UseVisualStyleBackColor = true;
             this.buttonQuit.Click += new System.EventHandler(this.buttonQuit_Click);
@@ -228,7 +228,8 @@
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxStatus.Size = new System.Drawing.Size(585, 96);
-            this.textBoxStatus.TabIndex = 6;
+            this.textBoxStatus.TabIndex = 999;
+            this.textBoxStatus.TabStop = false;
             // 
             // labelStatus
             // 
@@ -237,7 +238,7 @@
             this.labelStatus.Location = new System.Drawing.Point(3, 502);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(40, 12);
-            this.labelStatus.TabIndex = 7;
+            this.labelStatus.TabIndex = 999;
             this.labelStatus.Text = "Status:";
             this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -265,7 +266,7 @@
             this.groupBoxRecording.Location = new System.Drawing.Point(3, 264);
             this.groupBoxRecording.Name = "groupBoxRecording";
             this.groupBoxRecording.Size = new System.Drawing.Size(585, 77);
-            this.groupBoxRecording.TabIndex = 8;
+            this.groupBoxRecording.TabIndex = 200;
             this.groupBoxRecording.TabStop = false;
             this.groupBoxRecording.Text = "Recording";
             // 
@@ -295,7 +296,7 @@
             this.labelCSVOutputPath.Location = new System.Drawing.Point(3, 6);
             this.labelCSVOutputPath.Name = "labelCSVOutputPath";
             this.labelCSVOutputPath.Size = new System.Drawing.Size(137, 12);
-            this.labelCSVOutputPath.TabIndex = 0;
+            this.labelCSVOutputPath.TabIndex = 999;
             this.labelCSVOutputPath.Text = "Current CSV Output Path:";
             this.labelCSVOutputPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -306,7 +307,7 @@
             this.textBoxCSVOutputPath.Name = "textBoxCSVOutputPath";
             this.textBoxCSVOutputPath.ReadOnly = true;
             this.textBoxCSVOutputPath.Size = new System.Drawing.Size(430, 19);
-            this.textBoxCSVOutputPath.TabIndex = 1;
+            this.textBoxCSVOutputPath.TabIndex = 201;
             // 
             // flowLayoutPanelRecordingButtons
             // 
@@ -320,7 +321,7 @@
             this.flowLayoutPanelRecordingButtons.Location = new System.Drawing.Point(3, 28);
             this.flowLayoutPanelRecordingButtons.Name = "flowLayoutPanelRecordingButtons";
             this.flowLayoutPanelRecordingButtons.Size = new System.Drawing.Size(573, 28);
-            this.flowLayoutPanelRecordingButtons.TabIndex = 2;
+            this.flowLayoutPanelRecordingButtons.TabIndex = 210;
             // 
             // buttonStartRecording
             // 
@@ -331,7 +332,7 @@
             this.buttonStartRecording.Location = new System.Drawing.Point(3, 3);
             this.buttonStartRecording.Name = "buttonStartRecording";
             this.buttonStartRecording.Size = new System.Drawing.Size(95, 22);
-            this.buttonStartRecording.TabIndex = 3;
+            this.buttonStartRecording.TabIndex = 211;
             this.buttonStartRecording.Text = "S&tart Recording";
             this.buttonStartRecording.UseVisualStyleBackColor = true;
             this.buttonStartRecording.Click += new System.EventHandler(this.buttonStartRecording_Click);
@@ -345,7 +346,7 @@
             this.buttonStopRecording.Location = new System.Drawing.Point(104, 3);
             this.buttonStopRecording.Name = "buttonStopRecording";
             this.buttonStopRecording.Size = new System.Drawing.Size(93, 22);
-            this.buttonStopRecording.TabIndex = 4;
+            this.buttonStopRecording.TabIndex = 212;
             this.buttonStopRecording.Text = "Stop R&ecording";
             this.buttonStopRecording.UseVisualStyleBackColor = true;
             this.buttonStopRecording.Click += new System.EventHandler(this.buttonStopRecording_Click);
@@ -355,7 +356,7 @@
             this.buttonRecordingSettings.Location = new System.Drawing.Point(203, 3);
             this.buttonRecordingSettings.Name = "buttonRecordingSettings";
             this.buttonRecordingSettings.Size = new System.Drawing.Size(75, 21);
-            this.buttonRecordingSettings.TabIndex = 5;
+            this.buttonRecordingSettings.TabIndex = 213;
             this.buttonRecordingSettings.Text = "Settings...";
             this.buttonRecordingSettings.UseVisualStyleBackColor = true;
             this.buttonRecordingSettings.Click += new System.EventHandler(this.buttonRecordingSettings_Click);
@@ -370,7 +371,7 @@
             this.groupBoxStatistics.Location = new System.Drawing.Point(3, 347);
             this.groupBoxStatistics.Name = "groupBoxStatistics";
             this.groupBoxStatistics.Size = new System.Drawing.Size(585, 152);
-            this.groupBoxStatistics.TabIndex = 9;
+            this.groupBoxStatistics.TabIndex = 300;
             this.groupBoxStatistics.TabStop = false;
             this.groupBoxStatistics.Text = "Statistics";
             // 
@@ -430,7 +431,7 @@
             this.labelNumberOfSamples.Location = new System.Drawing.Point(3, 6);
             this.labelNumberOfSamples.Name = "labelNumberOfSamples";
             this.labelNumberOfSamples.Size = new System.Drawing.Size(105, 12);
-            this.labelNumberOfSamples.TabIndex = 1;
+            this.labelNumberOfSamples.TabIndex = 999;
             this.labelNumberOfSamples.Text = "Number of Samples";
             this.labelNumberOfSamples.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -441,7 +442,7 @@
             this.labelDuration.Location = new System.Drawing.Point(60, 31);
             this.labelDuration.Name = "labelDuration";
             this.labelDuration.Size = new System.Drawing.Size(48, 12);
-            this.labelDuration.TabIndex = 2;
+            this.labelDuration.TabIndex = 999;
             this.labelDuration.Text = "Duration";
             this.labelDuration.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -452,7 +453,7 @@
             this.labelAverage.Location = new System.Drawing.Point(61, 56);
             this.labelAverage.Name = "labelAverage";
             this.labelAverage.Size = new System.Drawing.Size(47, 12);
-            this.labelAverage.TabIndex = 3;
+            this.labelAverage.TabIndex = 999;
             this.labelAverage.Text = "Average";
             this.labelAverage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -463,7 +464,7 @@
             this.checkBoxAutoStopStatistics.Location = new System.Drawing.Point(285, 80);
             this.checkBoxAutoStopStatistics.Name = "checkBoxAutoStopStatistics";
             this.checkBoxAutoStopStatistics.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxAutoStopStatistics.TabIndex = 11;
+            this.checkBoxAutoStopStatistics.TabIndex = 308;
             this.checkBoxAutoStopStatistics.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBoxAutoStopStatistics.UseVisualStyleBackColor = true;
             this.checkBoxAutoStopStatistics.CheckedChanged += new System.EventHandler(this.checkBoxAutoStopStatistics_CheckedChanged);
@@ -475,7 +476,7 @@
             this.textBoxNumberOfSamples.Name = "textBoxNumberOfSamples";
             this.textBoxNumberOfSamples.ReadOnly = true;
             this.textBoxNumberOfSamples.Size = new System.Drawing.Size(97, 19);
-            this.textBoxNumberOfSamples.TabIndex = 4;
+            this.textBoxNumberOfSamples.TabIndex = 301;
             this.textBoxNumberOfSamples.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxNumberOfSamples.WordWrap = false;
             // 
@@ -486,7 +487,7 @@
             this.labelAutoStopStatistics1.Location = new System.Drawing.Point(306, 81);
             this.labelAutoStopStatistics1.Name = "labelAutoStopStatistics1";
             this.labelAutoStopStatistics1.Size = new System.Drawing.Size(97, 12);
-            this.labelAutoStopStatistics1.TabIndex = 12;
+            this.labelAutoStopStatistics1.TabIndex = 999;
             this.labelAutoStopStatistics1.Text = "Stop recording at ";
             this.labelAutoStopStatistics1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -497,7 +498,7 @@
             this.labelDurationUnit.Location = new System.Drawing.Point(217, 31);
             this.labelDurationUnit.Name = "labelDurationUnit";
             this.labelDurationUnit.Size = new System.Drawing.Size(11, 12);
-            this.labelDurationUnit.TabIndex = 5;
+            this.labelDurationUnit.TabIndex = 999;
             this.labelDurationUnit.Text = "s";
             this.labelDurationUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -517,7 +518,7 @@
             0});
             this.numericUpDownAutoStopStatisticsCount.Name = "numericUpDownAutoStopStatisticsCount";
             this.numericUpDownAutoStopStatisticsCount.Size = new System.Drawing.Size(97, 19);
-            this.numericUpDownAutoStopStatisticsCount.TabIndex = 13;
+            this.numericUpDownAutoStopStatisticsCount.TabIndex = 309;
             this.numericUpDownAutoStopStatisticsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDownAutoStopStatisticsCount.Value = new decimal(new int[] {
             1,
@@ -532,7 +533,7 @@
             this.textBoxDuration.Name = "textBoxDuration";
             this.textBoxDuration.ReadOnly = true;
             this.textBoxDuration.Size = new System.Drawing.Size(97, 19);
-            this.textBoxDuration.TabIndex = 6;
+            this.textBoxDuration.TabIndex = 302;
             this.textBoxDuration.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxDuration.WordWrap = false;
             // 
@@ -543,7 +544,7 @@
             this.labelAutoStopStatistics2.Location = new System.Drawing.Point(512, 81);
             this.labelAutoStopStatistics2.Name = "labelAutoStopStatistics2";
             this.labelAutoStopStatistics2.Size = new System.Drawing.Size(63, 12);
-            this.labelAutoStopStatistics2.TabIndex = 12;
+            this.labelAutoStopStatistics2.TabIndex = 999;
             this.labelAutoStopStatistics2.Text = "-th sample.";
             this.labelAutoStopStatistics2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -554,7 +555,7 @@
             this.textBoxAverage.Name = "textBoxAverage";
             this.textBoxAverage.ReadOnly = true;
             this.textBoxAverage.Size = new System.Drawing.Size(97, 19);
-            this.textBoxAverage.TabIndex = 7;
+            this.textBoxAverage.TabIndex = 303;
             this.textBoxAverage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxAverage.WordWrap = false;
             // 
@@ -565,7 +566,7 @@
             this.labelAverageUnit.Location = new System.Drawing.Point(217, 56);
             this.labelAverageUnit.Name = "labelAverageUnit";
             this.labelAverageUnit.Size = new System.Drawing.Size(23, 12);
-            this.labelAverageUnit.TabIndex = 8;
+            this.labelAverageUnit.TabIndex = 999;
             this.labelAverageUnit.Text = "mm";
             this.labelAverageUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -581,7 +582,7 @@
             this.flowLayoutPanelStatisticsButtons.Location = new System.Drawing.Point(3, 103);
             this.flowLayoutPanelStatisticsButtons.Name = "flowLayoutPanelStatisticsButtons";
             this.flowLayoutPanelStatisticsButtons.Size = new System.Drawing.Size(503, 28);
-            this.flowLayoutPanelStatisticsButtons.TabIndex = 0;
+            this.flowLayoutPanelStatisticsButtons.TabIndex = 310;
             // 
             // buttonStartStatistics
             // 
@@ -590,7 +591,7 @@
             this.buttonStartStatistics.Location = new System.Drawing.Point(3, 3);
             this.buttonStartStatistics.Name = "buttonStartStatistics";
             this.buttonStartStatistics.Size = new System.Drawing.Size(40, 22);
-            this.buttonStartStatistics.TabIndex = 8;
+            this.buttonStartStatistics.TabIndex = 311;
             this.buttonStartStatistics.Text = "St&art";
             this.buttonStartStatistics.UseVisualStyleBackColor = true;
             this.buttonStartStatistics.Click += new System.EventHandler(this.buttonStartStatistics_Click);
@@ -602,7 +603,7 @@
             this.buttonStopStatistics.Location = new System.Drawing.Point(49, 3);
             this.buttonStopStatistics.Name = "buttonStopStatistics";
             this.buttonStopStatistics.Size = new System.Drawing.Size(38, 22);
-            this.buttonStopStatistics.TabIndex = 9;
+            this.buttonStopStatistics.TabIndex = 312;
             this.buttonStopStatistics.Text = "Sto&p";
             this.buttonStopStatistics.UseVisualStyleBackColor = true;
             this.buttonStopStatistics.Click += new System.EventHandler(this.buttonStopStatistics_Click);
@@ -614,7 +615,7 @@
             this.buttonResetStatistics.Location = new System.Drawing.Point(93, 3);
             this.buttonResetStatistics.Name = "buttonResetStatistics";
             this.buttonResetStatistics.Size = new System.Drawing.Size(45, 22);
-            this.buttonResetStatistics.TabIndex = 10;
+            this.buttonResetStatistics.TabIndex = 333;
             this.buttonResetStatistics.Text = "&Reset";
             this.buttonResetStatistics.UseVisualStyleBackColor = true;
             this.buttonResetStatistics.Click += new System.EventHandler(this.buttonResetStatistics_Click);
@@ -626,7 +627,7 @@
             this.labelStdev.Location = new System.Drawing.Point(6, 81);
             this.labelStdev.Name = "labelStdev";
             this.labelStdev.Size = new System.Drawing.Size(102, 12);
-            this.labelStdev.TabIndex = 3;
+            this.labelStdev.TabIndex = 999;
             this.labelStdev.Text = "Standard Deviation";
             this.labelStdev.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -637,7 +638,7 @@
             this.textBoxStdev.Name = "textBoxStdev";
             this.textBoxStdev.ReadOnly = true;
             this.textBoxStdev.Size = new System.Drawing.Size(97, 19);
-            this.textBoxStdev.TabIndex = 7;
+            this.textBoxStdev.TabIndex = 304;
             this.textBoxStdev.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxStdev.WordWrap = false;
             // 
@@ -648,7 +649,7 @@
             this.labelStdevUnit.Location = new System.Drawing.Point(217, 81);
             this.labelStdevUnit.Name = "labelStdevUnit";
             this.labelStdevUnit.Size = new System.Drawing.Size(23, 12);
-            this.labelStdevUnit.TabIndex = 8;
+            this.labelStdevUnit.TabIndex = 999;
             this.labelStdevUnit.Text = "mm";
             this.labelStdevUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -659,7 +660,7 @@
             this.labelPeakToPeakUnit.Location = new System.Drawing.Point(512, 56);
             this.labelPeakToPeakUnit.Name = "labelPeakToPeakUnit";
             this.labelPeakToPeakUnit.Size = new System.Drawing.Size(23, 12);
-            this.labelPeakToPeakUnit.TabIndex = 17;
+            this.labelPeakToPeakUnit.TabIndex = 999;
             this.labelPeakToPeakUnit.Text = "mm";
             this.labelPeakToPeakUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -670,7 +671,7 @@
             this.labelMinimumUnit.Location = new System.Drawing.Point(512, 31);
             this.labelMinimumUnit.Name = "labelMinimumUnit";
             this.labelMinimumUnit.Size = new System.Drawing.Size(23, 12);
-            this.labelMinimumUnit.TabIndex = 16;
+            this.labelMinimumUnit.TabIndex = 999;
             this.labelMinimumUnit.Text = "mm";
             this.labelMinimumUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -681,7 +682,7 @@
             this.labelMaximumUnit.Location = new System.Drawing.Point(512, 6);
             this.labelMaximumUnit.Name = "labelMaximumUnit";
             this.labelMaximumUnit.Size = new System.Drawing.Size(23, 12);
-            this.labelMaximumUnit.TabIndex = 15;
+            this.labelMaximumUnit.TabIndex = 999;
             this.labelMaximumUnit.Text = "mm";
             this.labelMaximumUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -692,7 +693,7 @@
             this.textBoxMaximum.Name = "textBoxMaximum";
             this.textBoxMaximum.ReadOnly = true;
             this.textBoxMaximum.Size = new System.Drawing.Size(97, 19);
-            this.textBoxMaximum.TabIndex = 12;
+            this.textBoxMaximum.TabIndex = 305;
             this.textBoxMaximum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxMaximum.WordWrap = false;
             // 
@@ -703,7 +704,7 @@
             this.textBoxMinimum.Name = "textBoxMinimum";
             this.textBoxMinimum.ReadOnly = true;
             this.textBoxMinimum.Size = new System.Drawing.Size(97, 19);
-            this.textBoxMinimum.TabIndex = 13;
+            this.textBoxMinimum.TabIndex = 306;
             this.textBoxMinimum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxMinimum.WordWrap = false;
             // 
@@ -714,7 +715,7 @@
             this.textBoxPeakToPeak.Name = "textBoxPeakToPeak";
             this.textBoxPeakToPeak.ReadOnly = true;
             this.textBoxPeakToPeak.Size = new System.Drawing.Size(97, 19);
-            this.textBoxPeakToPeak.TabIndex = 14;
+            this.textBoxPeakToPeak.TabIndex = 307;
             this.textBoxPeakToPeak.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxPeakToPeak.WordWrap = false;
             // 
@@ -725,7 +726,7 @@
             this.labelPeakToPeak.Location = new System.Drawing.Point(326, 56);
             this.labelPeakToPeak.Name = "labelPeakToPeak";
             this.labelPeakToPeak.Size = new System.Drawing.Size(77, 12);
-            this.labelPeakToPeak.TabIndex = 11;
+            this.labelPeakToPeak.TabIndex = 999;
             this.labelPeakToPeak.Text = "Peak-to-Peak";
             this.labelPeakToPeak.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -736,7 +737,7 @@
             this.labelMinimum.Location = new System.Drawing.Point(353, 31);
             this.labelMinimum.Name = "labelMinimum";
             this.labelMinimum.Size = new System.Drawing.Size(50, 12);
-            this.labelMinimum.TabIndex = 10;
+            this.labelMinimum.TabIndex = 999;
             this.labelMinimum.Text = "Minimum";
             this.labelMinimum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -747,7 +748,7 @@
             this.labelMaximum.Location = new System.Drawing.Point(350, 6);
             this.labelMaximum.Name = "labelMaximum";
             this.labelMaximum.Size = new System.Drawing.Size(53, 12);
-            this.labelMaximum.TabIndex = 9;
+            this.labelMaximum.TabIndex = 999;
             this.labelMaximum.Text = "Maximum";
             this.labelMaximum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -761,7 +762,7 @@
             this.groupBoxConnectionStatus.Location = new System.Drawing.Point(3, 115);
             this.groupBoxConnectionStatus.Name = "groupBoxConnectionStatus";
             this.groupBoxConnectionStatus.Size = new System.Drawing.Size(585, 143);
-            this.groupBoxConnectionStatus.TabIndex = 10;
+            this.groupBoxConnectionStatus.TabIndex = 100;
             this.groupBoxConnectionStatus.TabStop = false;
             this.groupBoxConnectionStatus.Text = "Connection Status";
             // 
@@ -815,7 +816,7 @@
             this.labelConnectionState.Location = new System.Drawing.Point(43, 6);
             this.labelConnectionState.Name = "labelConnectionState";
             this.labelConnectionState.Size = new System.Drawing.Size(93, 12);
-            this.labelConnectionState.TabIndex = 2;
+            this.labelConnectionState.TabIndex = 999;
             this.labelConnectionState.Text = "Connection State";
             this.labelConnectionState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -826,7 +827,7 @@
             this.textBoxConnectionState.Name = "textBoxConnectionState";
             this.textBoxConnectionState.ReadOnly = true;
             this.textBoxConnectionState.Size = new System.Drawing.Size(133, 19);
-            this.textBoxConnectionState.TabIndex = 4;
+            this.textBoxConnectionState.TabIndex = 101;
             this.textBoxConnectionState.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxConnectionState.WordWrap = false;
             // 
@@ -837,7 +838,7 @@
             this.labelDirection.Location = new System.Drawing.Point(85, 106);
             this.labelDirection.Name = "labelDirection";
             this.labelDirection.Size = new System.Drawing.Size(51, 12);
-            this.labelDirection.TabIndex = 2;
+            this.labelDirection.TabIndex = 999;
             this.labelDirection.Text = "Direction";
             this.labelDirection.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -848,7 +849,7 @@
             this.textBoxDirection.Name = "textBoxDirection";
             this.textBoxDirection.ReadOnly = true;
             this.textBoxDirection.Size = new System.Drawing.Size(133, 19);
-            this.textBoxDirection.TabIndex = 4;
+            this.textBoxDirection.TabIndex = 105;
             this.textBoxDirection.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxDirection.WordWrap = false;
             // 
@@ -859,7 +860,7 @@
             this.labelQuadratureMode.Location = new System.Drawing.Point(44, 81);
             this.labelQuadratureMode.Name = "labelQuadratureMode";
             this.labelQuadratureMode.Size = new System.Drawing.Size(92, 12);
-            this.labelQuadratureMode.TabIndex = 2;
+            this.labelQuadratureMode.TabIndex = 999;
             this.labelQuadratureMode.Text = "Quadrature Mode";
             this.labelQuadratureMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -870,7 +871,7 @@
             this.textBoxQuadratureMode.Name = "textBoxQuadratureMode";
             this.textBoxQuadratureMode.ReadOnly = true;
             this.textBoxQuadratureMode.Size = new System.Drawing.Size(133, 19);
-            this.textBoxQuadratureMode.TabIndex = 4;
+            this.textBoxQuadratureMode.TabIndex = 104;
             this.textBoxQuadratureMode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxQuadratureMode.WordWrap = false;
             // 
@@ -881,7 +882,7 @@
             this.labelCOMPort.Location = new System.Drawing.Point(81, 56);
             this.labelCOMPort.Name = "labelCOMPort";
             this.labelCOMPort.Size = new System.Drawing.Size(55, 12);
-            this.labelCOMPort.TabIndex = 2;
+            this.labelCOMPort.TabIndex = 999;
             this.labelCOMPort.Text = "COM Port";
             this.labelCOMPort.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -892,7 +893,7 @@
             this.textBoxCOMPort.Name = "textBoxCOMPort";
             this.textBoxCOMPort.ReadOnly = true;
             this.textBoxCOMPort.Size = new System.Drawing.Size(133, 19);
-            this.textBoxCOMPort.TabIndex = 4;
+            this.textBoxCOMPort.TabIndex = 103;
             this.textBoxCOMPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxCOMPort.WordWrap = false;
             // 
@@ -903,7 +904,7 @@
             this.labelSerialNumber.Location = new System.Drawing.Point(59, 31);
             this.labelSerialNumber.Name = "labelSerialNumber";
             this.labelSerialNumber.Size = new System.Drawing.Size(77, 12);
-            this.labelSerialNumber.TabIndex = 2;
+            this.labelSerialNumber.TabIndex = 999;
             this.labelSerialNumber.Text = "Serial Number";
             this.labelSerialNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -914,7 +915,7 @@
             this.textBoxSerialNumber.Name = "textBoxSerialNumber";
             this.textBoxSerialNumber.ReadOnly = true;
             this.textBoxSerialNumber.Size = new System.Drawing.Size(133, 19);
-            this.textBoxSerialNumber.TabIndex = 4;
+            this.textBoxSerialNumber.TabIndex = 102;
             this.textBoxSerialNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxSerialNumber.WordWrap = false;
             // 
@@ -925,7 +926,7 @@
             this.textBoxProductType.Name = "textBoxProductType";
             this.textBoxProductType.ReadOnly = true;
             this.textBoxProductType.Size = new System.Drawing.Size(134, 19);
-            this.textBoxProductType.TabIndex = 4;
+            this.textBoxProductType.TabIndex = 106;
             this.textBoxProductType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxProductType.WordWrap = false;
             // 
@@ -936,7 +937,7 @@
             this.textBoxFirmwareVersion.Name = "textBoxFirmwareVersion";
             this.textBoxFirmwareVersion.ReadOnly = true;
             this.textBoxFirmwareVersion.Size = new System.Drawing.Size(134, 19);
-            this.textBoxFirmwareVersion.TabIndex = 4;
+            this.textBoxFirmwareVersion.TabIndex = 107;
             this.textBoxFirmwareVersion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxFirmwareVersion.WordWrap = false;
             // 
@@ -947,7 +948,7 @@
             this.textBoxBaudRate.Name = "textBoxBaudRate";
             this.textBoxBaudRate.ReadOnly = true;
             this.textBoxBaudRate.Size = new System.Drawing.Size(134, 19);
-            this.textBoxBaudRate.TabIndex = 4;
+            this.textBoxBaudRate.TabIndex = 108;
             this.textBoxBaudRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxBaudRate.WordWrap = false;
             // 
@@ -958,7 +959,7 @@
             this.textBoxResolution.Name = "textBoxResolution";
             this.textBoxResolution.ReadOnly = true;
             this.textBoxResolution.Size = new System.Drawing.Size(134, 19);
-            this.textBoxResolution.TabIndex = 4;
+            this.textBoxResolution.TabIndex = 109;
             this.textBoxResolution.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxResolution.WordWrap = false;
             // 
@@ -969,7 +970,7 @@
             this.textBoxZeroPositionCount.Name = "textBoxZeroPositionCount";
             this.textBoxZeroPositionCount.ReadOnly = true;
             this.textBoxZeroPositionCount.Size = new System.Drawing.Size(134, 19);
-            this.textBoxZeroPositionCount.TabIndex = 4;
+            this.textBoxZeroPositionCount.TabIndex = 110;
             this.textBoxZeroPositionCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxZeroPositionCount.WordWrap = false;
             // 
@@ -980,7 +981,7 @@
             this.labelZeroPositionCount.Location = new System.Drawing.Point(329, 106);
             this.labelZeroPositionCount.Name = "labelZeroPositionCount";
             this.labelZeroPositionCount.Size = new System.Drawing.Size(107, 12);
-            this.labelZeroPositionCount.TabIndex = 2;
+            this.labelZeroPositionCount.TabIndex = 999;
             this.labelZeroPositionCount.Text = "Zero Position Count";
             this.labelZeroPositionCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -991,7 +992,7 @@
             this.labelResolution.Location = new System.Drawing.Point(377, 81);
             this.labelResolution.Name = "labelResolution";
             this.labelResolution.Size = new System.Drawing.Size(59, 12);
-            this.labelResolution.TabIndex = 2;
+            this.labelResolution.TabIndex = 999;
             this.labelResolution.Text = "Resolution";
             this.labelResolution.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1002,7 +1003,7 @@
             this.labelBaudRate.Location = new System.Drawing.Point(377, 56);
             this.labelBaudRate.Name = "labelBaudRate";
             this.labelBaudRate.Size = new System.Drawing.Size(59, 12);
-            this.labelBaudRate.TabIndex = 2;
+            this.labelBaudRate.TabIndex = 999;
             this.labelBaudRate.Text = "Baud Rate";
             this.labelBaudRate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1013,7 +1014,7 @@
             this.labelFirmwareVersion.Location = new System.Drawing.Point(345, 31);
             this.labelFirmwareVersion.Name = "labelFirmwareVersion";
             this.labelFirmwareVersion.Size = new System.Drawing.Size(91, 12);
-            this.labelFirmwareVersion.TabIndex = 2;
+            this.labelFirmwareVersion.TabIndex = 999;
             this.labelFirmwareVersion.Text = "FirmwareVersion";
             this.labelFirmwareVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1024,7 +1025,7 @@
             this.labelProductType.Location = new System.Drawing.Point(367, 6);
             this.labelProductType.Name = "labelProductType";
             this.labelProductType.Size = new System.Drawing.Size(69, 12);
-            this.labelProductType.TabIndex = 2;
+            this.labelProductType.TabIndex = 999;
             this.labelProductType.Text = "ProductType";
             this.labelProductType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
