@@ -168,7 +168,7 @@ namespace QSBLinearEncoderReader
 
             if (status.ConnectionState == ConnectionState.Connected)
             {
-                pictureBoxConnectionState.Image = Util.ResizeIconForErrorProvider(SystemIcons.Information).ToBitmap();
+                pictureBoxConnectionState.Image = Properties.Resources.check_circle_solid;
 
                 textBoxProductType.Text = status.ProductType;
                 textBoxSerialNumber.Text = status.SerialNumber.ToString();
@@ -194,11 +194,11 @@ namespace QSBLinearEncoderReader
                 if (status.ConnectionState == ConnectionState.Connecting
                     || status.ConnectionState == ConnectionState.Disconnecting)
                 {
-                    pictureBoxConnectionState.Image = Util.ResizeIconForErrorProvider(SystemIcons.Warning).ToBitmap();
+                    pictureBoxConnectionState.Image = Properties.Resources.refresh_circle_solid;
                 }
                 else
                 {
-                    pictureBoxConnectionState.Image = Util.ResizeIconForErrorProvider(SystemIcons.Error).ToBitmap();
+                    pictureBoxConnectionState.Image = Properties.Resources.minus_circle_solid;
                 }
 
                 textBoxProductType.Text = "";

@@ -98,6 +98,7 @@ namespace QSBLinearEncoderReader
                         // Simulation mode.
                         Logger.Log("Starting the simulation mode.");
                         _simulator = new QsbSimulator();
+                        _simulator.Connect();
                         UpdateConnectionStatus(new ConnectionStatus(
                                 ConnectionState.Connected,
                                 portName,
@@ -233,6 +234,7 @@ namespace QSBLinearEncoderReader
                 {
                     // Simulation mode.
                     Logger.Log("Stopping the simulation mode.");
+                    _simulator.Disconnect();
                     _simulator = null;
                     UpdateConnectionStatus(new ConnectionStatus(ConnectionState.Disconnected));
                     Logger.Log("Stopped the simulation mode.");

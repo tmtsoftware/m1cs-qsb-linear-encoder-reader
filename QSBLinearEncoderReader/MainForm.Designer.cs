@@ -1032,10 +1032,11 @@
             // pictureBoxConnectionState
             // 
             this.pictureBoxConnectionState.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBoxConnectionState.Location = new System.Drawing.Point(281, 5);
+            this.pictureBoxConnectionState.Location = new System.Drawing.Point(281, 4);
             this.pictureBoxConnectionState.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxConnectionState.MinimumSize = new System.Drawing.Size(16, 16);
             this.pictureBoxConnectionState.Name = "pictureBoxConnectionState";
-            this.pictureBoxConnectionState.Size = new System.Drawing.Size(16, 15);
+            this.pictureBoxConnectionState.Size = new System.Drawing.Size(16, 16);
             this.pictureBoxConnectionState.TabIndex = 5;
             this.pictureBoxConnectionState.TabStop = false;
             // 

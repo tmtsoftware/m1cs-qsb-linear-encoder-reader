@@ -27,6 +27,18 @@ namespace QSBLinearEncoderReader
             _lastTimestamp = (uint)rand.Next();
         }
 
+        public void Connect()
+        {
+            var t = Task.Run(async delegate { await Task.Delay(2000); });
+            t.Wait();
+        }
+
+        public void Disconnect()
+        {
+            var t = Task.Run(async delegate { await Task.Delay(1000); });
+            t.Wait();
+        }
+
         public void ReadEncoderCount(out int encoderCount, out uint timestamp)
         {
             lock (_lock)
