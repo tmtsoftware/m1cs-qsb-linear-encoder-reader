@@ -227,7 +227,7 @@ namespace QSBLinearEncoderReader
             if (this.InvokeRequired)
             {
                 Action action = delegate { SetConnectionStatus(newStatus); };
-                this.Invoke(action);
+                this.BeginInvoke(action);
             }
             else
             {
@@ -294,7 +294,7 @@ namespace QSBLinearEncoderReader
             if (this.InvokeRequired)
             {
                 Action action = delegate { SetEncoderCount(newCount); };
-                this.Invoke(action);
+                this.BeginInvoke(action);
             }
             else
             {

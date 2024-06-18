@@ -180,14 +180,17 @@ namespace QSBLinearEncoderReader
 
             lock (_lock)
             {
-                _statisticsState = StatisticsState.Ongoing;
-                _statisticsNumberOfSamplesToStop = statisticsNumberOfSamplesToStop;
-                _statisticsNumberOfSamples = 0;
-                _statisticsSum = 0.0M;
-                _statisticsSquareSum = 0.0M;
-                _statisticsMax = 0;
-                _statisticsMin = 0;
-                TriggerListener();
+                if (_statisticsState == StatisticsState.Stopped)
+                {
+                    _statisticsState = StatisticsState.Ongoing;
+                    _statisticsNumberOfSamplesToStop = statisticsNumberOfSamplesToStop;
+                    _statisticsNumberOfSamples = 0;
+                    _statisticsSum = 0.0M;
+                    _statisticsSquareSum = 0.0M;
+                    _statisticsMax = 0;
+                    _statisticsMin = 0;
+                    TriggerListener();
+                }
             }
         }
 
@@ -197,8 +200,11 @@ namespace QSBLinearEncoderReader
 
             lock (_lock)
             {
-                _statisticsState = StatisticsState.Stopped;
-                TriggerListener();
+                if (_statisticsState == StatisticsState.Ongoing)
+                {
+                    _statisticsState = StatisticsState.Stopped;
+                    TriggerListener();
+                }
             }
         }
 
