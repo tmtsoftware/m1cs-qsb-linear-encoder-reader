@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace QSBLinearEncoderReader
 {
@@ -13,6 +14,7 @@ namespace QSBLinearEncoderReader
         private DeviceController _controller = null;
         private ConnectionStatus _connectionStatus = new ConnectionStatus();
         private EncoderCount _encoderCount = new EncoderCount();
+        private int _previousTextBoxStatusHeight = 0;
 
         public MainForm()
         {
@@ -139,6 +141,71 @@ namespace QSBLinearEncoderReader
 
         private void checkBoxAutoStopStatistics_CheckedChanged(object sender, EventArgs e)
         {
+            SetButtonsState();
+        }
+
+        private void pictureBoxExpandConnectionStatus_Click(object sender, EventArgs e)
+        {
+            if (groupBoxConnectionStatus.Visible)
+            {
+                groupBoxConnectionStatus.Visible = false;
+                this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxConnectionStatus.Size.Height);
+            }
+            else
+            {
+                groupBoxConnectionStatus.Visible = true;
+                this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxConnectionStatus.Size.Height);
+            }
+
+            SetButtonsState();
+        }
+
+        private void pictureBoxExpandRecording_Click(object sender, EventArgs e)
+        {
+            if (groupBoxRecording.Visible)
+            {
+                groupBoxRecording.Visible = false;
+                this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxRecording.Size.Height);
+            }
+            else
+            {
+                groupBoxRecording.Visible = true;
+                this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxRecording.Size.Height);
+            }
+
+            SetButtonsState();
+        }
+
+        private void pictureBoxExpandStatistics_Click(object sender, EventArgs e)
+        {
+            if (groupBoxStatistics.Visible)
+            {
+                groupBoxStatistics.Visible = false;
+                this.Size = new Size(this.Size.Width, this.Size.Height - groupBoxStatistics.Size.Height);
+            }
+            else
+            {
+                groupBoxStatistics.Visible = true;
+                this.Size = new Size(this.Size.Width, this.Size.Height + groupBoxStatistics.Size.Height);
+            }
+
+            SetButtonsState();
+        }
+
+        private void pictureBoxExpandStatus_Click(object sender, EventArgs e)
+        {
+            if (textBoxStatus.Visible)
+            {
+                _previousTextBoxStatusHeight = textBoxStatus.Size.Height;
+                textBoxStatus.Visible = false;
+                this.Size = new Size(this.Size.Width, this.Size.Height - textBoxStatus.Size.Height);
+            }
+            else
+            {
+                textBoxStatus.Visible = true;
+               this.Size = new Size(this.Size.Width, this.Size.Height + _previousTextBoxStatusHeight);
+            }
+
             SetButtonsState();
         }
 
@@ -311,6 +378,11 @@ namespace QSBLinearEncoderReader
                     buttonResetStatistics.Enabled = false;
                     break;
             }
+
+            pictureBoxExpandConnectionStatus.Image = groupBoxConnectionStatus.Visible ? Properties.Resources.nav_arrow_down : Properties.Resources.nav_arrow_right;
+            pictureBoxExpandRecording.Image = groupBoxRecording.Visible ? Properties.Resources.nav_arrow_down : Properties.Resources.nav_arrow_right;
+            pictureBoxExpandStatistics.Image = groupBoxStatistics.Visible ? Properties.Resources.nav_arrow_down : Properties.Resources.nav_arrow_right;
+            pictureBoxExpandStatus.Image = textBoxStatus.Visible ? Properties.Resources.nav_arrow_down : Properties.Resources.nav_arrow_right;
         }
 
         private bool Connect(

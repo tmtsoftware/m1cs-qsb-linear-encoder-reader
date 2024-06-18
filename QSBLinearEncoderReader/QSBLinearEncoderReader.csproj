@@ -155,6 +155,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="icons\iconoir\nav-arrow-down.png" />
+    <None Include="icons\iconoir\nav-arrow-right.png" />
     <Content Include="TMT_icon_48x48.ico" />
   </ItemGroup>
   <ItemGroup>
