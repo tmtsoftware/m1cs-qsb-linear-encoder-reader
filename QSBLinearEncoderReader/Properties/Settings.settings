@@ -26,10 +26,10 @@
     <Setting Name="CSVFilename" Type="System.String" Scope="User">
       <Value Profile="(Default)">Encoder_%Y%m%d_%H%M%S.csv</Value>
     </Setting>
-    <Setting Name="RecordingInterval" Type="System.Int32" Scope="User">
+    <Setting Name="RecordingInterval" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">512</Value>
     </Setting>
-    <Setting Name="MaxRecordsPerFile" Type="System.Int32" Scope="User">
+    <Setting Name="MaxRecordsPerFile" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">86400</Value>
     </Setting>
     <Setting Name="DisplayUpdateInterval" Type="System.UInt64" Scope="User">

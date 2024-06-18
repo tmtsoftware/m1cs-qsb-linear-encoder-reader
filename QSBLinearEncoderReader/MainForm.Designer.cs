@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.groupBoxRecording = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanelRecording = new System.Windows.Forms.TableLayoutPanel();
             this.labelCSVOutputPath = new System.Windows.Forms.Label();
@@ -100,12 +99,16 @@
             this.labelEncoderReadingUnit = new System.Windows.Forms.Label();
             this.labelEncoderReading = new System.Windows.Forms.Label();
             this.pictureBoxExpandConnectionStatus = new System.Windows.Forms.PictureBox();
-            this.pictureBoxExpandRecording = new System.Windows.Forms.PictureBox();
-            this.pictureBoxExpandStatistics = new System.Windows.Forms.PictureBox();
-            this.pictureBoxExpandStatus = new System.Windows.Forms.PictureBox();
             this.labelConnectionStatus = new System.Windows.Forms.Label();
+            this.pictureBoxExpandRecording = new System.Windows.Forms.PictureBox();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.labelRecording = new System.Windows.Forms.Label();
             this.labelStatistics = new System.Windows.Forms.Label();
+            this.pictureBoxExpandStatus = new System.Windows.Forms.PictureBox();
+            this.pictureBoxExpandStatistics = new System.Windows.Forms.PictureBox();
+            this.labelRecordingStatus = new System.Windows.Forms.Label();
+            this.textBoxRecordingStatus = new System.Windows.Forms.TextBox();
+            this.pictureBoxRecordingStatus = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelMain.SuspendLayout();
             this.groupBoxRecording.SuspendLayout();
             this.tableLayoutPanelRecording.SuspendLayout();
@@ -119,8 +122,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxConnectionState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandRecording)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandStatistics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandStatistics)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRecordingStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanelMain
@@ -172,26 +176,15 @@
             // 
             this.tableLayoutPanelMain.SetColumnSpan(this.textBoxStatus, 4);
             this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxStatus.Location = new System.Drawing.Point(3, 583);
+            this.textBoxStatus.Location = new System.Drawing.Point(3, 609);
             this.textBoxStatus.Multiline = true;
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxStatus.Size = new System.Drawing.Size(578, 125);
+            this.textBoxStatus.Size = new System.Drawing.Size(578, 99);
             this.textBoxStatus.TabIndex = 999;
             this.textBoxStatus.TabStop = false;
             this.textBoxStatus.Resize += new System.EventHandler(this.textBoxStatus_Resize);
-            // 
-            // labelStatus
-            // 
-            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(19, 567);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(40, 13);
-            this.labelStatus.TabIndex = 999;
-            this.labelStatus.Text = "Status:";
-            this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBoxRecording
             // 
@@ -203,7 +196,7 @@
             this.groupBoxRecording.Location = new System.Drawing.Point(6, 302);
             this.groupBoxRecording.Margin = new System.Windows.Forms.Padding(6, 0, 6, 3);
             this.groupBoxRecording.Name = "groupBoxRecording";
-            this.groupBoxRecording.Size = new System.Drawing.Size(572, 80);
+            this.groupBoxRecording.Size = new System.Drawing.Size(572, 106);
             this.groupBoxRecording.TabIndex = 200;
             this.groupBoxRecording.TabStop = false;
             // 
@@ -211,35 +204,41 @@
             // 
             this.tableLayoutPanelRecording.AutoSize = true;
             this.tableLayoutPanelRecording.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanelRecording.ColumnCount = 2;
+            this.tableLayoutPanelRecording.ColumnCount = 3;
             this.tableLayoutPanelRecording.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelRecording.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 16F));
             this.tableLayoutPanelRecording.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelRecording.Controls.Add(this.labelCSVOutputPath, 0, 0);
             this.tableLayoutPanelRecording.Controls.Add(this.textBoxCSVOutputPath, 1, 0);
-            this.tableLayoutPanelRecording.Controls.Add(this.flowLayoutPanelRecordingButtons, 0, 1);
+            this.tableLayoutPanelRecording.Controls.Add(this.flowLayoutPanelRecordingButtons, 0, 2);
+            this.tableLayoutPanelRecording.Controls.Add(this.labelRecordingStatus, 0, 1);
+            this.tableLayoutPanelRecording.Controls.Add(this.textBoxRecordingStatus, 2, 1);
+            this.tableLayoutPanelRecording.Controls.Add(this.pictureBoxRecordingStatus, 1, 1);
             this.tableLayoutPanelRecording.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelRecording.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanelRecording.Name = "tableLayoutPanelRecording";
-            this.tableLayoutPanelRecording.RowCount = 2;
+            this.tableLayoutPanelRecording.RowCount = 3;
             this.tableLayoutPanelRecording.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelRecording.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelRecording.Size = new System.Drawing.Size(566, 61);
+            this.tableLayoutPanelRecording.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelRecording.Size = new System.Drawing.Size(566, 87);
             this.tableLayoutPanelRecording.TabIndex = 0;
             // 
             // labelCSVOutputPath
             // 
-            this.labelCSVOutputPath.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelCSVOutputPath.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelCSVOutputPath.AutoSize = true;
             this.labelCSVOutputPath.Location = new System.Drawing.Point(3, 6);
             this.labelCSVOutputPath.Name = "labelCSVOutputPath";
             this.labelCSVOutputPath.Size = new System.Drawing.Size(128, 13);
             this.labelCSVOutputPath.TabIndex = 999;
             this.labelCSVOutputPath.Text = "Current CSV Output Path:";
-            this.labelCSVOutputPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelCSVOutputPath.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxCSVOutputPath
             // 
             this.textBoxCSVOutputPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanelRecording.SetColumnSpan(this.textBoxCSVOutputPath, 2);
             this.textBoxCSVOutputPath.Location = new System.Drawing.Point(137, 3);
             this.textBoxCSVOutputPath.Name = "textBoxCSVOutputPath";
             this.textBoxCSVOutputPath.ReadOnly = true;
@@ -251,11 +250,11 @@
             this.flowLayoutPanelRecordingButtons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelRecordingButtons.AutoSize = true;
             this.flowLayoutPanelRecordingButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanelRecording.SetColumnSpan(this.flowLayoutPanelRecordingButtons, 2);
+            this.tableLayoutPanelRecording.SetColumnSpan(this.flowLayoutPanelRecordingButtons, 3);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStartRecording);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStopRecording);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonRecordingSettings);
-            this.flowLayoutPanelRecordingButtons.Location = new System.Drawing.Point(3, 29);
+            this.flowLayoutPanelRecordingButtons.Location = new System.Drawing.Point(3, 55);
             this.flowLayoutPanelRecordingButtons.Name = "flowLayoutPanelRecordingButtons";
             this.flowLayoutPanelRecordingButtons.Size = new System.Drawing.Size(560, 29);
             this.flowLayoutPanelRecordingButtons.TabIndex = 210;
@@ -305,7 +304,7 @@
             this.tableLayoutPanelMain.SetColumnSpan(this.groupBoxStatistics, 4);
             this.groupBoxStatistics.Controls.Add(this.tableLayoutPanelStatistics);
             this.groupBoxStatistics.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxStatistics.Location = new System.Drawing.Point(6, 402);
+            this.groupBoxStatistics.Location = new System.Drawing.Point(6, 428);
             this.groupBoxStatistics.Margin = new System.Windows.Forms.Padding(6, 0, 6, 3);
             this.groupBoxStatistics.Name = "groupBoxStatistics";
             this.groupBoxStatistics.Size = new System.Drawing.Size(572, 158);
@@ -971,7 +970,7 @@
             this.pictureBoxConnectionState.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBoxConnectionState.Location = new System.Drawing.Point(275, 4);
             this.pictureBoxConnectionState.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBoxConnectionState.MinimumSize = new System.Drawing.Size(16, 17);
+            this.pictureBoxConnectionState.MinimumSize = new System.Drawing.Size(16, 16);
             this.pictureBoxConnectionState.Name = "pictureBoxConnectionState";
             this.pictureBoxConnectionState.Size = new System.Drawing.Size(16, 17);
             this.pictureBoxConnectionState.TabIndex = 5;
@@ -1076,6 +1075,18 @@
             this.pictureBoxExpandConnectionStatus.TabStop = false;
             this.pictureBoxExpandConnectionStatus.Click += new System.EventHandler(this.pictureBoxExpandConnectionStatus_Click);
             // 
+            // labelConnectionStatus
+            // 
+            this.labelConnectionStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelConnectionStatus.AutoSize = true;
+            this.labelConnectionStatus.Location = new System.Drawing.Point(19, 116);
+            this.labelConnectionStatus.Name = "labelConnectionStatus";
+            this.labelConnectionStatus.Size = new System.Drawing.Size(97, 17);
+            this.labelConnectionStatus.TabIndex = 999;
+            this.labelConnectionStatus.Text = "Connection Status:";
+            this.labelConnectionStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // pictureBoxExpandRecording
             // 
             this.pictureBoxExpandRecording.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -1088,41 +1099,16 @@
             this.pictureBoxExpandRecording.TabStop = false;
             this.pictureBoxExpandRecording.Click += new System.EventHandler(this.pictureBoxExpandRecording_Click);
             // 
-            // pictureBoxExpandStatistics
+            // labelStatus
             // 
-            this.pictureBoxExpandStatistics.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxExpandStatistics.Location = new System.Drawing.Point(0, 385);
-            this.pictureBoxExpandStatistics.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBoxExpandStatistics.MinimumSize = new System.Drawing.Size(16, 17);
-            this.pictureBoxExpandStatistics.Name = "pictureBoxExpandStatistics";
-            this.pictureBoxExpandStatistics.Size = new System.Drawing.Size(16, 17);
-            this.pictureBoxExpandStatistics.TabIndex = 5;
-            this.pictureBoxExpandStatistics.TabStop = false;
-            this.pictureBoxExpandStatistics.Click += new System.EventHandler(this.pictureBoxExpandStatistics_Click);
-            // 
-            // pictureBoxExpandStatus
-            // 
-            this.pictureBoxExpandStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxExpandStatus.Location = new System.Drawing.Point(0, 563);
-            this.pictureBoxExpandStatus.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBoxExpandStatus.MinimumSize = new System.Drawing.Size(16, 17);
-            this.pictureBoxExpandStatus.Name = "pictureBoxExpandStatus";
-            this.pictureBoxExpandStatus.Size = new System.Drawing.Size(16, 17);
-            this.pictureBoxExpandStatus.TabIndex = 5;
-            this.pictureBoxExpandStatus.TabStop = false;
-            this.pictureBoxExpandStatus.Click += new System.EventHandler(this.pictureBoxExpandStatus_Click);
-            // 
-            // labelConnectionStatus
-            // 
-            this.labelConnectionStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelConnectionStatus.AutoSize = true;
-            this.labelConnectionStatus.Location = new System.Drawing.Point(19, 116);
-            this.labelConnectionStatus.Name = "labelConnectionStatus";
-            this.labelConnectionStatus.Size = new System.Drawing.Size(97, 17);
-            this.labelConnectionStatus.TabIndex = 999;
-            this.labelConnectionStatus.Text = "Connection Status:";
-            this.labelConnectionStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(19, 593);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(40, 13);
+            this.labelStatus.TabIndex = 999;
+            this.labelStatus.Text = "Status:";
+            this.labelStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelRecording
             // 
@@ -1141,12 +1127,67 @@
             this.labelStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelStatistics.AutoSize = true;
-            this.labelStatistics.Location = new System.Drawing.Point(19, 385);
+            this.labelStatistics.Location = new System.Drawing.Point(19, 411);
             this.labelStatistics.Name = "labelStatistics";
             this.labelStatistics.Size = new System.Drawing.Size(52, 17);
             this.labelStatistics.TabIndex = 999;
             this.labelStatistics.Text = "Statistics:";
             this.labelStatistics.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pictureBoxExpandStatus
+            // 
+            this.pictureBoxExpandStatus.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxExpandStatus.Location = new System.Drawing.Point(0, 589);
+            this.pictureBoxExpandStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxExpandStatus.MinimumSize = new System.Drawing.Size(16, 17);
+            this.pictureBoxExpandStatus.Name = "pictureBoxExpandStatus";
+            this.pictureBoxExpandStatus.Size = new System.Drawing.Size(16, 17);
+            this.pictureBoxExpandStatus.TabIndex = 5;
+            this.pictureBoxExpandStatus.TabStop = false;
+            this.pictureBoxExpandStatus.Click += new System.EventHandler(this.pictureBoxExpandStatus_Click);
+            // 
+            // pictureBoxExpandStatistics
+            // 
+            this.pictureBoxExpandStatistics.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBoxExpandStatistics.Location = new System.Drawing.Point(0, 411);
+            this.pictureBoxExpandStatistics.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxExpandStatistics.MinimumSize = new System.Drawing.Size(16, 17);
+            this.pictureBoxExpandStatistics.Name = "pictureBoxExpandStatistics";
+            this.pictureBoxExpandStatistics.Size = new System.Drawing.Size(16, 17);
+            this.pictureBoxExpandStatistics.TabIndex = 5;
+            this.pictureBoxExpandStatistics.TabStop = false;
+            this.pictureBoxExpandStatistics.Click += new System.EventHandler(this.pictureBoxExpandStatistics_Click);
+            // 
+            // labelRecordingStatus
+            // 
+            this.labelRecordingStatus.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelRecordingStatus.AutoSize = true;
+            this.labelRecordingStatus.Location = new System.Drawing.Point(91, 32);
+            this.labelRecordingStatus.Name = "labelRecordingStatus";
+            this.labelRecordingStatus.Size = new System.Drawing.Size(40, 13);
+            this.labelRecordingStatus.TabIndex = 999;
+            this.labelRecordingStatus.Text = "Status:";
+            this.labelRecordingStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBoxRecordingStatus
+            // 
+            this.textBoxRecordingStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxRecordingStatus.Location = new System.Drawing.Point(153, 29);
+            this.textBoxRecordingStatus.Name = "textBoxRecordingStatus";
+            this.textBoxRecordingStatus.ReadOnly = true;
+            this.textBoxRecordingStatus.Size = new System.Drawing.Size(410, 20);
+            this.textBoxRecordingStatus.TabIndex = 201;
+            // 
+            // pictureBoxRecordingStatus
+            // 
+            this.pictureBoxRecordingStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBoxRecordingStatus.Location = new System.Drawing.Point(134, 30);
+            this.pictureBoxRecordingStatus.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxRecordingStatus.MinimumSize = new System.Drawing.Size(16, 16);
+            this.pictureBoxRecordingStatus.Name = "pictureBoxRecordingStatus";
+            this.pictureBoxRecordingStatus.Size = new System.Drawing.Size(16, 17);
+            this.pictureBoxRecordingStatus.TabIndex = 5;
+            this.pictureBoxRecordingStatus.TabStop = false;
             // 
             // MainForm
             // 
@@ -1183,8 +1224,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxConnectionState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandRecording)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandStatistics)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExpandStatistics)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRecordingStatus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1269,6 +1311,9 @@
         private System.Windows.Forms.Label labelConnectionStatus;
         private System.Windows.Forms.Label labelRecording;
         private System.Windows.Forms.Label labelStatistics;
+        private System.Windows.Forms.Label labelRecordingStatus;
+        private System.Windows.Forms.TextBox textBoxRecordingStatus;
+        private System.Windows.Forms.PictureBox pictureBoxRecordingStatus;
     }
 }
 

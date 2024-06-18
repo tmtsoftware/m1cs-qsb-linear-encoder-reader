@@ -9,11 +9,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace QSBLinearEncoderReader
 {
-    public partial class MainForm : Form, IConnectionStatusListener, IEncoderCountListener
+    public partial class MainForm : Form, IConnectionStatusListener, IEncoderCountListener, IRecorderStatusListener
     {
         private DeviceController _controller = null;
         private ConnectionStatus _connectionStatus = new ConnectionStatus();
         private EncoderCount _encoderCount = new EncoderCount();
+        private RecorderStatus _recorderStatus = new RecorderStatus();
         private int _previousWindowHeight = 0;
         private int _defaultTextBoxStatusHeight = 125;
 
@@ -32,9 +33,10 @@ namespace QSBLinearEncoderReader
             AppendOneLineLogMessage(appName + " " + appVersion);
             AppendOneLineLogMessage("Trace log is in " + Logger.TraceLogPath);
 
-            _controller = new DeviceController(this, this);
+            _controller = new DeviceController(this, this, this);
             SetConnectionStatus(new ConnectionStatus());
             SetEncoderCount(new EncoderCount());
+            SetRecorderStatus(new RecorderStatus());
 
             if (!Properties.Settings.Default.ExpandConnectionStatus)
             {
@@ -129,32 +131,21 @@ namespace QSBLinearEncoderReader
 
         private void buttonStartRecording_Click(object sender, EventArgs e)
         {
-            // TODO: implement
-            /*
-            StartRecording();
-            */
+            _controller.StartRecording(
+                Properties.Settings.Default.OutputDirectory,
+                Properties.Settings.Default.CSVFilename,
+                Properties.Settings.Default.RecordingInterval,
+                Properties.Settings.Default.MaxRecordsPerFile,
+                Properties.Settings.Default.DisplayUpdateInterval);
         }
 
         private void buttonStopRecording_Click(object sender, EventArgs e)
         {
-            // TODO: implement
-            /*
-            StopRecording();
-            */
+            _controller.StopRecording();
         }
 
         private void buttonRecordingSettings_Click(object sender, EventArgs e)
         {
-            // TODO: impelement
-            /*
-            lock (_controllerLock)
-            {
-                if (_controller != null && _controller.IsRecording)
-                {
-                    return;
-                }
-            }
-
             RecordingSettingsForm settingsDialog = new RecordingSettingsForm();
             DialogResult dialogResult = settingsDialog.ShowDialog();
 
@@ -164,7 +155,6 @@ namespace QSBLinearEncoderReader
             }
 
             settingsDialog.Dispose();
-            */
         }
 
         private void buttonStartStatistics_Click(object sender, EventArgs e)
@@ -302,7 +292,7 @@ namespace QSBLinearEncoderReader
             textBoxStatus.AppendText(message + Environment.NewLine);
         }
 
-        public void ConnectionStatusChanged(ConnectionStatus newStatus)
+        void IConnectionStatusListener.ConnectionStatusChanged(ConnectionStatus newStatus)
         {
             if (this.InvokeRequired)
             {
@@ -369,7 +359,7 @@ namespace QSBLinearEncoderReader
             SetButtonsState();
         }
 
-        public void EncoderCountChanged(EncoderCount newCount)
+        void IEncoderCountListener.EncoderCountChanged(EncoderCount newCount)
         {
             if (this.InvokeRequired)
             {
@@ -423,6 +413,9 @@ namespace QSBLinearEncoderReader
                     buttonConnect.Enabled = false;
                     buttonDisconnect.Enabled = false;
                     buttonSetZero.Enabled = false;
+                    buttonStartRecording.Enabled = false;
+                    buttonStopRecording.Enabled = false;
+                    buttonRecordingSettings.Enabled = false;
                     buttonStartStatistics.Enabled = false;
                     buttonStopStatistics.Enabled = false;
                     buttonResetStatistics.Enabled = false;
@@ -448,11 +441,32 @@ namespace QSBLinearEncoderReader
                             numericUpDownAutoStopStatisticsCount.Enabled = checkBoxAutoStopStatistics.Checked;
                             break;
                     }
+                    switch (_recorderStatus.RecordingState)
+                    {
+                        case RecorderState.Recording:
+                            buttonStartRecording.Enabled = false;
+                            buttonStopRecording.Enabled = true;
+                            buttonRecordingSettings.Enabled = false;
+                            break;
+                        case RecorderState.Stopped:
+                            buttonStartRecording.Enabled = true;
+                            buttonStopRecording.Enabled = false;
+                            buttonRecordingSettings.Enabled = true;
+                            break;
+                        case RecorderState.Error:
+                            buttonStartRecording.Enabled = true;
+                            buttonStopRecording.Enabled = false;
+                            buttonRecordingSettings.Enabled = true;
+                            break;
+                    }
                     break;
                 case ConnectionState.Disconnecting:
                     buttonConnect.Enabled = false;
                     buttonDisconnect.Enabled = false;
                     buttonSetZero.Enabled = false;
+                    buttonStartRecording.Enabled = false;
+                    buttonStopRecording.Enabled = false;
+                    buttonRecordingSettings.Enabled = false;
                     buttonStartStatistics.Enabled = false;
                     buttonStopStatistics.Enabled = false;
                     buttonResetStatistics.Enabled = false;
@@ -461,6 +475,9 @@ namespace QSBLinearEncoderReader
                     buttonConnect.Enabled = true;
                     buttonDisconnect.Enabled = false;
                     buttonSetZero.Enabled = false;
+                    buttonStartRecording.Enabled = false;
+                    buttonStopRecording.Enabled = false;
+                    buttonRecordingSettings.Enabled = true;
                     buttonStartStatistics.Enabled = false;
                     buttonStopStatistics.Enabled = false;
                     buttonResetStatistics.Enabled = false;
@@ -552,6 +569,67 @@ namespace QSBLinearEncoderReader
         {
             _controller.ResetStatistics();
             AppendOneLineLogMessage("Reset statistics");
+        }
+
+        void IRecorderStatusListener.RecorderStatusChanged(RecorderStatus newStatus)
+        {
+            if (this.InvokeRequired)
+            {
+                Action action = delegate { SetRecorderStatus(newStatus); };
+                this.BeginInvoke(action);
+            }
+            else
+            {
+                SetRecorderStatus(newStatus);
+            }
+        }
+
+        public void SetRecorderStatus(RecorderStatus status)
+        {
+            switch (status.RecordingState)
+            {
+                case RecorderState.Recording:
+                    labelCSVOutputPath.Text = "Current CVS Output Path:";
+                    textBoxCSVOutputPath.Text = status.CurrentOutputPath;
+                    pictureBoxRecordingStatus.Image = Properties.Resources.refresh_circle_solid;
+                    textBoxRecordingStatus.Text = String.Format(
+                        "Recording. Recorded {0} records in the file. Recorded {1} records in total.",
+                        status.NumberOfRecordsInCurrentFile,
+                        status.TotalNumberOfRecords);
+                    if (_recorderStatus.RecordingState != RecorderState.Recording)
+                    {
+                        AppendOneLineLogMessage("Started recording.");
+                    }
+                    if (_recorderStatus.CurrentOutputPath != status.CurrentOutputPath)
+                    {
+                        AppendOneLineLogMessage("Started recording to a new file: " + status.CurrentOutputPath);
+                    }
+                    break;
+                case RecorderState.Stopped:
+                    labelCSVOutputPath.Text = "Previous CVS Output Path:";
+                    textBoxCSVOutputPath.Text = status.CurrentOutputPath;
+                    pictureBoxRecordingStatus.Image = Properties.Resources.minus_circle_solid;
+                    textBoxRecordingStatus.Text = "Stopped.";
+                    if (_recorderStatus.RecordingState == RecorderState.Recording)
+                    {
+                        AppendOneLineLogMessage("Stopped recording.");
+                    }
+                    break;
+                case RecorderState.Error:
+                    labelCSVOutputPath.Text = "Previous CVS Output Path:";
+                    textBoxCSVOutputPath.Text = status.CurrentOutputPath;
+                    pictureBoxRecordingStatus.Image = Properties.Resources.xmark_circle_solid;
+                    textBoxRecordingStatus.Text = "Error.";
+                    if (_recorderStatus.RecordingState != RecorderState.Error)
+                    {
+                        AppendOneLineLogMessage("Stopped recording due to an error.");
+                    }
+                    // TODO: show error message
+                    break;
+            }
+
+            _recorderStatus = status;
+            SetButtonsState();
         }
     }
 }

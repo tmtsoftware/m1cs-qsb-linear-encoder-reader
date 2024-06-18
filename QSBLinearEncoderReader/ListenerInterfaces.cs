@@ -15,4 +15,9 @@ namespace QSBLinearEncoderReader
     {
         void EncoderCountChanged(EncoderCount newCount);
     }
+
+    internal interface IRecorderStatusListener
+    {
+        void RecorderStatusChanged(RecorderStatus newStatus);
+    }
 }

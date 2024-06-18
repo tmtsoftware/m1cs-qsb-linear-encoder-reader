@@ -109,5 +109,15 @@ namespace QSBLinearEncoderReader.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap xmark_circle_solid {
+            get {
+                object obj = ResourceManager.GetObject("xmark_circle_solid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

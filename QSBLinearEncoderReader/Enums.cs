@@ -34,4 +34,11 @@ namespace QSBLinearEncoderReader
         Ongoing,
         Stopped,
     }
+
+    public enum RecorderState
+    {
+        Recording,
+        Stopped,
+        Error,
+    }
 }

@@ -13,6 +13,7 @@ namespace QSBLinearEncoderReader
         private Qsb _qsb;
         private ConnectionState _connectionState;
         private EncoderCountProcessor _processor;
+        private Recorder _recorder;
 
         /// <summary>
         /// This class handles RS-232 communication with an QSB-D.
@@ -23,11 +24,13 @@ namespace QSBLinearEncoderReader
         /// </summary>
         public DeviceController(
             IConnectionStatusListener connectionStateListener,
-            IEncoderCountListener encoderCountListener)
+            IEncoderCountListener encoderCountListener,
+            IRecorderStatusListener recorderListener)
         {
             _connectionStateListener = connectionStateListener;
             _qsb = new Qsb(connectionStateListener);
             _processor = new EncoderCountProcessor(encoderCountListener);
+            _recorder = new Recorder(recorderListener);
         }
 
         /// <summary>
@@ -57,6 +60,7 @@ namespace QSBLinearEncoderReader
         public void Disconnect()
         {
             _processor.StopStatistics();
+            _recorder.Stop();
             _qsb.Disconnect();
         }
 
@@ -79,6 +83,7 @@ namespace QSBLinearEncoderReader
 
                     _qsb.ReadEncoderCount(out encoderCount, out timestamp);
                     _processor.AddNewSample(encoderCount);
+                    _recorder.AddNewSample(encoderCount, timestamp);
                 }
             }
             catch (Exception ex)
@@ -115,6 +120,26 @@ namespace QSBLinearEncoderReader
         public void ResetStatistics()
         {
             _processor.ResetStatistics();
+        }
+
+        public void StartRecording(
+            string outputDirectory,
+            string filenameBase,
+            uint recordingInterval,
+            uint maxRecordsPerFile,
+            ulong listenerTriggerInterval)
+        {
+            _recorder.Start(
+                outputDirectory,
+                filenameBase,
+                recordingInterval,
+                maxRecordsPerFile,
+                listenerTriggerInterval);
+        }
+
+        public void StopRecording()
+        {
+            _recorder.Stop();
         }
     }
 }

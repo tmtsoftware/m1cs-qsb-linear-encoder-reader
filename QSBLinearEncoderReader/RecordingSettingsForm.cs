@@ -110,8 +110,8 @@ namespace QSBLinearEncoderReader
         {
             Properties.Settings.Default.OutputDirectory = textBoxOutputDirectory.Text;
             Properties.Settings.Default.CSVFilename = textBoxCSVFilename.Text;
-            Properties.Settings.Default.RecordingInterval = Convert.ToInt32(numericUpDownRecordingInterval.Value);
-            Properties.Settings.Default.MaxRecordsPerFile = Convert.ToInt32(numericUpDownMaxRecordsPerFile.Value);
+            Properties.Settings.Default.RecordingInterval = Convert.ToUInt32(numericUpDownRecordingInterval.Value);
+            Properties.Settings.Default.MaxRecordsPerFile = Convert.ToUInt32(numericUpDownMaxRecordsPerFile.Value);
             Properties.Settings.Default.Save();
         }
 

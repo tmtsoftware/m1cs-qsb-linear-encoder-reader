@@ -98,6 +98,8 @@
     <Compile Include="Qsb.cs" />
     <Compile Include="QsbSimulator.cs" />
     <Compile Include="EncoderCountStatistics.cs" />
+    <Compile Include="Recorder.cs" />
+    <Compile Include="RecorderStatus.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="RecordingSettingsForm.cs">
       <SubType>Form</SubType>
@@ -157,6 +159,8 @@
   <ItemGroup>
     <None Include="icons\iconoir\nav-arrow-down.png" />
     <None Include="icons\iconoir\nav-arrow-right.png" />
+    <None Include="icons\iconoir\xmark-circle-solid.png" />
+    <Content Include="icons\iconoir\xmark-circle-solid.svg" />
     <Content Include="TMT_icon_48x48.ico" />
   </ItemGroup>
   <ItemGroup>

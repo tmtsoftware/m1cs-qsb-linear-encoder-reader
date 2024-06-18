@@ -122,9 +122,9 @@ namespace QSBLinearEncoderReader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("512")]
-        public int RecordingInterval {
+        public uint RecordingInterval {
             get {
-                return ((int)(this["RecordingInterval"]));
+                return ((uint)(this["RecordingInterval"]));
             }
             set {
                 this["RecordingInterval"] = value;
@@ -134,9 +134,9 @@ namespace QSBLinearEncoderReader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("86400")]
-        public int MaxRecordsPerFile {
+        public uint MaxRecordsPerFile {
             get {
-                return ((int)(this["MaxRecordsPerFile"]));
+                return ((uint)(this["MaxRecordsPerFile"]));
             }
             set {
                 this["MaxRecordsPerFile"] = value;
