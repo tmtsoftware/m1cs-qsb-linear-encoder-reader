@@ -22,6 +22,7 @@ namespace QSBLinearEncoderReader
         private uint _recordingInterval = Properties.Settings.Default.RecordingInterval;
         private uint _maxRecordsPerFile = Properties.Settings.Default.MaxRecordsPerFile;
         private ulong _listenerTriggerInterval = Properties.Settings.Default.DisplayUpdateInterval;
+        private uint _serialNumber = 0;
 
         private ulong _totalNumberOfSamples = 0;
         private ulong _totalNumberOfRecords = 0;
@@ -43,7 +44,8 @@ namespace QSBLinearEncoderReader
             string filenameBase,
             uint recordingInterval,
             uint maxRecordsPerFile,
-            ulong listenerTriggerInterval)
+            ulong listenerTriggerInterval,
+            uint serialNumber)
         {
             lock (_lock)
             {
@@ -52,6 +54,7 @@ namespace QSBLinearEncoderReader
                 _recordingInterval = recordingInterval;
                 _maxRecordsPerFile = maxRecordsPerFile;
                 _listenerTriggerInterval = listenerTriggerInterval;
+                _serialNumber = serialNumber;
                 _totalNumberOfSamples = 0;
                 _totalNumberOfRecords = 0;
                 _numberOfRecordsInFile = 0;
@@ -104,7 +107,8 @@ namespace QSBLinearEncoderReader
                     {
                         // Open a new file.
                         DateTime startTime = DateTime.Now;
-                        string filename = Util.FormatFilename(_filenameBase, startTime);
+                        string filename = Util.FormatFilename(_filenameBase, startTime).Replace("%N", _serialNumber.ToString());
+
                         _currentRecordingPath = Path.Combine(_outputDirectory, filename);
 
                         // TODO: actually open the file.

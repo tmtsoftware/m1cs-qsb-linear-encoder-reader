@@ -1177,6 +1177,7 @@
             this.textBoxRecordingStatus.ReadOnly = true;
             this.textBoxRecordingStatus.Size = new System.Drawing.Size(410, 20);
             this.textBoxRecordingStatus.TabIndex = 201;
+            this.textBoxRecordingStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pictureBoxRecordingStatus
             // 

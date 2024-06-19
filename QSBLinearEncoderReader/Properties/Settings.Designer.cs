@@ -109,7 +109,7 @@ namespace QSBLinearEncoderReader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Encoder_%Y%m%d_%H%M%S.csv")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Encoder_%N_%Y%m%d_%H%M%S.csv")]
         public string CSVFilename {
             get {
                 return ((string)(this["CSVFilename"]));

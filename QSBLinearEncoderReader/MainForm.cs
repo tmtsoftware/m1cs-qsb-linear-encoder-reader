@@ -136,7 +136,8 @@ namespace QSBLinearEncoderReader
                 Properties.Settings.Default.CSVFilename,
                 Properties.Settings.Default.RecordingInterval,
                 Properties.Settings.Default.MaxRecordsPerFile,
-                Properties.Settings.Default.DisplayUpdateInterval);
+                Properties.Settings.Default.DisplayUpdateInterval,
+                _connectionStatus.SerialNumber);
         }
 
         private void buttonStopRecording_Click(object sender, EventArgs e)
@@ -146,7 +147,7 @@ namespace QSBLinearEncoderReader
 
         private void buttonRecordingSettings_Click(object sender, EventArgs e)
         {
-            RecordingSettingsForm settingsDialog = new RecordingSettingsForm();
+            RecorderSettingsForm settingsDialog = new RecorderSettingsForm();
             DialogResult dialogResult = settingsDialog.ShowDialog();
 
             if (dialogResult == DialogResult.OK)

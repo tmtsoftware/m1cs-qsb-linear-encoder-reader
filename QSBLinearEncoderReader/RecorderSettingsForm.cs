@@ -12,11 +12,11 @@ using System.Windows.Forms;
 
 namespace QSBLinearEncoderReader
 {
-    public partial class RecordingSettingsForm : Form
+    public partial class RecorderSettingsForm : Form
     {
         DateTime _dialogOpenDateTime;
 
-        public RecordingSettingsForm()
+        public RecorderSettingsForm()
         {
             InitializeComponent();
             _dialogOpenDateTime = DateTime.Now;
@@ -66,6 +66,7 @@ namespace QSBLinearEncoderReader
             {
                 "Special character sequences in the filename like \"%Y\" are replaced as shown in the list below:",
                 "",
+                "  %N: serial number",
                 "  %Y: year",
                 "  %m: month",
                 "  %d: day",
@@ -177,7 +178,7 @@ namespace QSBLinearEncoderReader
                 errorProviderCSVFilename.SetError(textBoxCSVFilename, "");
             }
 
-            textBoxCSVFilenameExample.Text = Util.FormatFilename(filenameBase, _dialogOpenDateTime);
+            textBoxCSVFilenameExample.Text = Util.FormatFilename(filenameBase, _dialogOpenDateTime).Replace("%N", "123456");
             return true;
         }
 

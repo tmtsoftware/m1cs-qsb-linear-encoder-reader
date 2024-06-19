@@ -101,11 +101,11 @@
     <Compile Include="Recorder.cs" />
     <Compile Include="RecorderStatus.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="RecordingSettingsForm.cs">
+    <Compile Include="RecorderSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RecordingSettingsForm.Designer.cs">
-      <DependentUpon>RecordingSettingsForm.cs</DependentUpon>
+    <Compile Include="RecorderSettingsForm.Designer.cs">
+      <DependentUpon>RecorderSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="ConnectForm.cs">
@@ -126,8 +126,8 @@
     <EmbeddedResource Include="ConnectForm.resx">
       <DependentUpon>ConnectForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RecordingSettingsForm.resx">
-      <DependentUpon>RecordingSettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="RecorderSettingsForm.resx">
+      <DependentUpon>RecorderSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -34,7 +34,7 @@ namespace QSBLinearEncoderReader
             BaudRate = baudRate;
             QuadratureMode = quadratureMode;
             EncoderDirection = encoderDirection;
-            SerialNumber = 0;
+            SerialNumber = 999999;
             ProductType = "QSB-D";
             FirmwareVersion = 0;
         }

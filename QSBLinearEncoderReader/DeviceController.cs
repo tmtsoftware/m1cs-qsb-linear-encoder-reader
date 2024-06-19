@@ -127,14 +127,16 @@ namespace QSBLinearEncoderReader
             string filenameBase,
             uint recordingInterval,
             uint maxRecordsPerFile,
-            ulong listenerTriggerInterval)
+            ulong listenerTriggerInterval,
+            uint serialNumber)
         {
             _recorder.Start(
                 outputDirectory,
                 filenameBase,
                 recordingInterval,
                 maxRecordsPerFile,
-                listenerTriggerInterval);
+                listenerTriggerInterval,
+                serialNumber);
         }
 
         public void StopRecording()

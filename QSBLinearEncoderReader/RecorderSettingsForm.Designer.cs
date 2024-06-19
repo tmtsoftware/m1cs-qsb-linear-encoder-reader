@@ -1,6 +1,6 @@
 ﻿namespace QSBLinearEncoderReader
 {
-    partial class RecordingSettingsForm
+    partial class RecorderSettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecordingSettingsForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecorderSettingsForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelOutputDirectory = new System.Windows.Forms.Label();
             this.textBoxOutputDirectory = new System.Windows.Forms.TextBox();
@@ -304,7 +304,7 @@
             this.errorProviderCSVFilename.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProviderCSVFilename.ContainerControl = this;
             // 
-            // RecordingSettingsForm
+            // RecorderSettingsForm
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -316,8 +316,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(600, 246);
-            this.Name = "RecordingSettingsForm";
-            this.Text = "Recording Settings";
+            this.Name = "RecorderSettingsForm";
+            this.Text = "Recorder Settings";
             this.Load += new System.EventHandler(this.RecordingSettingsForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
