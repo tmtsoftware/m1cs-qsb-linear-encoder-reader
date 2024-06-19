@@ -282,7 +282,6 @@ namespace QSBLinearEncoderReader
         {
             if (textBoxStatus.Visible && textBoxStatus.Size.Height > _defaultTextBoxStatusHeight)
             {
-                Logger.Log("Height: " + textBoxStatus.Size.Height);
                 Properties.Settings.Default.TextBoxStatusHeight = textBoxStatus.Size.Height;
                 Properties.Settings.Default.Save();
             }
