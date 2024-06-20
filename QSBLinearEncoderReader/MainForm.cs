@@ -619,12 +619,11 @@ namespace QSBLinearEncoderReader
                     labelCSVOutputPath.Text = "Previous CVS Output Path:";
                     textBoxCSVOutputPath.Text = status.CurrentOutputPath;
                     pictureBoxRecordingStatus.Image = Properties.Resources.xmark_circle_solid;
-                    textBoxRecordingStatus.Text = "Error.";
+                    textBoxRecordingStatus.Text = "Error: " + status.ErrorMessage;
                     if (_recorderStatus.RecordingState != RecorderState.Error)
                     {
                         AppendOneLineLogMessage("Stopped recording due to an error.");
                     }
-                    // TODO: show error message
                     break;
             }
 

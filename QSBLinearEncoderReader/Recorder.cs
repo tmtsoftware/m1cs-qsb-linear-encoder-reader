@@ -29,6 +29,8 @@ namespace QSBLinearEncoderReader
         private ulong _numberOfRecordsInFile = 0;
         private string _currentRecordingPath = "";
 
+        private StreamWriter _writer = null;
+
         private ulong _startTimestamp = 0;
 
         /// <summary>
@@ -49,6 +51,11 @@ namespace QSBLinearEncoderReader
         {
             lock (_lock)
             {
+                if (_state == RecorderState.Recording)
+                {
+                    return;
+                }
+
                 _outputDirectory = outputDirectory;
                 _filenameBase = filenameBase;
                 _recordingInterval = recordingInterval;
@@ -59,11 +66,9 @@ namespace QSBLinearEncoderReader
                 _totalNumberOfRecords = 0;
                 _numberOfRecordsInFile = 0;
                 _currentRecordingPath = "";
-                _state = RecorderState.Recording;
+                _writer = null;
 
-                Logger.Log("Switching to \"" + _state + "\" recorder state.");
-                _listener.RecorderStatusChanged(
-                    new RecorderStatus(_state, "", 0, 0));
+                UpdateState(RecorderState.Recording);
             }
         }
 
@@ -75,11 +80,16 @@ namespace QSBLinearEncoderReader
                 {
                     return;
                 }
-                _state = RecorderState.Stopped;
 
-                Logger.Log("Switching to \"" + _state + "\" recorder state.");
-                _listener.RecorderStatusChanged(
-                    new RecorderStatus(_state, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords));
+                try
+                {
+                    CloseWriter();
+                    UpdateState(RecorderState.Stopped);
+                }
+                catch (Exception ex)
+                {
+                    UpdateState(RecorderState.Error, ex);
+                }
             }
         }
 
@@ -94,54 +104,124 @@ namespace QSBLinearEncoderReader
                     return;
                 }
 
-                if (_totalNumberOfSamples == 0)
+                try
                 {
-                    _startTimestamp = timestamp;
-                }
 
-                if (_totalNumberOfSamples % _recordingInterval == 0)
-                {
-                    // Record this sample.
-
-                    if (_numberOfRecordsInFile == 0)
+                    if (_totalNumberOfSamples == 0)
                     {
-                        // Open a new file.
-                        DateTime startTime = DateTime.Now;
-                        string filename = Util.FormatFilename(_filenameBase, startTime).Replace("%N", _serialNumber.ToString());
+                        _startTimestamp = timestamp;
+                    }
 
-                        _currentRecordingPath = Path.Combine(_outputDirectory, filename);
+                    if (_totalNumberOfSamples % _recordingInterval == 0)
+                    {
+                        // Record this sample.
 
-                        // TODO: actually open the file.
+                        if (_numberOfRecordsInFile == 0)
+                        {
+                            // Open a new file.
+                            DateTime startTime = DateTime.Now;
+                            string filename = Util.FormatFilename(_filenameBase, startTime).Replace("%N", _serialNumber.ToString());
+
+                            Directory.CreateDirectory(_outputDirectory);
+
+                            _currentRecordingPath = Path.Combine(_outputDirectory, filename);
+
+                            if (File.Exists(_currentRecordingPath))
+                            {
+                                throw new IOException("File exists: " + _currentRecordingPath);
+                            }
+                            _writer = new StreamWriter(_currentRecordingPath);
+
+                            triggerListener = true;
+                        }
+
+                        // TODO: write this sample to the file.
                         // TODO: handle I/O error
 
+                        _numberOfRecordsInFile += 1;
+                        _totalNumberOfRecords += 1;
+
+                        if (_numberOfRecordsInFile >= _maxRecordsPerFile)
+                        {
+                            CloseWriter();
+                            _numberOfRecordsInFile = 0;
+                        }
+                    }
+
+                    _totalNumberOfSamples += 1;
+
+                    if (_totalNumberOfSamples % _listenerTriggerInterval == 0)
+                    {
                         triggerListener = true;
                     }
 
-                    // TODO: write this sample to the file.
-                    // TODO: handle I/O error
-
-                    _numberOfRecordsInFile += 1;
-                    _totalNumberOfRecords += 1;
-
-                    if (_numberOfRecordsInFile >= _maxRecordsPerFile)
+                    if (triggerListener)
                     {
-                        // TODO: close the current file.
-                        // TODO: handle I/O error
-                        _numberOfRecordsInFile = 0;
+                        _listener.RecorderStatusChanged(
+                            new RecorderStatus(_state, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords));
                     }
                 }
-
-                _totalNumberOfSamples += 1;
-
-                if (_totalNumberOfSamples % _listenerTriggerInterval == 0)
+                catch (Exception ex)
                 {
-                    triggerListener = true;
+                    try
+                    {
+                        CloseWriter();
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                    UpdateState(RecorderState.Error, ex);
+                }
+            }
+        }
+
+        private void UpdateState(RecorderState newState)
+        {
+            lock (_lock)
+            {
+                UpdateState(newState, null);
+            }
+        }
+
+        private void UpdateState(RecorderState newState, Exception ex)
+        {
+            lock (_lock)
+            {
+                string errMsg = null;
+
+                Logger.Log("Recorder: switching to \"" + newState + "\" state.");
+                if (ex != null)
+                {
+                    Logger.Log(ex.ToString());
+                    errMsg = ex.Message;
                 }
 
-                if (triggerListener)
+                _state = newState;
+                _listener.RecorderStatusChanged(
+                    new RecorderStatus(_state, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords, errMsg));
+            }
+        }
+
+        private void CloseWriter()
+        {
+            lock (_lock)
+            {
+                if (_writer != null)
                 {
-                    _listener.RecorderStatusChanged(
-                        new RecorderStatus(_state, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords));
+                    try
+                    {
+                        _writer.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex.Message);
+                        throw ex;
+                    }
+                    finally
+                    {
+                        _writer = null;
+                    }
                 }
             }
         }

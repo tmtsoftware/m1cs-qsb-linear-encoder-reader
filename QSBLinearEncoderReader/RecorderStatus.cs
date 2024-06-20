@@ -19,17 +19,33 @@ namespace QSBLinearEncoderReader
             RecorderState recordingState,
             string currentOutputPath,
             ulong numberOfRecordsInCurrentFile,
-            ulong totalNumberOfRecords)
+            ulong totalNumberOfRecords) : this (
+                recordingState,
+                currentOutputPath,
+                numberOfRecordsInCurrentFile,
+                totalNumberOfRecords,
+                String.Empty)
+        {
+        }
+
+        public RecorderStatus(
+            RecorderState recordingState,
+            string currentOutputPath,
+            ulong numberOfRecordsInCurrentFile,
+            ulong totalNumberOfRecords,
+            string errorMessage)
         {
             RecordingState = recordingState;
             CurrentOutputPath = currentOutputPath;
             NumberOfRecordsInCurrentFile = numberOfRecordsInCurrentFile;
             TotalNumberOfRecords = totalNumberOfRecords;
+            ErrorMessage = errorMessage;
         }
 
         public RecorderState RecordingState { get; }
         public String CurrentOutputPath { get; }
         public ulong NumberOfRecordsInCurrentFile { get; }
         public ulong TotalNumberOfRecords { get; }
+        public string ErrorMessage { get; }
     }
 }
