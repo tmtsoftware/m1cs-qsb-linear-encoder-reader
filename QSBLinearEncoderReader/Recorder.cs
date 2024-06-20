@@ -132,11 +132,24 @@ namespace QSBLinearEncoderReader
                             }
                             _writer = new StreamWriter(_currentRecordingPath);
 
+                            _writer.WriteLine("# Created: " + startTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                            _writer.WriteLine("# Serial number: " + _serialNumber.ToString());
+
+                            decimal startTimestamp_s = (decimal)_startTimestamp / 512.0M;
+
+                            _writer.WriteLine("# Start absolute timestamp [s]: " + startTimestamp_s.ToString("0.000000000"));
+                            _writer.WriteLine("# Relative timestamp [s], Raw Count, Position [mm]");
+
                             triggerListener = true;
                         }
 
-                        // TODO: write this sample to the file.
-                        // TODO: handle I/O error
+                        long relativeTimestamp = (long)timestamp - (long)_startTimestamp;
+                        decimal relativeTimestamp_s = (decimal)relativeTimestamp / 512.0M;
+                        _writer.WriteLine(
+                            String.Format("{0}, {1}, {2}",
+                            relativeTimestamp_s.ToString("0.000000000"),
+                            encoderCount,
+                            ""));
 
                         _numberOfRecordsInFile += 1;
                         _totalNumberOfRecords += 1;
