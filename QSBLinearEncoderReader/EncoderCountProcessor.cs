@@ -122,8 +122,9 @@ namespace QSBLinearEncoderReader
 
         /// <summary>
         /// Set the given sample as the current encoder count.
+        /// Returns the current position in mm;
         /// </summary>
-        public void AddNewSample(int encoderCount)
+        public decimal AddNewSample(int encoderCount)
         {
             bool triggerListener = false;
 
@@ -171,6 +172,8 @@ namespace QSBLinearEncoderReader
                 {
                     TriggerListener();
                 }
+
+                return (_currentCount - _zeroPositionCount) * _resolution_nm * 1e-6M;
             }
         }
 

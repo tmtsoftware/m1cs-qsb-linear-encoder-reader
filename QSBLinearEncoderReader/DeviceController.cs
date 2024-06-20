@@ -82,8 +82,8 @@ namespace QSBLinearEncoderReader
                     uint timestamp;
 
                     _qsb.ReadEncoderCount(out encoderCount, out timestamp);
-                    _processor.AddNewSample(encoderCount);
-                    _recorder.AddNewSample(encoderCount, timestamp);
+                    decimal position_mm = _processor.AddNewSample(encoderCount);
+                    _recorder.AddNewSample(encoderCount, timestamp, position_mm);
                 }
             }
             catch (Exception ex)

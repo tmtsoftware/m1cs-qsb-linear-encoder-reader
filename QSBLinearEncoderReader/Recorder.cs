@@ -93,7 +93,7 @@ namespace QSBLinearEncoderReader
             }
         }
 
-        public void AddNewSample(int encoderCount, uint timestamp)
+        public void AddNewSample(int encoderCount, uint timestamp, decimal position_mm)
         {
             bool triggerListener = false;
 
@@ -132,6 +132,7 @@ namespace QSBLinearEncoderReader
                             }
                             _writer = new StreamWriter(_currentRecordingPath);
 
+                            // Write header.
                             _writer.WriteLine("# Created: " + startTime.ToString("yyyy-MM-dd HH:mm:ss"));
                             _writer.WriteLine("# Serial number: " + _serialNumber.ToString());
 
@@ -149,7 +150,7 @@ namespace QSBLinearEncoderReader
                             String.Format("{0}, {1}, {2}",
                             relativeTimestamp_s.ToString("0.000000000"),
                             encoderCount,
-                            ""));
+                            position_mm.ToString("0.000000")));
 
                         _numberOfRecordsInFile += 1;
                         _totalNumberOfRecords += 1;
