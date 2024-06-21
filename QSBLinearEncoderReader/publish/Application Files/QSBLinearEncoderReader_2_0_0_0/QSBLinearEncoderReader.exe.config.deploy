@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="QSBLinearEncoderReader.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+    </startup>
+    <userSettings>
+        <QSBLinearEncoderReader.Properties.Settings>
+            <setting name="PortName" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="QuadratureMode" serializeAs="String">
+                <value>X4</value>
+            </setting>
+            <setting name="Resolution_nm" serializeAs="String">
+                <value>5.00</value>
+            </setting>
+            <setting name="ZeroPositionCount" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="Direction" serializeAs="String">
+                <value>CountUp</value>
+            </setting>
+            <setting name="BaudRate" serializeAs="String">
+                <value>230400</value>
+            </setting>
+            <setting name="OutputDirectory" serializeAs="String">
+                <value>%APPDATA%\QSBLinearEncoderReader</value>
+            </setting>
+            <setting name="CSVFilename" serializeAs="String">
+                <value>Encoder_%N_%Y%m%d_%H%M%S.csv</value>
+            </setting>
+            <setting name="RecordingInterval" serializeAs="String">
+                <value>512</value>
+            </setting>
+            <setting name="MaxRecordsPerFile" serializeAs="String">
+                <value>86400</value>
+            </setting>
+            <setting name="DisplayUpdateInterval" serializeAs="String">
+                <value>128</value>
+            </setting>
+            <setting name="ExpandConnectionStatus" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="ExpandRecording" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="ExpandStatistics" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="ExpandStatus" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="TextBoxStatusHeight" serializeAs="String">
+                <value>125</value>
+            </setting>
+        </QSBLinearEncoderReader.Properties.Settings>
+    </userSettings>
+</configuration>

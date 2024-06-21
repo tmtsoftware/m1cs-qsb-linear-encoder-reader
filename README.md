@@ -154,7 +154,7 @@ After that, press `Publish Now` button to generate an installer.
 ### 3. Zip the installer
 
 The installer is generated under `publish` folder in the project folder ([QSBlinearEncoderReader/](QSBLinearEncoderReader/)).
-Copy all fikes and directorie under the `publish` directory to somewhere else. From here on, we assume that they are copied to `C:\publish`.
+Copy all files and directories under the `publish` directory to somewhere else. From here on, we assume that they are copied to `C:\publish`.
 
 ![](images/copy_installer_to_temporary_directory.png)
 

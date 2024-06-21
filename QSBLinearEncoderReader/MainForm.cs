@@ -598,7 +598,7 @@ namespace QSBLinearEncoderReader
                         return;
                     }
 
-                    labelCSVOutputPath.Text = "Current CVS Output Path:";
+                    labelCSVOutputPath.Text = "Current CSV Output Path:";
                     textBoxCSVOutputPath.Text = status.CurrentOutputPath;
                     pictureBoxRecordingStatus.Image = Properties.Resources.refresh_circle_solid;
                     textBoxRecordingStatus.Text = String.Format(
@@ -617,7 +617,7 @@ namespace QSBLinearEncoderReader
                     }
                     break;
                 case RecorderState.Stopped:
-                    labelCSVOutputPath.Text = "Previous CVS Output Path:";
+                    labelCSVOutputPath.Text = "Previous CSV Output Path:";
                     textBoxCSVOutputPath.Text = status.CurrentOutputPath;
                     pictureBoxRecordingStatus.Image = Properties.Resources.minus_circle_solid;
                     textBoxRecordingStatus.Text = "Stopped.";
@@ -628,7 +628,7 @@ namespace QSBLinearEncoderReader
                     _terminatedRecorderSessionSequenceId = status.SessionSequenceId;
                     break;
                 case RecorderState.Error:
-                    labelCSVOutputPath.Text = "Previous CVS Output Path:";
+                    labelCSVOutputPath.Text = "Previous CSV Output Path:";
                     textBoxCSVOutputPath.Text = status.CurrentOutputPath;
                     pictureBoxRecordingStatus.Image = Properties.Resources.xmark_circle_solid;
                     textBoxRecordingStatus.Text = "Error: " + status.ErrorMessage;
