@@ -9,9 +9,9 @@ This is a simple Windows application that reads an encoder count through [US Dig
 
 ## Insallation
 
-Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version named `QSBLinearEncoderReader_w_x_y_z.zip` where *w_x_y_z* is the version number (e.g. `QSBLinearEncoderReader_1_4_2_0.zip`).
+Go to our [Releases](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases) page and download the zip file of the latest version named `QSBLinearEncoderReader_w_x_y_z.zip` where *w_x_y_z* is the version number (e.g. `QSBLinearEncoderReader_2_0_0_0.zip`).
 
-<img src="images/download_the_latest_version.png" width="342" height="211">
+<img src="images/download_the_latest_version.png" width="323" height="305">
 
 Once you downloaded the zip file, right click it in the Explorer and select `Properties`. In the Properties dialog, open `General` tab and check if you can see "Unblock" checkbox in the bottom. If so, check the box and press `Apply` button. Now the checkbox should be gone. Once you confirm that the checkbox is not there, click `OK` button and extract this zip file as usual.
 
