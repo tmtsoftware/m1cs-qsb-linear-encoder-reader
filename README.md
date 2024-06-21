@@ -47,7 +47,7 @@ Select `TMT International Observatory` - `QSB Linear Encoder Reader` in the Wind
 
 Once the main application window is shown, click `Connect to QSB Encoder Reader`.
 
-<img src="images/init_screen.png" width="318" height="197">
+<img src="images/init_screen.png" width="293" height="385">
 
 In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name in `COM Port:`, set other configuration items accordingly and press the `Connect` button.
 
@@ -55,28 +55,29 @@ In the "Connect to QSB Encoder Reader" dialog, select an appropriate port name i
 
 If it is connected to your QSB-D successfully, it starts to continuously read the current position from the encoder and display it in the main window as shown below:
 
-<img src="images/screenshot.png" width="318" height="197">
+<img src="images/screenshot.png" width="293" height="385">
 
 Press `Zero Encoder Count` button to set the current position as zero.
 
-You can stop recording by pressing `Stop recording` button.
+You can stop statistics by pressing `Stop` button.
 
 ## Recording to a CSV file
 
-If you want to store the encoder readings in a CSV file, click `Set CSV Output Path...` first.
-It will ask you which CSV file to save.
+If you want to store the encoder readings in a CSV file, click `Settings...` first. A dialog shows up and you can configure the output directory, output file name, maximum records per one CSV file and recording interval (sampling rate for recording).
 
-Then, click `Start Recording` button to start recording the encoder readings in the specified CSV file.
-The CSV file has three fields "Timestamp [ms]", "Raw Count" and "Position [mm]".
+<img src="images/recorder_settings.png">
 
-This application records the encoder position at the QSB-D's maximum rate (512 Hz).
-One line in the CSV file is typically 30 - 50 bytes meaning that the CSV file grows at a rate of about 15 - 25 kB/s, or 0.9 - 1.5 MB per minute.
-If you leave it running for more than one day, it would use up around 100 GB of your storage.
-So, please make sure that click `Stop Recording` button if you no longer need to record the encoder reading in the CSV file.
+Click `OK` to close the dialog and click `Start Recording` to start the recording to CSV files. Once the number of records in one file reaches the configured limit, the following data is written to a new file. The file name is determined based on the configuration. If the file already exists, the recording stops. For a long running test, it is highly recommended to have date and time (%Y%m%d_%H%M%S) in the file name. If you are monitoring two or more encoders in one machine, it is also recommended to include the serial number of QSB-D (%N) in the file name. %Y, %m, %d, %H, %M, %S and %N are automatically substituted by appropriate values by this application.
 
-Note that the timestamp is based on the 32-bit timestamp register in the QSB-D, which is incremented at 512 Hz.
-If you keep running this application more than 94.5 days, the timestamp register may be reset to 0.
-The timestamp register is most probably based on a free running counter in the QSB-D, so, when you want to correlate the recorded data in the CSV file with something else, please keep in mind that it can be slightly less or more than 512 Hz.
+The CSV file has three fields "Timestamp [s]", "Raw Count" and "Position [mm]".
+
+The QSB-D samples the encoder value at 512 Hz and this application reads all the samples. The user can select recording interval as a multiple of 0.001953125 seconds (= 1/512).
+One record in the CSV file is typically 30 - 50 bytes. If the recording interval is 1 (= 0.01953125 seconds, 512 Hz), the CSV file grows at a rate of 15 - 25 kB/s or 0.9 - 1.5 MB/minute.
+If the recording interval is 512 (1 second, 1 Hz), the CSV file grows at a rate of 100 - 175 kB/hour or 2.5 - 4.1 MB/day.
+
+Note that the timestamp is based on the 32-bit timestamp register in the QSB-D, which is incremented at 512 Hz. The timestamp register is reset when the power to QSB-D is turned off.
+If you keep running QSB-D more than 94.5 days, the timestamp register may be reset to 0.
+The timestamp register is most probably based on a free running counter in the QSB-D and it is not synchronized to UTC. When you want to correlate the recorded data in the CSV files with something else, please keep in mind that it can be slightly less or more than 512 Hz.
 
 ## Upgrading
 
