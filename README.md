@@ -213,7 +213,7 @@ Since version 1.4.1.0, every time the application launches, it investigates [QSB
 
 ## Application examples and comamnd list of QSB-D
 
-Application examples and command list can be obtained at 
+Application examples and command list of QSB-D can be obtained at 
 https://www.usdigital.com/products/accessories/interfaces/usb/qsb/
 
 The copy of those files can be found in this repository for our records:
