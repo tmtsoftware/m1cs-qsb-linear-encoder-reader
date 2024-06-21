@@ -11,16 +11,18 @@ namespace QSBLinearEncoderReader
     /// </summary>
     public class RecorderStatus
     {
-        public RecorderStatus() : this(RecorderState.Stopped, "", 0, 0)
+        public RecorderStatus() : this(RecorderState.Stopped, 0, "", 0, 0)
         {
         }
 
         public RecorderStatus(
             RecorderState recordingState,
+            ulong sessionSequenceId,
             string currentOutputPath,
             ulong numberOfRecordsInCurrentFile,
-            ulong totalNumberOfRecords) : this (
+            ulong totalNumberOfRecords) : this(
                 recordingState,
+                sessionSequenceId,
                 currentOutputPath,
                 numberOfRecordsInCurrentFile,
                 totalNumberOfRecords,
@@ -30,12 +32,14 @@ namespace QSBLinearEncoderReader
 
         public RecorderStatus(
             RecorderState recordingState,
+            ulong sessionSequenceId,
             string currentOutputPath,
             ulong numberOfRecordsInCurrentFile,
             ulong totalNumberOfRecords,
             string errorMessage)
         {
             RecordingState = recordingState;
+            SessionSequenceId = sessionSequenceId;
             CurrentOutputPath = currentOutputPath;
             NumberOfRecordsInCurrentFile = numberOfRecordsInCurrentFile;
             TotalNumberOfRecords = totalNumberOfRecords;
@@ -43,6 +47,7 @@ namespace QSBLinearEncoderReader
         }
 
         public RecorderState RecordingState { get; }
+        public ulong SessionSequenceId { get; }
         public String CurrentOutputPath { get; }
         public ulong NumberOfRecordsInCurrentFile { get; }
         public ulong TotalNumberOfRecords { get; }

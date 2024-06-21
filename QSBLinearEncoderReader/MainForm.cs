@@ -15,6 +15,7 @@ namespace QSBLinearEncoderReader
         private ConnectionStatus _connectionStatus = new ConnectionStatus();
         private EncoderCount _encoderCount = new EncoderCount();
         private RecorderStatus _recorderStatus = new RecorderStatus();
+        private ulong _terminatedRecorderSessionSequenceId = 0;
         private int _previousWindowHeight = 0;
         private int _defaultTextBoxStatusHeight = 125;
 
@@ -374,6 +375,8 @@ namespace QSBLinearEncoderReader
 
         public void SetEncoderCount(EncoderCount newCount)
         {
+            //Logger.Log("SetEncoderCount: " + DateTime.Now.ToString("HH:mm:ss.ffffff"));
+
             labelEncoderReading.Text = newCount.PositionInMillimeters.ToString("F6");
             textBoxResolution.Text = newCount.ResolutionInNanometers + " nm/count";
             textBoxZeroPositionCount.Text = newCount.ZeroPositionCount.ToString();
@@ -589,6 +592,13 @@ namespace QSBLinearEncoderReader
             switch (status.RecordingState)
             {
                 case RecorderState.Recording:
+                    if (status.SessionSequenceId <= _terminatedRecorderSessionSequenceId)
+                    {
+                        // Ignore this status update because the recorder session of the given sequence ID
+                        // has been already terminated.
+                        return;
+                    }
+
                     labelCSVOutputPath.Text = "Current CVS Output Path:";
                     textBoxCSVOutputPath.Text = status.CurrentOutputPath;
                     pictureBoxRecordingStatus.Image = Properties.Resources.refresh_circle_solid;
@@ -600,7 +610,9 @@ namespace QSBLinearEncoderReader
                     {
                         AppendOneLineLogMessage("Started recording.");
                     }
-                    if (_recorderStatus.CurrentOutputPath != status.CurrentOutputPath)
+                    if (_recorderStatus.CurrentOutputPath != status.CurrentOutputPath &&
+                        status.CurrentOutputPath != null &&
+                        status.CurrentOutputPath != "")
                     {
                         AppendOneLineLogMessage("Started recording to a new file: " + status.CurrentOutputPath);
                     }
@@ -614,6 +626,7 @@ namespace QSBLinearEncoderReader
                     {
                         AppendOneLineLogMessage("Stopped recording.");
                     }
+                    _terminatedRecorderSessionSequenceId = status.SessionSequenceId;
                     break;
                 case RecorderState.Error:
                     labelCSVOutputPath.Text = "Previous CVS Output Path:";
@@ -624,6 +637,7 @@ namespace QSBLinearEncoderReader
                     {
                         AppendOneLineLogMessage("Stopped recording due to an error.");
                     }
+                    _terminatedRecorderSessionSequenceId = status.SessionSequenceId;
                     break;
             }
 

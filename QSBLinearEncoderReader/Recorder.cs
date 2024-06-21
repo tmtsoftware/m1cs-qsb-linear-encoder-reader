@@ -15,6 +15,7 @@ namespace QSBLinearEncoderReader
 
         private IRecorderStatusListener _listener = null;
 
+        private ulong _sessionSequenceId = 0;
         private RecorderState _state = RecorderState.Stopped;
 
         private string _outputDirectory = Properties.Settings.Default.OutputDirectory;
@@ -39,6 +40,7 @@ namespace QSBLinearEncoderReader
         public Recorder(IRecorderStatusListener listener)
         {
             _listener = listener;
+            _sessionSequenceId = 0;
         }
 
         public void Start(
@@ -67,6 +69,7 @@ namespace QSBLinearEncoderReader
                 _numberOfRecordsInFile = 0;
                 _currentRecordingPath = "";
                 _writer = null;
+                _sessionSequenceId += 1;
 
                 UpdateState(RecorderState.Recording);
             }
@@ -172,7 +175,7 @@ namespace QSBLinearEncoderReader
                     if (triggerListener)
                     {
                         _listener.RecorderStatusChanged(
-                            new RecorderStatus(_state, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords));
+                            new RecorderStatus(_state, _sessionSequenceId, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords));
                     }
                 }
                 catch (Exception ex)
@@ -213,7 +216,7 @@ namespace QSBLinearEncoderReader
 
                 _state = newState;
                 _listener.RecorderStatusChanged(
-                    new RecorderStatus(_state, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords, errMsg));
+                    new RecorderStatus(_state, _sessionSequenceId, _currentRecordingPath, _numberOfRecordsInFile, _totalNumberOfRecords, errMsg));
             }
         }
 
