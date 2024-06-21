@@ -33,7 +33,7 @@
       <Value Profile="(Default)">86400</Value>
     </Setting>
     <Setting Name="DisplayUpdateInterval" Type="System.UInt64" Scope="User">
-      <Value Profile="(Default)">64</Value>
+      <Value Profile="(Default)">128</Value>
     </Setting>
     <Setting Name="ExpandConnectionStatus" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

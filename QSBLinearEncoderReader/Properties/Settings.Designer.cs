@@ -145,7 +145,7 @@ namespace QSBLinearEncoderReader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("64")]
+        [global::System.Configuration.DefaultSettingValueAttribute("128")]
         public ulong DisplayUpdateInterval {
             get {
                 return ((ulong)(this["DisplayUpdateInterval"]));
