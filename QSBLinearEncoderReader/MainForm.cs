@@ -365,6 +365,7 @@ namespace QSBLinearEncoderReader
             if (this.InvokeRequired)
             {
                 Action action = delegate { SetEncoderCount(newCount); };
+                Thread.Sleep(100);
                 this.BeginInvoke(action);
             }
             else
@@ -375,8 +376,6 @@ namespace QSBLinearEncoderReader
 
         public void SetEncoderCount(EncoderCount newCount)
         {
-            //Logger.Log("SetEncoderCount: " + DateTime.Now.ToString("HH:mm:ss.ffffff"));
-
             labelEncoderReading.Text = newCount.PositionInMillimeters.ToString("F6");
             textBoxResolution.Text = newCount.ResolutionInNanometers + " nm/count";
             textBoxZeroPositionCount.Text = newCount.ZeroPositionCount.ToString();
