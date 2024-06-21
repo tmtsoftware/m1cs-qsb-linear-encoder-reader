@@ -279,7 +279,7 @@
             this.buttonCSVFilenameHelp.Name = "buttonCSVFilenameHelp";
             this.buttonCSVFilenameHelp.Size = new System.Drawing.Size(75, 22);
             this.buttonCSVFilenameHelp.TabIndex = 5;
-            this.buttonCSVFilenameHelp.Text = "Help...";
+            this.buttonCSVFilenameHelp.Text = "&Help...";
             this.buttonCSVFilenameHelp.UseVisualStyleBackColor = true;
             this.buttonCSVFilenameHelp.Click += new System.EventHandler(this.buttonCSVFilenameHelp_Click);
             // 
@@ -290,7 +290,7 @@
             this.buttonSelectDirectory.Name = "buttonSelectDirectory";
             this.buttonSelectDirectory.Size = new System.Drawing.Size(75, 22);
             this.buttonSelectDirectory.TabIndex = 3;
-            this.buttonSelectDirectory.Text = "Select...";
+            this.buttonSelectDirectory.Text = "&Select...";
             this.buttonSelectDirectory.UseVisualStyleBackColor = true;
             this.buttonSelectDirectory.Click += new System.EventHandler(this.buttonSelectDirectory_Click);
             // 

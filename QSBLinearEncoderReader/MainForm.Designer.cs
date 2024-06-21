@@ -293,7 +293,7 @@
             this.buttonRecordingSettings.Name = "buttonRecordingSettings";
             this.buttonRecordingSettings.Size = new System.Drawing.Size(75, 23);
             this.buttonRecordingSettings.TabIndex = 213;
-            this.buttonRecordingSettings.Text = "Settings...";
+            this.buttonRecordingSettings.Text = "Setti&ngs...";
             this.buttonRecordingSettings.UseVisualStyleBackColor = true;
             this.buttonRecordingSettings.Click += new System.EventHandler(this.buttonRecordingSettings_Click);
             // 
