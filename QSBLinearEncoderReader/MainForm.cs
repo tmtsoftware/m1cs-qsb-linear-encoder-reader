@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
@@ -360,6 +361,23 @@ namespace QSBLinearEncoderReader
 
             _connectionStatus = status;
             SetButtonsState();
+        }
+        public void InvalidMessageReceived(string message)
+        {
+            if (this.InvokeRequired)
+            {
+                Action action = delegate { _InvalidMessageReceived(message); };
+                this.BeginInvoke(action);
+            }
+            else
+            {
+                _InvalidMessageReceived(message);
+            }
+        }
+
+        void _InvalidMessageReceived(string message)
+        {
+            AppendOneLineLogMessage("Received an invalid message: " + message);
         }
 
         void IEncoderCountListener.EncoderCountChanged(EncoderCount newCount)

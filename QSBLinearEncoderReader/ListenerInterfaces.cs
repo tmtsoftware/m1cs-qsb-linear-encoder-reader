@@ -9,6 +9,7 @@ namespace QSBLinearEncoderReader
     internal interface IConnectionStatusListener
     {
         void ConnectionStatusChanged(ConnectionStatus newStatus);
+        void InvalidMessageReceived(string message);
     }
 
     internal interface IEncoderCountListener

@@ -97,13 +97,13 @@ namespace QSBLinearEncoderReader
                     }
                     catch (UnexpectedResponseException ure)
                     {
+                        _connectionStateListener.InvalidMessageReceived(ure.Message);
+
                         _invalidMessagesInARow += 1;
                         if (_invalidMessagesInARow > _acceptableInvalidMessagesInARow)
                         {
                             throw ure;
                         }
-
-                        // TODO: notify the GUI of this exception
                     }
                 }
             }
