@@ -97,7 +97,8 @@ namespace QSBLinearEncoderReader
                     connectDialog.Resolution_nm,
                     connectDialog.ZeroPositionCount,
                     connectDialog.Direction,
-                    connectDialog.DisplayUpdateInterval);
+                    connectDialog.DisplayUpdateInterval,
+                    connectDialog.AcceptableInvalidMessagesInARow);
 
                 // Save the successful configuration values as the default settings.
                 if (connected)
@@ -109,6 +110,7 @@ namespace QSBLinearEncoderReader
                     Properties.Settings.Default.ZeroPositionCount = connectDialog.ZeroPositionCount;
                     Properties.Settings.Default.Direction = connectDialog.Direction;
                     Properties.Settings.Default.DisplayUpdateInterval = connectDialog.DisplayUpdateInterval;
+                    Properties.Settings.Default.AcceptableInvalidMessagesInARow = connectDialog.AcceptableInvalidMessagesInARow;
                     Properties.Settings.Default.Save();
                 }
             }
@@ -499,7 +501,8 @@ namespace QSBLinearEncoderReader
             decimal resolution_nm,
             int zeroPositionCount,
             EncoderDirection encoderDirection,
-            ulong displayUpdateInterval)
+            ulong displayUpdateInterval,
+            uint acceptableInvalidMessagesInARow)
         {
             AppendOneLineLogMessage(String.Format("Connecting to an US Digital QSB Encoder Reader via '{0}' (baud rate: {1}).", portName, baudRate));
 
@@ -519,7 +522,8 @@ namespace QSBLinearEncoderReader
                     zeroPositionCount,
                     resolution_nm,
                     numberOfSamplesToStopStatistics,
-                    displayUpdateInterval);
+                    displayUpdateInterval,
+                    acceptableInvalidMessagesInARow);
             }
             catch (Exception e)
             {

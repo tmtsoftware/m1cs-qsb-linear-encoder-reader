@@ -8,12 +8,14 @@ namespace QSBLinearEncoderReader
     internal class DeviceController
     {
         private IConnectionStatusListener _connectionStateListener;
-        private IEncoderCountListener _encoderCountListener;
 
         private Qsb _qsb;
         private ConnectionState _connectionState;
         private EncoderCountProcessor _processor;
         private Recorder _recorder;
+
+        private uint _acceptableInvalidMessagesInARow = 0;
+        private uint _invalidMessagesInARow = 0;
 
         /// <summary>
         /// This class handles RS-232 communication with an QSB-D.
@@ -44,9 +46,13 @@ namespace QSBLinearEncoderReader
             int encoderZeroPositionCount,
             decimal encoderResolution_nm,
             ulong numberOfSamplesToStopStatistics,
-            ulong listenerTriggerInterval)
+            ulong listenerTriggerInterval,
+            uint acceptableInvalidMessagesInARow)
         {
-            _qsb.Connect(portName, baudRate, quadratureMode, encoderDirection);
+            _acceptableInvalidMessagesInARow = acceptableInvalidMessagesInARow;
+            _invalidMessagesInARow = 0;
+
+            _qsb.Connect(portName, baudRate, quadratureMode, encoderDirection, acceptableInvalidMessagesInARow);
             _processor.Reset(
                 encoderZeroPositionCount,
                 encoderResolution_nm,
@@ -81,9 +87,24 @@ namespace QSBLinearEncoderReader
                     int encoderCount;
                     uint timestamp;
 
-                    _qsb.ReadEncoderCount(out encoderCount, out timestamp);
-                    decimal position_mm = _processor.AddNewSample(encoderCount);
-                    _recorder.AddNewSample(encoderCount, timestamp, position_mm);
+                    try
+                    {
+                        _qsb.ReadEncoderCount(out encoderCount, out timestamp);
+                        decimal position_mm = _processor.AddNewSample(encoderCount);
+                        _recorder.AddNewSample(encoderCount, timestamp, position_mm);
+
+                        _invalidMessagesInARow = 0;
+                    }
+                    catch (UnexpectedResponseException ure)
+                    {
+                        _invalidMessagesInARow += 1;
+                        if (_invalidMessagesInARow > _acceptableInvalidMessagesInARow)
+                        {
+                            throw ure;
+                        }
+
+                        // TODO: notify the GUI of this exception
+                    }
                 }
             }
             catch (Exception ex)

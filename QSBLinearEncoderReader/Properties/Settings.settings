@@ -50,5 +50,8 @@
     <Setting Name="TextBoxStatusHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">125</Value>
     </Setting>
+    <Setting Name="AcceptableInvalidMessagesInARow" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

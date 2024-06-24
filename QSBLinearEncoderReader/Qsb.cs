@@ -36,7 +36,8 @@ namespace QSBLinearEncoderReader
             string portName,
             int baudRate,
             QuadratureMode quadratureMode,
-            EncoderDirection encoderDirection)
+            EncoderDirection encoderDirection,
+            uint acceptableInvalidMessagesInARow)
         {
             // Check arguments.
             if (String.IsNullOrEmpty(portName))
@@ -277,28 +278,27 @@ namespace QSBLinearEncoderReader
                     Logger.Log(ex.ToString());
                     throw ex;
                 }
-
-                if (_simulator != null)
+                try
                 {
-                    _simulator.ReadEncoderCount(out encoderCount, out timestamp);
-                }
-                else
-                {
-                    try
+                    if (_simulator != null)
+                    {
+                        _simulator.ReadEncoderCount(out encoderCount, out timestamp);
+                    }
+                    else
                     {
                         string response = _serialPort.ReadLine();
                         ParseEncoderCountStreamResponse(response, out encoderCount, out timestamp);
                     }
-                    catch (TimeoutException e)
-                    {
-                        Logger.Log(e.ToString());
-                        throw new TimeoutException("The device didn't have an encoder value in the stream buffer.", e);
-                    }
-                    catch (Exception e)
-                    {
-                        Logger.Log(e.ToString());
-                        throw e;
-                    }
+                }
+                catch (TimeoutException e)
+                {
+                    Logger.Log(e.ToString());
+                    throw new TimeoutException("The device didn't have an encoder value in the stream buffer.", e);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log(e.ToString());
+                    throw e;
                 }
             }
         }

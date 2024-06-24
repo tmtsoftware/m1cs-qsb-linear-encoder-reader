@@ -125,6 +125,7 @@ namespace QSBLinearEncoderReader
             numericUpDownZeroPositionCount.Value = Properties.Settings.Default.ZeroPositionCount;
             comboBoxDirection.SelectedValue = Properties.Settings.Default.Direction;
             comboBoxDisplayUpdateRate.SelectedValue = Properties.Settings.Default.DisplayUpdateInterval;
+            numericUpDownAcceptableInvalidMessagesInARow.Value = Properties.Settings.Default.AcceptableInvalidMessagesInARow;
         }
 
         public string PortName
@@ -159,7 +160,12 @@ namespace QSBLinearEncoderReader
 
         public ulong DisplayUpdateInterval
         {
-            get { return (ulong)comboBoxDisplayUpdateRate.SelectedValue;  }
+            get { return (ulong)comboBoxDisplayUpdateRate.SelectedValue; }
+        }
+
+        public uint AcceptableInvalidMessagesInARow
+        {
+            get { return (uint)numericUpDownAcceptableInvalidMessagesInARow.Value; }
         }
     }
     public class BaudRateOption
