@@ -105,6 +105,7 @@ namespace QSBLinearEncoderReader
             textBoxCSVFilename.Text = Properties.Settings.Default.CSVFilename;
             numericUpDownRecordingInterval.Value = Properties.Settings.Default.RecordingInterval;
             numericUpDownMaxRecordsPerFile.Value = Properties.Settings.Default.MaxRecordsPerFile;
+            numericUpDownFlushInterval.Value = Properties.Settings.Default.FlushInterval_s;
         }
 
         public void SaveSettings()
@@ -113,6 +114,7 @@ namespace QSBLinearEncoderReader
             Properties.Settings.Default.CSVFilename = textBoxCSVFilename.Text;
             Properties.Settings.Default.RecordingInterval = Convert.ToUInt32(numericUpDownRecordingInterval.Value);
             Properties.Settings.Default.MaxRecordsPerFile = Convert.ToUInt32(numericUpDownMaxRecordsPerFile.Value);
+            Properties.Settings.Default.FlushInterval_s = Convert.ToUInt32(numericUpDownFlushInterval.Value);
             Properties.Settings.Default.Save();
         }
 

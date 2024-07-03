@@ -34,6 +34,9 @@ namespace QSBLinearEncoderReader
 
         private ulong _startTimestamp = 0;
 
+        private uint _flushInterval_s = 10;
+        private DateTime _lastFlushTime = DateTime.MinValue;
+
         /// <summary>
         /// This class handles recording of sampled encoder values.
         /// </summary>
@@ -49,6 +52,7 @@ namespace QSBLinearEncoderReader
             uint recordingInterval,
             uint maxRecordsPerFile,
             ulong listenerTriggerInterval,
+            uint flushInterval_s,
             uint serialNumber)
         {
             lock (_lock)
@@ -63,6 +67,7 @@ namespace QSBLinearEncoderReader
                 _recordingInterval = recordingInterval;
                 _maxRecordsPerFile = maxRecordsPerFile;
                 _listenerTriggerInterval = listenerTriggerInterval;
+                _flushInterval_s = flushInterval_s;
                 _serialNumber = serialNumber;
                 _totalNumberOfSamples = 0;
                 _totalNumberOfRecords = 0;
@@ -70,6 +75,7 @@ namespace QSBLinearEncoderReader
                 _currentRecordingPath = "";
                 _writer = null;
                 _sessionSequenceId += 1;
+                _lastFlushTime = DateTime.Now;
 
                 UpdateState(RecorderState.Recording);
             }
@@ -154,6 +160,13 @@ namespace QSBLinearEncoderReader
                             relativeTimestamp_s.ToString("0.000000000"),
                             encoderCount,
                             position_mm.ToString("0.000000")));
+
+                        DateTime now = DateTime.Now;
+                        if ((now - _lastFlushTime).TotalSeconds > _flushInterval_s)
+                        {
+                            _writer.Flush();
+                            _lastFlushTime = now;
+                        }
 
                         _numberOfRecordsInFile += 1;
                         _totalNumberOfRecords += 1;

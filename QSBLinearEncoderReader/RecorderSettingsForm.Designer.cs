@@ -48,11 +48,15 @@
             this.buttonSelectDirectory = new System.Windows.Forms.Button();
             this.errorProviderOutputDirectory = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProviderCSVFilename = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labelFlushInterval = new System.Windows.Forms.Label();
+            this.numericUpDownFlushInterval = new System.Windows.Forms.NumericUpDown();
+            this.labelFlushIntervalUnit = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxRecordsPerFile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRecordingInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderOutputDirectory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderCSVFilename)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFlushInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -74,29 +78,33 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownMaxRecordsPerFile, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownRecordingInterval, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.labelRecordingRate, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.buttonOK, 2, 5);
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 5);
+            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 6);
             this.tableLayoutPanel1.Controls.Add(this.buttonCSVFilenameHelp, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.buttonSelectDirectory, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.buttonOK, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.labelFlushInterval, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDownFlushInterval, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.labelFlushIntervalUnit, 2, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 207);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 221);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // labelOutputDirectory
             // 
             this.labelOutputDirectory.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelOutputDirectory.AutoSize = true;
-            this.labelOutputDirectory.Location = new System.Drawing.Point(87, 10);
+            this.labelOutputDirectory.Location = new System.Drawing.Point(87, 9);
             this.labelOutputDirectory.Name = "labelOutputDirectory";
             this.labelOutputDirectory.Size = new System.Drawing.Size(87, 13);
             this.labelOutputDirectory.TabIndex = 99;
@@ -107,7 +115,7 @@
             // 
             this.textBoxOutputDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxOutputDirectory, 2);
-            this.textBoxOutputDirectory.Location = new System.Drawing.Point(180, 7);
+            this.textBoxOutputDirectory.Location = new System.Drawing.Point(180, 5);
             this.textBoxOutputDirectory.Name = "textBoxOutputDirectory";
             this.textBoxOutputDirectory.Size = new System.Drawing.Size(296, 20);
             this.textBoxOutputDirectory.TabIndex = 2;
@@ -119,7 +127,7 @@
             // 
             this.labelCSVFilename.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelCSVFilename.AutoSize = true;
-            this.labelCSVFilename.Location = new System.Drawing.Point(98, 44);
+            this.labelCSVFilename.Location = new System.Drawing.Point(98, 40);
             this.labelCSVFilename.Name = "labelCSVFilename";
             this.labelCSVFilename.Size = new System.Drawing.Size(76, 13);
             this.labelCSVFilename.TabIndex = 99;
@@ -130,7 +138,7 @@
             // 
             this.textBoxCSVFilename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxCSVFilename, 2);
-            this.textBoxCSVFilename.Location = new System.Drawing.Point(180, 41);
+            this.textBoxCSVFilename.Location = new System.Drawing.Point(180, 36);
             this.textBoxCSVFilename.Name = "textBoxCSVFilename";
             this.textBoxCSVFilename.Size = new System.Drawing.Size(296, 20);
             this.textBoxCSVFilename.TabIndex = 4;
@@ -142,7 +150,7 @@
             // 
             this.labelRecordingInterval.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelRecordingInterval.AutoSize = true;
-            this.labelRecordingInterval.Location = new System.Drawing.Point(77, 146);
+            this.labelRecordingInterval.Location = new System.Drawing.Point(77, 133);
             this.labelRecordingInterval.Name = "labelRecordingInterval";
             this.labelRecordingInterval.Size = new System.Drawing.Size(97, 13);
             this.labelRecordingInterval.TabIndex = 99;
@@ -153,7 +161,7 @@
             // 
             this.labelMaxRecords.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelMaxRecords.AutoSize = true;
-            this.labelMaxRecords.Location = new System.Drawing.Point(3, 112);
+            this.labelMaxRecords.Location = new System.Drawing.Point(3, 102);
             this.labelMaxRecords.Name = "labelMaxRecords";
             this.labelMaxRecords.Size = new System.Drawing.Size(171, 13);
             this.labelMaxRecords.TabIndex = 99;
@@ -164,7 +172,7 @@
             // 
             this.labelCSVFilenameExample.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelCSVFilenameExample.AutoSize = true;
-            this.labelCSVFilenameExample.Location = new System.Drawing.Point(55, 78);
+            this.labelCSVFilenameExample.Location = new System.Drawing.Point(55, 71);
             this.labelCSVFilenameExample.Name = "labelCSVFilenameExample";
             this.labelCSVFilenameExample.Size = new System.Drawing.Size(119, 13);
             this.labelCSVFilenameExample.TabIndex = 99;
@@ -175,7 +183,7 @@
             // 
             this.textBoxCSVFilenameExample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.textBoxCSVFilenameExample, 2);
-            this.textBoxCSVFilenameExample.Location = new System.Drawing.Point(180, 75);
+            this.textBoxCSVFilenameExample.Location = new System.Drawing.Point(180, 67);
             this.textBoxCSVFilenameExample.Name = "textBoxCSVFilenameExample";
             this.textBoxCSVFilenameExample.ReadOnly = true;
             this.textBoxCSVFilenameExample.Size = new System.Drawing.Size(296, 20);
@@ -187,7 +195,7 @@
             // 
             this.numericUpDownMaxRecordsPerFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownMaxRecordsPerFile.AutoSize = true;
-            this.numericUpDownMaxRecordsPerFile.Location = new System.Drawing.Point(180, 109);
+            this.numericUpDownMaxRecordsPerFile.Location = new System.Drawing.Point(180, 98);
             this.numericUpDownMaxRecordsPerFile.Maximum = new decimal(new int[] {
             1048574,
             0,
@@ -213,7 +221,7 @@
             // 
             this.numericUpDownRecordingInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownRecordingInterval.AutoSize = true;
-            this.numericUpDownRecordingInterval.Location = new System.Drawing.Point(180, 143);
+            this.numericUpDownRecordingInterval.Location = new System.Drawing.Point(180, 129);
             this.numericUpDownRecordingInterval.Maximum = new decimal(new int[] {
             30720,
             0,
@@ -242,7 +250,7 @@
             // 
             this.labelRecordingRate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelRecordingRate.AutoSize = true;
-            this.labelRecordingRate.Location = new System.Drawing.Point(257, 146);
+            this.labelRecordingRate.Location = new System.Drawing.Point(257, 133);
             this.labelRecordingRate.Name = "labelRecordingRate";
             this.labelRecordingRate.Size = new System.Drawing.Size(29, 13);
             this.labelRecordingRate.TabIndex = 99;
@@ -253,7 +261,7 @@
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(401, 177);
+            this.buttonOK.Location = new System.Drawing.Point(401, 192);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -265,7 +273,7 @@
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.buttonCancel, 2);
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(482, 177);
+            this.buttonCancel.Location = new System.Drawing.Point(482, 192);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 1;
@@ -275,7 +283,7 @@
             // buttonCSVFilenameHelp
             // 
             this.buttonCSVFilenameHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCSVFilenameHelp.Location = new System.Drawing.Point(506, 40);
+            this.buttonCSVFilenameHelp.Location = new System.Drawing.Point(506, 35);
             this.buttonCSVFilenameHelp.Name = "buttonCSVFilenameHelp";
             this.buttonCSVFilenameHelp.Size = new System.Drawing.Size(75, 22);
             this.buttonCSVFilenameHelp.TabIndex = 5;
@@ -286,7 +294,7 @@
             // buttonSelectDirectory
             // 
             this.buttonSelectDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectDirectory.Location = new System.Drawing.Point(506, 6);
+            this.buttonSelectDirectory.Location = new System.Drawing.Point(506, 4);
             this.buttonSelectDirectory.Name = "buttonSelectDirectory";
             this.buttonSelectDirectory.Size = new System.Drawing.Size(75, 22);
             this.buttonSelectDirectory.TabIndex = 3;
@@ -304,13 +312,64 @@
             this.errorProviderCSVFilename.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProviderCSVFilename.ContainerControl = this;
             // 
+            // labelFlushInterval
+            // 
+            this.labelFlushInterval.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelFlushInterval.AutoSize = true;
+            this.labelFlushInterval.Location = new System.Drawing.Point(101, 164);
+            this.labelFlushInterval.Name = "labelFlushInterval";
+            this.labelFlushInterval.Size = new System.Drawing.Size(73, 13);
+            this.labelFlushInterval.TabIndex = 99;
+            this.labelFlushInterval.Text = "Flush Interval:";
+            this.labelFlushInterval.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericUpDownFlushInterval
+            // 
+            this.numericUpDownFlushInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownFlushInterval.AutoSize = true;
+            this.numericUpDownFlushInterval.Location = new System.Drawing.Point(180, 160);
+            this.numericUpDownFlushInterval.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numericUpDownFlushInterval.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownFlushInterval.Name = "numericUpDownFlushInterval";
+            this.numericUpDownFlushInterval.Size = new System.Drawing.Size(71, 20);
+            this.numericUpDownFlushInterval.TabIndex = 7;
+            this.numericUpDownFlushInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownFlushInterval.ThousandsSeparator = true;
+            this.numericUpDownFlushInterval.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownFlushInterval.ValueChanged += new System.EventHandler(this.numericUpDownRecordingInterval_ValueChanged);
+            this.numericUpDownFlushInterval.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numericUpDownRecordingInterval_KeyDown);
+            this.numericUpDownFlushInterval.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericUpDownRecordingInterval_KeyUp);
+            // 
+            // labelFlushIntervalUnit
+            // 
+            this.labelFlushIntervalUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.labelFlushIntervalUnit.AutoSize = true;
+            this.labelFlushIntervalUnit.Location = new System.Drawing.Point(257, 164);
+            this.labelFlushIntervalUnit.Name = "labelFlushIntervalUnit";
+            this.labelFlushIntervalUnit.Size = new System.Drawing.Size(12, 13);
+            this.labelFlushIntervalUnit.TabIndex = 99;
+            this.labelFlushIntervalUnit.Text = "s";
+            this.labelFlushIntervalUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // RecorderSettingsForm
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(584, 207);
+            this.ClientSize = new System.Drawing.Size(584, 221);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -325,6 +384,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRecordingInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderOutputDirectory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderCSVFilename)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFlushInterval)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -349,5 +409,8 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ErrorProvider errorProviderOutputDirectory;
         private System.Windows.Forms.ErrorProvider errorProviderCSVFilename;
+        private System.Windows.Forms.Label labelFlushInterval;
+        private System.Windows.Forms.NumericUpDown numericUpDownFlushInterval;
+        private System.Windows.Forms.Label labelFlushIntervalUnit;
     }
 }

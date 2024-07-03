@@ -149,6 +149,7 @@ namespace QSBLinearEncoderReader
             uint recordingInterval,
             uint maxRecordsPerFile,
             ulong listenerTriggerInterval,
+            uint flushInterval_s,
             uint serialNumber)
         {
             _recorder.Start(
@@ -157,6 +158,7 @@ namespace QSBLinearEncoderReader
                 recordingInterval,
                 maxRecordsPerFile,
                 listenerTriggerInterval,
+                flushInterval_s,
                 serialNumber);
         }
 

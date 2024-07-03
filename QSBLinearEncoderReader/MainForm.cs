@@ -141,6 +141,7 @@ namespace QSBLinearEncoderReader
                 Properties.Settings.Default.RecordingInterval,
                 Properties.Settings.Default.MaxRecordsPerFile,
                 Properties.Settings.Default.DisplayUpdateInterval,
+                Properties.Settings.Default.FlushInterval_s,
                 _connectionStatus.SerialNumber);
         }
 

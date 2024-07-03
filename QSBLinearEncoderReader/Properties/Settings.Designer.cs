@@ -226,5 +226,17 @@ namespace QSBLinearEncoderReader.Properties {
                 this["AcceptableInvalidMessagesInARow"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public uint FlushInterval_s {
+            get {
+                return ((uint)(this["FlushInterval_s"]));
+            }
+            set {
+                this["FlushInterval_s"] = value;
+            }
+        }
     }
 }
