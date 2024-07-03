@@ -174,6 +174,17 @@ namespace QSBLinearEncoderReader
             System.Diagnostics.Process.Start(path);
         }
 
+        private void buttonOpenOutputDirectory_Click(object sender, EventArgs e)
+        {
+            string path = Properties.Settings.Default.OutputDirectory;
+            if (String.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            System.Diagnostics.Process.Start(path);
+        }
+
         private void buttonStartStatistics_Click(object sender, EventArgs e)
         {
             StartStatistics();
