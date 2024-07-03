@@ -79,6 +79,8 @@ Note that the timestamp is based on the 32-bit timestamp register in the QSB-D, 
 If you keep running QSB-D more than 94.5 days, the timestamp register may be reset to 0.
 The timestamp register is most probably based on a free running counter in the QSB-D and it is not synchronized to UTC. When you want to correlate the recorded data in the CSV files with something else, please keep in mind that it can be slightly less or more than 512 Hz.
 
+Flush interval option allows you to control how often the data is actually written to the CSV file. This parameter is important if you want to open the file while recording.
+
 ## Upgrading
 
 Since [version 1.4.1.0](https://github.com/tmtsoftware/m1cs-qsb-linear-encoder-reader/releases/tag/v1.4.1.0), the application automatically checks if a new version is available every time it launches. If "Update Available" dialog is shown as below, it means that a new version is available. Just click `OK` to install the latest version.
