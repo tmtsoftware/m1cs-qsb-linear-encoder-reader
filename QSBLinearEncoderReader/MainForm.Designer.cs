@@ -109,6 +109,7 @@
             this.labelStatistics = new System.Windows.Forms.Label();
             this.pictureBoxExpandStatus = new System.Windows.Forms.PictureBox();
             this.pictureBoxExpandStatistics = new System.Windows.Forms.PictureBox();
+            this.buttonOpenCSV = new System.Windows.Forms.Button();
             this.tableLayoutPanelMain.SuspendLayout();
             this.groupBoxRecording.SuspendLayout();
             this.tableLayoutPanelRecording.SuspendLayout();
@@ -253,6 +254,7 @@
             this.tableLayoutPanelRecording.SetColumnSpan(this.flowLayoutPanelRecordingButtons, 3);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStartRecording);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonStopRecording);
+            this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonOpenCSV);
             this.flowLayoutPanelRecordingButtons.Controls.Add(this.buttonRecordingSettings);
             this.flowLayoutPanelRecordingButtons.Location = new System.Drawing.Point(3, 55);
             this.flowLayoutPanelRecordingButtons.Name = "flowLayoutPanelRecordingButtons";
@@ -289,10 +291,12 @@
             // 
             // buttonRecordingSettings
             // 
-            this.buttonRecordingSettings.Location = new System.Drawing.Point(197, 3);
+            this.buttonRecordingSettings.AutoSize = true;
+            this.buttonRecordingSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonRecordingSettings.Location = new System.Drawing.Point(289, 3);
             this.buttonRecordingSettings.Name = "buttonRecordingSettings";
-            this.buttonRecordingSettings.Size = new System.Drawing.Size(75, 23);
-            this.buttonRecordingSettings.TabIndex = 213;
+            this.buttonRecordingSettings.Size = new System.Drawing.Size(64, 23);
+            this.buttonRecordingSettings.TabIndex = 214;
             this.buttonRecordingSettings.Text = "Setti&ngs...";
             this.buttonRecordingSettings.UseVisualStyleBackColor = true;
             this.buttonRecordingSettings.Click += new System.EventHandler(this.buttonRecordingSettings_Click);
@@ -1194,6 +1198,18 @@
             this.pictureBoxExpandStatistics.TabStop = false;
             this.pictureBoxExpandStatistics.Click += new System.EventHandler(this.pictureBoxExpandStatistics_Click);
             // 
+            // buttonOpenCSV
+            // 
+            this.buttonOpenCSV.AutoSize = true;
+            this.buttonOpenCSV.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonOpenCSV.Location = new System.Drawing.Point(197, 3);
+            this.buttonOpenCSV.Name = "buttonOpenCSV";
+            this.buttonOpenCSV.Size = new System.Drawing.Size(86, 23);
+            this.buttonOpenCSV.TabIndex = 213;
+            this.buttonOpenCSV.Text = "Open CS&V File";
+            this.buttonOpenCSV.UseVisualStyleBackColor = true;
+            this.buttonOpenCSV.Click += new System.EventHandler(this.buttonOpenCSV_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonConnect;
@@ -1319,6 +1335,7 @@
         private System.Windows.Forms.Label labelRecordingStatus;
         private System.Windows.Forms.TextBox textBoxRecordingStatus;
         private System.Windows.Forms.PictureBox pictureBoxRecordingStatus;
+        private System.Windows.Forms.Button buttonOpenCSV;
     }
 }
 

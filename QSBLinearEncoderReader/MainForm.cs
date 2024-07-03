@@ -163,6 +163,17 @@ namespace QSBLinearEncoderReader
             settingsDialog.Dispose();
         }
 
+        private void buttonOpenCSV_Click(object sender, EventArgs e)
+        {
+            string path = textBoxCSVOutputPath.Text;
+            if (String.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            System.Diagnostics.Process.Start(path);
+        }
+
         private void buttonStartStatistics_Click(object sender, EventArgs e)
         {
             StartStatistics();
@@ -506,6 +517,8 @@ namespace QSBLinearEncoderReader
                     buttonResetStatistics.Enabled = false;
                     break;
             }
+
+            buttonOpenCSV.Enabled = !String.IsNullOrEmpty(textBoxCSVOutputPath.Text);
 
             pictureBoxExpandConnectionStatus.Image = groupBoxConnectionStatus.Visible ? Properties.Resources.nav_arrow_down : Properties.Resources.nav_arrow_right;
             pictureBoxExpandRecording.Image = groupBoxRecording.Visible ? Properties.Resources.nav_arrow_down : Properties.Resources.nav_arrow_right;
