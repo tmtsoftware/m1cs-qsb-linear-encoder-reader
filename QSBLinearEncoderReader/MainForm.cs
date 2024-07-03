@@ -171,7 +171,17 @@ namespace QSBLinearEncoderReader
                 return;
             }
 
-            System.Diagnostics.Process.Start(path);
+            try
+            {
+                System.Diagnostics.Process.Start(path);
+            }
+            catch(Exception ex)
+            {
+                string msg = "File path: " + path + System.Environment.NewLine + System.Environment.NewLine;
+                msg += "Error message: " + ex.Message + System.Environment.NewLine + System.Environment.NewLine;
+                msg += "Stack trace: " + System.Environment.NewLine + ex.StackTrace;
+                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonOpenOutputDirectory_Click(object sender, EventArgs e)
@@ -182,7 +192,17 @@ namespace QSBLinearEncoderReader
                 return;
             }
 
-            System.Diagnostics.Process.Start(path);
+            try
+            {
+                System.Diagnostics.Process.Start(path);
+            }
+            catch (Exception ex)
+            {
+                string msg = "File path: " + path + System.Environment.NewLine + System.Environment.NewLine;
+                msg += "Error message: " + ex.Message + System.Environment.NewLine + System.Environment.NewLine;
+                msg += "Stack trace: " + System.Environment.NewLine + ex.StackTrace;
+                MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void buttonStartStatistics_Click(object sender, EventArgs e)
