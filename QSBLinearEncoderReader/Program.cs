@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace QSBLinearEncoderReader
@@ -12,6 +13,13 @@ namespace QSBLinearEncoderReader
         static void Main()
         {
             Logger.Initialize();
+
+            // Set the default output directory setting.
+            if (String.IsNullOrEmpty(Properties.Settings.Default.OutputDirectory))
+            {
+                Properties.Settings.Default.OutputDirectory = Path.Combine(Environment.ExpandEnvironmentVariables("%APPDATA%"), "QSBLinearEncoderReader");
+                Properties.Settings.Default.Save();
+            }
 
             // Start application.
             Application.EnableVisualStyles();

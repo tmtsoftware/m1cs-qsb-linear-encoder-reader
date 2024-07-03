@@ -101,7 +101,7 @@ namespace QSBLinearEncoderReader
 
         private void LoadPreviousSettings()
         {
-            textBoxOutputDirectory.Text = Environment.ExpandEnvironmentVariables(Properties.Settings.Default.OutputDirectory);
+            textBoxOutputDirectory.Text = Properties.Settings.Default.OutputDirectory;
             textBoxCSVFilename.Text = Properties.Settings.Default.CSVFilename;
             numericUpDownRecordingInterval.Value = Properties.Settings.Default.RecordingInterval;
             numericUpDownMaxRecordsPerFile.Value = Properties.Settings.Default.MaxRecordsPerFile;

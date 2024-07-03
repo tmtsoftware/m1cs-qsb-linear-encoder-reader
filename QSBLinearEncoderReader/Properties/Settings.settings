@@ -21,7 +21,7 @@
       <Value Profile="(Default)">230400</Value>
     </Setting>
     <Setting Name="OutputDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">%APPDATA%\QSBLinearEncoderReader</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="CSVFilename" Type="System.String" Scope="User">
       <Value Profile="(Default)">Encoder_%N_%Y%m%d_%H%M%S.csv</Value>
